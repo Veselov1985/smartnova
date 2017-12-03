@@ -5,13 +5,13 @@
     <form class="form-horizontal">
       <fieldset>
         <legend>Товары</legend>
-        <h3>{{productConfig}}</h3>
-        <h3>lk1 - Эспрессо</h3>
+        <!-- <h3>{{productConfig}}</h3> -->
+        <h3 class="text-center">{{currentProduct?.Name}}</h3>
         <p class="alert alert-danger">Несовпадение данных конфигурирования</p>
         <!-- Multiple Checkboxes (inline) -->
         <div class="form-group">
-          <label class="col-sm-5 control-label" for="checkboxes">Продажа разрешена</label>
-          <div class="col-sm-7">
+          <label class="col-xs-4 control-label" for="checkboxes">Продажа разрешена</label>
+          <div class="col-xs-8">
               <div class="checkbox">
                   <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
                   <label class="checkbox-inline" for="checkboxes-0"><span class="fa fa-check"></span>&nbsp;</label>
@@ -19,20 +19,20 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-5 control-label" for="textinput">Изменить цену</label>
-          <div class="col-sm-7 label-sm">
-            <div class="row">
+          <label class="col-sm-4 control-label price-label">Изменить цену</label>
+          <div class="col-sm-8 label-sm">
+            <div class="row text-center">
               <div class="col-sm-4">
-                <label>Ввести <br> новую</label>
-                <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                <label for="newPrice">Ввести новую</label>
+                <input id="newPrice" name="newPrice" type="text" class="form-control input-sm">
               </div>
               <div class="col-sm-4">
-                <label>Текщее <br> значение</label>
-                <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                <label for="currentPrice">Текущее значение</label>
+                <input id="currentPrice" name="currentPrice" type="text" class="form-control input-sm">
               </div>
               <div class="col-sm-4">
-                <label>Предыдущий <br> ввод</label>
-                <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                <label for="previousPrice">Предыдущий ввод</label>
+                <input id="previousPrice" name="previousPrice" type="text" class="form-control input-sm">
               </div>
             </div>
           </div>

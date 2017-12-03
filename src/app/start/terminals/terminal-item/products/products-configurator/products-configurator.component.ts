@@ -4,7 +4,8 @@ import {
   triggerConfigState,
   triggerPanelState,
   StateConfiguratorService,
-  TerminalProductsConfiguratorService
+  TerminalProductsConfiguratorService,
+  TItemProducts
 } from '../../../../../shared';
 
 import {
@@ -24,7 +25,7 @@ import {
 
 export class ProductsConfiguratorComponent implements OnInit, OnChanges {
 
-  @Input() courentProductPk: string;
+  @Input() currentProduct: TItemProducts;
 
 
   public stateConfig = 'inactive';
@@ -46,8 +47,11 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.courentProductPk && !changes.courentProductPk.isFirstChange()) {
-      this.productConfig = this.productsConfiguratorService.getCourentProductConfig(this.courentProductPk);
+    if (changes.currentProduct && !changes.currentProduct.isFirstChange()) {
+      this.productConfig = this.productsConfiguratorService.getCourentProductConfig(this.currentProduct.Pk);
+      this.productsConfiguratorService.getCurrentProduct(this.currentProduct.Pk).subscribe(resp => {
+        console.log(resp);
+      });
     }
   }
 
@@ -58,7 +62,7 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
   }
 
   SaveConfig(event: any): void {
-    this.productsConfiguratorService.setCourentProductConfig(this.courentProductPk);
+    this.productsConfiguratorService.setCourentProductConfig(this.currentProduct.Pk);
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
   }

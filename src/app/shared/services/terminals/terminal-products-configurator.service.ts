@@ -1,9 +1,24 @@
+import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
+
+import { urlApi } from '../../url.api';
 
 @Injectable()
 export class TerminalProductsConfiguratorService {
+  private headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  loggedIn: boolean;
+  baseUrl: string;
 
-  constructor() { }
+  constructor(private http: Http) {
+    this.loggedIn = !!localStorage.getItem('auth_token');
+    if (this.loggedIn) {
+      this.baseUrl = urlApi.server;
+    } else {
+      this.baseUrl = urlApi.serverdemo;
+    }
+  }
 
   getCourentProductConfig(pk: string): any {
     const productConfig = 'Конфигурация продукта ' + pk;
@@ -12,5 +27,12 @@ export class TerminalProductsConfiguratorService {
   }
   setCourentProductConfig(params: string): void {
     console.log('записано в базу ' + params);
+  }
+
+  getCurrentProduct(pk: string) {
+    const serviseUrl = this.baseUrl + 'GetGoodsUpdate';
+    const terminalPk = sessionStorage.getItem('productPk');
+    return this.http.post(serviseUrl, JSON.stringify({ TerminalPk: terminalPk, GoodsPk: pk }), { headers: this.headers })
+      .map(response => response.json());
   }
 }

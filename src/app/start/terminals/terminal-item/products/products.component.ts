@@ -35,7 +35,7 @@ export class ProductsComponent implements OnInit {
   public stateConfig: string;
   public stateConfigMode: string;
 
-  public courentProductPk: string;
+  public courentProduct: TItemProducts;
 
   constructor(
     private route: ActivatedRoute,
@@ -86,8 +86,8 @@ export class ProductsComponent implements OnInit {
     return false;
   }
 
-  ConfigState(event: any, thisPk: string): void {
-    this.courentProductPk = thisPk;
+  ConfigState(product: TItemProducts): void {
+    this.courentProduct = product;
     this.stateConfig = this.stateConfiguratorService.getStateConfigurator();
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);

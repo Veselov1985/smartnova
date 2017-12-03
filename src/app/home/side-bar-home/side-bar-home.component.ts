@@ -15,7 +15,7 @@ import { triggerUserPanelState, triggerPanelState } from '../../shared';
   styleUrls: ['./side-bar-home.component.less'],
   animations: [triggerPanelState, triggerUserPanelState],
 })
-export class SideBarHomeComponent implements OnInit {
+export class SideBarHomeComponent implements OnInit, OnDestroy {
 
   tab = 1;
   loginForm: FormGroup;

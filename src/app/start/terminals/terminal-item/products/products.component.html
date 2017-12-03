@@ -1,4 +1,4 @@
-<app-products-configurator [courentProductPk] = "courentProductPk"></app-products-configurator>
+<app-products-configurator [currentProduct] = "courentProduct"></app-products-configurator>
 <app-products-multifilter></app-products-multifilter>
 <div class="col-sm-12">
   <div class="top-panel-min">
@@ -67,7 +67,7 @@
           <td class="text-center">{{item.SoldNumber}}</td>
           <td class="text-center">{{item.SoldSum}}</td>
           <td class="text-center"><a class="icon-ingridients" (click)="openIngredients($event)"> </a></td>
-          <td class="text-center"  *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)='ConfigState($event, item.Pk)'></a></td>
+          <td class="text-center"  *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)='ConfigState(item)'></a></td>
         </tr>
       </tbody>
       <tfoot>
