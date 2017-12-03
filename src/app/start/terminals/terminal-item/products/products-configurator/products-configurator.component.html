@@ -1,0 +1,54 @@
+<div class="configurator-holder" [@panelState]="stateConfig">
+  <div class="configurator-bg" [@panelState]="stateConfig" (click)="ConfigState($event)"></div>
+  <div class="configurator" [@configState]="stateConfig">
+    <h2> Конфигурирование </h2>
+    <form class="form-horizontal">
+      <fieldset>
+        <legend>Товары</legend>
+        <h3>{{productConfig}}</h3>
+        <h3>lk1 - Эспрессо</h3>
+        <p class="alert alert-danger">Несовпадение данных конфигурирования</p>
+        <!-- Multiple Checkboxes (inline) -->
+        <div class="form-group">
+          <label class="col-sm-5 control-label" for="checkboxes">Продажа разрешена</label>
+          <div class="col-sm-7">
+              <div class="checkbox">
+                  <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
+                  <label class="checkbox-inline" for="checkboxes-0"><span class="fa fa-check"></span>&nbsp;</label>
+                </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-5 control-label" for="textinput">Изменить цену</label>
+          <div class="col-sm-7 label-sm">
+            <div class="row">
+              <div class="col-sm-4">
+                <label>Ввести <br> новую</label>
+                <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              </div>
+              <div class="col-sm-4">
+                <label>Текщее <br> значение</label>
+                <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              </div>
+              <div class="col-sm-4">
+                <label>Предыдущий <br> ввод</label>
+                <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group btns">
+          <div class="col-sm-3">
+            <button class="btn btn-danger" (click)='ConfigState($event)'>Отмена</button>
+          </div>
+          <div class="col-sm-6">
+            <button id="" name="" class="btn btn-default" (click)='ConfigState($event)'>Я согласен с настройками</button>
+          </div>
+          <div class="col-sm-3">
+            <button id="" name="" class="btn btn-success" (click)='SaveConfig($event)'>Применить</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

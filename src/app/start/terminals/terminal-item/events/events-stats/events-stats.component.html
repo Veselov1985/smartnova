@@ -1,0 +1,57 @@
+<div class="col-xs-12 col-md-12">
+  <div class="panel panel-default">
+    <div #chart type="StockChart" style="width:100%; height:100%;"></div>
+  </div>
+</div>
+<br>
+<div class="col-xs-12 col-md-12">
+  <div class="panel panel-default">
+    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+      [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+          <th class="text-center">
+            <mfDefaultSorter by="Name">Наименование</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="BaseSum">Длительность</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="SoldNumber">Дата</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="SoldSum">Время</mfDefaultSorter>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of mf.data">
+          <td>{{item.Name}}</td>
+          <td class="text-center">{{item.Duration}} </td>
+          <td class="text-center">{{item.DateTime | dateTime: 'date'}}</td>
+          <td class="text-center">{{item.DateTime | dateTime: 'time'}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <mfBootstrapPaginator></mfBootstrapPaginator>
+            <ul class="pagination">
+              <li class="page-item"> <span class="no-border">Всего:</span> </li>
+              <li class="page-item"> <span>{{data?.length}}</span></li>
+            </ul>
+            <div class="show-county pagination pull-right">
+              <h5>Показать</h5>
+              <select class="input-sm" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </div>
+</div>

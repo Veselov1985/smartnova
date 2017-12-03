@@ -1,0 +1,100 @@
+<app-terminals-multifilter></app-terminals-multifilter>
+
+<div class="graphics">
+  <app-main-chart> </app-main-chart>
+  <br clear="all">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <div class="panel panel-default">
+            <table class="table table-striped table-hover table-active-tr" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+              [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+              <thead>
+                <tr>
+                  <th colspan="8">
+                    <div class="row">
+                      <div class="show-county col-xs-4">
+                        <h5>Показать</h5>
+                        <select class="input-sm" [(ngModel)]="rowsOnPage">
+                                      <option [ngValue]="10">10</option>
+                                      <option [ngValue]="50">50</option>
+                                      <option [ngValue]="100">100</option>
+                                    </select>
+                      </div>
+                      <div class="col-xs-4">
+                        <ul class="icon-multifilter">
+                          <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['terminals/report']" target="_blank"></a>
+                            <span
+                              class="tooltiptext">Открыть отчет в новом окне</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="search-block col-xs-4">
+                        <input class="form-control" [(ngModel)]="filterQuery" />
+                        <h5> Поиск по контенту:</h5>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+                <tr>
+                  <th class="text-center">
+                    <mfDefaultSorter by="Id">EID</mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                    <mfDefaultSorter by="Name">Название</mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                    <mfDefaultSorter by="Connection">Связь</mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                    <mfDefaultSorter by="Address">Адрес</mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                    <mfDefaultSorter by="SalesSum">Сумма <br> продаж
+                    </mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                    <mfDefaultSorter by="CollectSum">Сумма <br> инкассации
+                    </mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                    <mfDefaultSorter by="Service">Обслуживание</mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                    <mfDefaultSorter by="Failure">Аварии</mfDefaultSorter>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of mf.data" (click)="goToProduct(item)">
+                  <td class="text-center">{{item.Id}}</td>
+                  <td class="text-center">{{item.Name}}</td>
+                  <td class="text-center"><img [src]="item.Connection?'/assets/img/wi-fi-green.png':'/assets/img/wi-fi-red.png'" class="wifi-icon"></td>
+                  <td class="text-center">{{item.Address}}</td>
+                  <td class="text-center">{{item.SalesSum}}</td>
+                  <td class="text-center">{{item.CollectSum}}</td>
+                  <td class="text-center">{{item.Service?"Требуется":""}}</td>
+                  <td class="text-center">{{item.Failure?"Есть":""}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="8">
+                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                    <ul class="pagination">
+                      <li class="page-item"> <span class="no-border">Всего:</span> </li>
+                      <li class="page-item"> <span>13</span></li>
+                    </ul>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

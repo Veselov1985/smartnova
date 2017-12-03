@@ -1,0 +1,48 @@
+<header class="sticky-header">
+  <div class="container">
+    <a (click)="logOut($event)" class="main-logo">
+            <img src="/assets/img/smartnova_logo.png" alt="Smartnova Group Logo">
+        </a>
+    <a routerLink="./" class="home-link tooltip-wrap">
+            <span class="tooltiptext">На главную</span>
+        </a>
+    <!-- <a (click)="downloadEvents($event)" class="reload-btn tooltip-wrap">
+            <span class="tooltiptext">Обновить данные</span>
+        </a> -->
+    <ul class="data-list">
+      <li class="data-color1">
+        <span class="data-desc">Сумма продаж</span>
+        <span class="number" *ngIf='bardata'>{{bardata.BarData.Sales}}</span>
+      </li>
+      <li class="data-color1">
+        <span class="data-desc">Сумма инкассации</span>
+        <span class="number" *ngIf='bardata'>{{bardata.BarData.Incaso}}</span>
+      </li>
+    </ul>
+    <a (click)="signalReloadToggle($event)" [ngSwitch]="signalReload" [ngClass]="{'connect': signalReload === true }" class="reload-data-link tooltip-wrap">
+          <span *ngSwitchCase="true"> <span class="tooltiptext">Выключить обновление данных в реальном времени</span> </span>
+          <span *ngSwitchCase="false"> <span class="tooltiptext">Включить обновление данных в реальном времени</span> </span>
+      </a>
+    <ul class="data-list">
+      <li class="data-color2">
+        <span class="data-desc">Всего событий ТО</span>
+        <span class="number" *ngIf='bardata'>{{bardata.BarData.Events}}</span>
+      </li>
+      <li class="data-color3">
+        <span class="data-desc">Всего<br>                  аварий</span>
+        <span class="number" *ngIf='bardata'>{{bardata.BarData.Alarms}}</span></li>
+    </ul>
+    <a href="#" class="user-interface tooltip-wrap" (click)="dropdownMenu($event)">
+            <span class="tooltiptext">Личные данные</span>
+        </a>
+    <div class="btn-group dropdown user-list" (clickOutside)="onClickedOutside($event)" appFocusLeav (onclose)="openCloseSidebar($event)"
+      [ngClass]="{'open' : dropdownToggle}">
+      <ul class="dropdown-menu animated fadeInLeft" role="menu">
+        <li><a (click)="openCloseSidebar($event)">Личные данные</a></li>
+        <li><a [routerLink]="['logging']" target="_blank"><span>Всего событий </span> <span> 7</span></a></li>
+        <li><a (click)="logOut($event)">Выход</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<app-sidebar-start> </app-sidebar-start>

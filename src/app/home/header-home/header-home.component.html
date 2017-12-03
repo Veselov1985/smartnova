@@ -1,0 +1,14 @@
+<header class="main-header">
+    <a [routerLink]="['/']" class="main-logo">smartnova</a>
+    <nav class="main-nav">
+        <ul>
+            <li><a routerLink="">Download</a></li>
+            <li><a [routerLink]="['/start']">Demo</a></li>
+        </ul>
+    </nav>
+    <ul class="additional-nav">
+        <li><a (click)="openCloseSidebar($event)">Log in</a></li>
+    </ul>
+</header>
+<app-side-bar-home [userPanelState]="state"></app-side-bar-home>
+

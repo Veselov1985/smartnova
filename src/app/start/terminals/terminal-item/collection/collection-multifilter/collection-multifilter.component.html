@@ -1,0 +1,126 @@
+<div class="multifilter-holder" [@panelState]="state">
+  <div class="multifilter-bg" [@panelState]="state" (click)="MultifilterState($event)"></div>
+  <div class="multifilter" [@multifilterState]="state">
+    <div class="filter-holder">
+      <h2>Мультифильтр</h2>
+      <form class="form-horizontal">
+        <fieldset>
+          <!-- Form Name -->
+          <legend>Инкасация</legend>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <div class="col-sm-11">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <label class="col-sm-1 text-right" for="textinput">с</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <owl-date-time [(ngModel)]="input1Moment" [inputId]="'textinputdate'" [readonlyInput]="false" name="something" [inputStyleClass]="'form-control input-sm'"></owl-date-time>
+                        </div>
+                        <div class="col-sm-2">
+                          <owl-date-time [(ngModel)]="input1Moment" [inputId]="'textinputdate'" [readonlyInput]="false" name="something">
+                            <div class="calendar-btn">
+                            </div>
+                          </owl-date-time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <label class="col-sm-2  text-right" style="margin-left:-10px;" for="textinput">по</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <owl-date-time [(ngModel)]="input2Moment" [inputId]="'textinputdate2'" [readonlyInput]="false" name="something123" [inputStyleClass]="'form-control input-sm'"></owl-date-time>
+                        </div>
+                        <div class="col-sm-2">
+                          <owl-date-time [(ngModel)]="input2Moment" [inputId]="'textinputdate2'" [readonlyInput]="false" name="something123">
+                            <div class="calendar-btn">
+                            </div>
+                          </owl-date-time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-4 control-label" for="">Инкасировано</label>
+            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-5">
+                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                </div>
+                <label class="col-sm-2 text-right" for="textinput">до</label>
+                <div class="col-sm-5">
+                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-4 control-label" for="">Выдано сдачи</label>
+            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-5">
+                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                </div>
+                <label class="col-sm-2 text-right" for="textinput">до</label>
+                <div class="col-sm-5">
+                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-4 control-label" for="">Фонд сдачи</label>
+            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-5">
+                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                </div>
+                <label class="col-sm-2 text-right" for="textinput">до</label>
+                <div class="col-sm-5">
+                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-5 control-label" for="">ФИО сервисмена</label>
+            <div class="col-sm-6">
+              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+            </div>
+          </div>
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState($event)">Отмена</button>
+              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="MultifilterState($event)">Применить</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

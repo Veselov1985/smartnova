@@ -1,0 +1,81 @@
+<app-sells-multifilter></app-sells-multifilter>
+<div class="col-sm-12">
+  <div class="top-panel-min">
+    Сумма продаж: 1254 грн.
+  </div>
+</div>
+<div class="col-xs-12 col-sm-12">
+  <div class="panel panel-default">
+    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+      [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+          <th colspan="7">
+            <div class="row">
+              <div class="show-county col-xs-4">
+                <h5>Показать</h5>
+                <select class="input-sm" [(ngModel)]="rowsOnPage">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+              </div>
+              <div class="col-xs-4">
+                <ul class="icon-multifilter">
+                  <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                  <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                  <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
+                </ul>
+              </div>
+              <div class="search-block col-xs-4">
+                <input class="form-control" [(ngModel)]="filterQuery" />
+                <h5> Поиск по контенту:</h5>
+              </div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th style="width: 20%" class="text-center">
+            <mfDefaultSorter by="DateTime">Дата</mfDefaultSorter>
+          </th>
+          <th style="width: 10%" class="text-center">
+            <mfDefaultSorter by="DateTime">Время</mfDefaultSorter>
+          </th>
+          <th style="width: 20%" class="text-center">
+            <mfDefaultSorter by="Name">Название</mfDefaultSorter>
+          </th>
+          <th style="width: 10%" class="text-center">
+            <mfDefaultSorter by="Summ">Цена</mfDefaultSorter>
+          </th>
+          <th style="width: 10%" class="text-center">
+            <mfDefaultSorter by="SoldNumber">Количество</mfDefaultSorter>
+          </th>
+          <th style="width: 20%" class="text-center">
+            <mfDefaultSorter by="SoldSum">Сумма</mfDefaultSorter>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of mf.data">
+          <td class="text-center">{{item.DateTime| dateTime: 'date'}}</td>
+          <td class="text-center">{{item.DateTime| dateTime: 'time'}}</td>
+          <td class="text-center">{{item.Name}}</td>
+          <td class="text-center">{{item.Summ}}</td>
+          <td class="text-center">{{item.SoldNumber}}</td>
+          <td class="text-center">{{item.SoldSum}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="6">
+            <mfBootstrapPaginator></mfBootstrapPaginator>
+            <ul class="pagination">
+              <li class="page-item"> <span class="no-border">Всего:</span> </li>
+              <li class="page-item"> <span>{{data?.length}}</span></li>
+            </ul>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

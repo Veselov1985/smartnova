@@ -1,0 +1,86 @@
+<app-products-configurator [courentProductPk] = "courentProductPk"></app-products-configurator>
+<app-products-multifilter></app-products-multifilter>
+<div class="col-sm-12">
+  <div class="top-panel-min">
+    Количество товаров: {{data.length}}
+  </div>
+</div>
+<div class="col-xs-12 col-sm-12">
+  <div class="panel panel-default">
+    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+      [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+          <th colspan="7">
+            <div class="row">
+              <div class="show-county col-xs-4">
+                <h5>Показать</h5>
+                <select class="input-sm" [(ngModel)]="rowsOnPage">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+              </div>
+              <div class="col-xs-4">
+                <ul class="icon-multifilter">
+                  <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                  <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                  <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
+                </ul>
+              </div>
+              <div class="search-block col-xs-4">
+                <input class="form-control" [(ngModel)]="filterQuery" />
+                <h5> Поиск по контенту:</h5>
+              </div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th style="width: 5%" class="text-center">
+            <mfDefaultSorter by="Id">ID</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="Name">Наименование</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="BaseSum">Базовая<br>цена</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="SoldNumber">Количество<br>проданных</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="SoldSum">Сумма<br>проданных</mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            Состав<br>ингредиентов
+          </th>
+          <th class="text-center"  *ngIf="stateConfigMode == 'active'">
+            Конфигурирование
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngIf="data.length>0">
+        <tr *ngFor="let item of mf.data">
+          <td class="text-center">{{item.Id}}</td>
+          <td class="text-center">{{item.Name}}</td>
+          <td class="text-center">{{item.BaseSum}}</td>
+          <td class="text-center">{{item.SoldNumber}}</td>
+          <td class="text-center">{{item.SoldSum}}</td>
+          <td class="text-center"><a class="icon-ingridients" (click)="openIngredients($event)"> </a></td>
+          <td class="text-center"  *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)='ConfigState($event, item.Pk)'></a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <mfBootstrapPaginator></mfBootstrapPaginator>
+            <ul class="pagination">
+              <li class="page-item"> <span class="no-border">Всего:</span> </li>
+              <li class="page-item"> <span>{{data?.length}}</span></li>
+            </ul>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

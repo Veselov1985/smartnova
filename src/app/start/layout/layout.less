@@ -1,0 +1,32 @@
+@import "../../shared/shared";
+
+.tooltip-wrap {
+  position: relative;
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  .tooltiptext {
+    visibility: hidden;
+    min-width: 120px;
+    max-width: 200px;
+    width: initial;
+    background-color: @color-white;
+    color: @main-text-color;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    left: 73%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+    border: 1px solid @border-color;
+    font-size: 12px;
+    box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.4);
+  }
+}

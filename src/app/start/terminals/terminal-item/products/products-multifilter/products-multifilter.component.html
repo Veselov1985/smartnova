@@ -1,0 +1,103 @@
+<div class="multifilter-holder" [@panelState]="state">
+  <div class="multifilter-bg" [@panelState]="state" (click)="MultifilterState($event)"></div>
+  <div class="multifilter" [@multifilterState]="state">
+    <div class="filter-holder">
+      <h2> Мультифильтр </h2>
+      <form class="form-horizontal">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Товары</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-5 control-label" for="textinput">ID</label>
+            <div class="col-sm-6">
+              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-5 control-label" for="textinput">Наименование</label>
+            <div class="col-sm-6">
+              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+            </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-4 control-label" for="textinput">Базовая цена</label>
+            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  </div>
+                  <label class="col-sm-2 text-right" for="textinput">до</label>
+                  <div class="col-sm-5">
+                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-4 control-label" for="textinput">Количество проданых</label>
+            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  </div>
+                  <label class="col-sm-2 text-right" for="textinput">до</label>
+                  <div class="col-sm-5">
+                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-4 control-label" for="textinput">Сумма проданных</label>
+            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  </div>
+                  <label class="col-sm-2 text-right" for="textinput">до</label>
+                  <div class="col-sm-5">
+                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class='col-sm-1 drag'></div>
+            <label class="col-sm-5 control-label" for="textinput">Состав ингридиентов</label>
+            <div class="col-sm-6">
+              <select id="selectbasic" name="selectbasic" class="form-control">
+                  <option value="1">Option one</option>
+                  <option value="2">Option two</option>
+              </select>
+            </div>
+          </div>
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState($event)">Отмена</button>
+              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="MultifilterState($event)">Применить</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

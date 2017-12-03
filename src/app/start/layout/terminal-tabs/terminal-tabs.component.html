@@ -1,0 +1,34 @@
+<div class="main-tabs">
+  <ul>
+    <li class="products-item tooltip-wrap"  routerLinkActive="active">
+      <span class="tooltiptext">Перейти в раздел "Товары"</span>
+      <a [routerLink]="['products']" >
+        <span class="icon-holder"></span> Товары
+      </a>
+    </li>
+    <li class="sells-item tooltip-wrap" routerLinkActive="active">
+        <span class="tooltiptext">Перейти в раздел "Продажи"</span>
+        <a  [routerLink]="['sells']" >
+          <span class="icon-holder"></span> Продажи
+        </a>
+      </li>
+    <li class="money-item tooltip-wrap" routerLinkActive="active">
+      <span class="tooltiptext">Перейти в раздел "Инкассация"</span>
+      <a [routerLink]="['collection']" >
+        <span class="icon-holder"></span> Инкассация
+      </a>
+    </li>
+    <li class="events-item tooltip-wrap" routerLinkActive="active">
+      <span class="tooltiptext">Перейти в раздел "События"</span>
+      <a [routerLink]="['events']" >
+        <span class="icon-holder"></span> События
+      </a>
+    </li>
+    <li class="ingredients-item tooltip-wrap"  routerLinkActive="active">
+      <span class="tooltiptext">Перейти в раздел "Ингредиенты"</span>
+      <a [routerLink]="['ingridients']">
+        <span class="icon-holder"></span> Ингредиенты
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,95 @@
+<div class="user-holder" [@panelState]="state"> 
+  <div class="user-bg" [@panelState]="state" (click)="openCloseSidebar($event)"></div>
+  <aside class="aside-right" [@userPanelAnimation]="state">
+    <div class="user-authentication" [ngSwitch]="tab">
+      <span class="user-avatar"></span>
+
+      <div class="form-holder" *ngSwitchCase="1">
+        <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm)">
+          <!--(ngSubmit)="setTab(3,$event)"-->
+          <h3 class="form-title">Личные данные</h3>
+          <div class="error-form-hold">
+            <p class="error-form" *ngIf="loginForm.get('SurName').hasError('pattern') && loginForm.get('SurName').touched">Фамилия не может содержать цифры и знаки</p>
+            <p class="error-form" *ngIf="loginForm.get('Name').hasError('pattern') && loginForm.get('Name').touched">Имя не может содержать цифры и знаки</p>
+            <p class="error-form" *ngIf="loginForm.get('PatName').hasError('pattern') && loginForm.get('PatName').touched">Отчество не может содержать цифры и знаки</p>
+            <!--<p class="error-form" *ngIf="loginForm.get('TaxNumber').hasError('pattern') && loginForm.get('TaxNumber').touched">налоговый номер должен состоять только из цифр</p>-->
+            <p class="error-form" *ngIf="loginForm.get('PostCode').hasError('pattern') && loginForm.get('PostCode').touched">налоговый номер должен состоять только из цифр</p>
+            <p class="error-form" *ngIf="loginForm.get('Phone').hasError('pattern') && loginForm.get('Phone').touched">телефонный номер должен состоять только из цифр</p>
+            <p class="error-form" *ngIf="errorFromServer">{{errorFromServer}}</p>
+          </div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="SurName" placeholder="Фамилия"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Name" placeholder="Имя"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="PatName" placeholder="Отчество"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="TaxNumber" placeholder="Налоговый номер"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="PostCode" placeholder="Почтовый адрес"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Phone" placeholder="Телефон"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Email" placeholder="Email (не изменяется)"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Tn" placeholder="Идентификатор торговой сети (не изменяется)"></div>
+
+          <a href="" class="underline-link" (click)="setTab(2,$event)">Сменить пароль</a>
+          <div class="btns-block">
+            <button class="btn white-btn" type="button" (click)="openCloseSidebar($event)">Отмена</button>
+            <button class="btn" type="submit" [disabled]="loginForm.invalid">Сохранить</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-holder" *ngSwitchCase="2">
+        <h3 class="form-title">Смена пароля</h3>
+        <form novalidate [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword(passwordForm)">
+          <div class="error-form-hold">
+            <p class="error-form" *ngIf="passwordForm.get('Password').touched && passwordForm.get('Password').hasError('nomatch')">Пароли не совпадают</p>
+            <!--<p class="error-form" *ngIf="passwordForm.get('Email').hasError('pattern') && passwordForm.get('Email').touched">Не верный формат e-mail</p>-->
+            <p class="error-form" *ngIf="errorRegister">{{errorRegister}}</p>
+          </div>
+          <!--<div class="form-group"><input type="text"  formControlName="Email" class="form-control" placeholder="Введите логин (e-mail)"></div>-->
+          <div class="form-group"><input type="password" class="form-control" placeholder="Введите старый пароль" formControlName="OldPassword">
+          </div>
+          <div formGroupName="Password">
+            <div class="form-group"><input type="password" formControlName="Check" class="form-control" placeholder="Введите пароль"></div>
+            <div class="form-group"><input type="password" formControlName="Confirm" class="form-control" placeholder="Повторите пароль"></div>
+          </div>
+          <div class="btns-block">
+            <button class="btn white-btn" type="button" (click)="openCloseSidebar($event)">Отмена</button>
+            <button class="btn" type="submit" [disabled]="passwordForm.invalid">Сохранить</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-holder" *ngSwitchCase="3">
+        <form (ngSubmit)="openCloseSidebar($event)">
+          <p>Ваш пароль изменен</p>
+          <button class="btn small" type="submit">ОК</button>
+        </form>
+      </div>
+      <div class="form-holder" *ngSwitchCase="4">
+        <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm)">
+          <!--(ngSubmit)="setTab(3,$event)"-->
+          <h3 class="form-title">Мультифильтр</h3>
+          <div class="error-form-hold">
+            <p class="error-form" *ngIf="loginForm.get('SurName').hasError('pattern') && loginForm.get('SurName').touched">Фамилия не может содержать цифры и знаки</p>
+            <p class="error-form" *ngIf="loginForm.get('Name').hasError('pattern') && loginForm.get('Name').touched">Имя не может содержать цифры и знаки</p>
+            <p class="error-form" *ngIf="loginForm.get('PatName').hasError('pattern') && loginForm.get('PatName').touched">Отчество не может содержать цифры и знаки</p>
+            <!--<p class="error-form" *ngIf="loginForm.get('TaxNumber').hasError('pattern') && loginForm.get('TaxNumber').touched">налоговый номер должен состоять только из цифр</p>-->
+            <p class="error-form" *ngIf="loginForm.get('PostCode').hasError('pattern') && loginForm.get('PostCode').touched">налоговый номер должен состоять только из цифр</p>
+            <p class="error-form" *ngIf="loginForm.get('Phone').hasError('pattern') && loginForm.get('Phone').touched">телефонный номер должен состоять только из цифр</p>
+            <p class="error-form" *ngIf="errorFromServer">{{errorFromServer}}</p>
+          </div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="SurName" placeholder="Фамилия"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Name" placeholder="Имя"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="PatName" placeholder="Отчество"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="TaxNumber" placeholder="Налоговый номер"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="PostCode" placeholder="Почтовый адрес"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Phone" placeholder="Телефон"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Email" placeholder="Email (не изменяется)"></div>
+          <div class="form-group"><input type="text" class="form-control" formControlName="Tn" placeholder="Идентификатор торговой сети (не изменяется)"></div>
+          <div class="btns-block">
+            <button class="btn white-btn" type="button" (click)="openCloseSidebar($event)">Отмена</button>
+            <button class="btn" type="submit" [disabled]="loginForm.invalid">Сохранить</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </aside>
+</div>
