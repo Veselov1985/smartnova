@@ -23,8 +23,8 @@ export const slideInDownAnimation: AnimationEntryMetadata =
       }))
     ])
   ]);
-  
-  export const triggerPanelState: AnimationEntryMetadata =  
+
+  export const triggerPanelState: AnimationEntryMetadata =
   trigger('panelState', [
     state('inactive', style({
       display: 'none',
@@ -48,7 +48,7 @@ export const slideInDownAnimation: AnimationEntryMetadata =
     transition('inactive => active', animate('250ms ease-in')),
     transition('active => inactive', animate('150ms ease-out'))
   ]);
- 
+
   export const triggerConfigState: AnimationEntryMetadata =
   trigger('configState', [
     state('inactive', style({

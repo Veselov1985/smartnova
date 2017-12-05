@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import {
   triggerConfigState,
@@ -24,7 +24,7 @@ import {
 })
 
 export class ProductsConfiguratorComponent implements OnInit, OnChanges {
-
+  @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @Input() currentProduct: TItemProducts;
 
 
@@ -38,9 +38,20 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
     stateConfiguratorService.stateChange$.subscribe(
       stateConfig => {
         this.stateConfig = stateConfig;
+        if (stateConfig === 'active') {
+          setTimeout(() => {
+            this.cancelBtn.nativeElement.focus();
+          }, 100);
+        }
       }
     );
+  }
 
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === 27 && this.stateConfig === 'active') {
+      this.ConfigState(event);
+    }
   }
 
   ngOnInit() {

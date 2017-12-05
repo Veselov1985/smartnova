@@ -29,12 +29,12 @@ const SHARED_INTARFACE: any[] = [
   emailMatcher,
   // HidefoneDirective,
 
-]
+];
 
 const SHARED_PIPE: any[] = [
   DataFilterPipe,
   DateTimePipe,
-]
+];
 const SHARED_PROVIDE: any[] = [
   BurgerService,
   AuthService,
@@ -46,11 +46,11 @@ const SHARED_PROVIDE: any[] = [
   TerminalProductsConfiguratorService,
   TerminalIngredientsConfiguratorService,
   TerminalEventsConfiguratorService
-]
+];
 
 const SHARED_DERECTIVE: any[] = [
   // FocusLeavDirective
-]
+];
 export {
 
   BurgerService,
@@ -70,4 +70,4 @@ export {
 
   SHARED_DERECTIVE,
   // FocusLeavDirective,
-}
+};

@@ -8,8 +8,8 @@ import { TERMINALS_COMPONENT } from './terminals/terminals';
 
 const START_COMPONENT: any[] = [
   StartComponent,
-   TERMINALS_COMPONENT,
-  
+  TERMINALS_COMPONENT,
+
   // START_LAYOUT_COMPONENT
 ];
 
@@ -19,5 +19,4 @@ export{
   TERMINALS_COMPONENT,
   // START_LAYOUT_COMPONENT,
   START_COMPONENT,
- 
-}
+};

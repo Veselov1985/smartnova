@@ -121,6 +121,3 @@ export class MaterialModule {}
   bootstrap: [AppComponent],
 })
 export class AppModule { }
-
-
-platformBrowserDynamic().bootstrapModule(AppModule );
