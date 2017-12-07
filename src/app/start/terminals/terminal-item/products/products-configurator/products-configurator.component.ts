@@ -30,6 +30,12 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
 
   public stateConfig = 'inactive';
   public productConfig: string;
+  goodsUpdate = {
+    GoodsPk: '',
+    PreviousPrice: '',
+    Price: '',
+    SaleEnable: ''
+  };
 
   constructor(
     private stateConfiguratorService: StateConfiguratorService,
@@ -61,7 +67,8 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
     if (changes.currentProduct && !changes.currentProduct.isFirstChange()) {
       this.productConfig = this.productsConfiguratorService.getCourentProductConfig(this.currentProduct.Pk);
       this.productsConfiguratorService.getCurrentProduct(this.currentProduct.Pk).subscribe(resp => {
-        console.log(resp);
+        this.goodsUpdate = resp.GoodsUpdate;
+        console.log(this.goodsUpdate);
       });
     }
   }

@@ -2,7 +2,7 @@
   <div class="configurator-bg" [@panelState]="stateConfig" (click)="ConfigState($event)"></div>
   <div class="configurator" [@configState]="stateConfig">
     <h2> Конфигурирование </h2>
-    <form class="form-horizontal">
+    <form  #form="ngForm" novalidate (ngSubmit)="SaveConfig($event)" class="form-horizontal">
       <fieldset>
         <legend>Товары</legend>
         <!-- <h3>{{productConfig}}</h3> -->
@@ -13,7 +13,7 @@
           <label class="col-xs-4 control-label" for="checkboxes">Продажа разрешена</label>
           <div class="col-xs-8">
               <div class="checkbox">
-                  <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
+                  <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1" [(ngModel)]="goodsUpdate.SaleEnable">
                   <label class="checkbox-inline" for="checkboxes-0"><span class="fa fa-check"></span>&nbsp;</label>
                 </div>
           </div>
@@ -24,28 +24,28 @@
             <div class="row text-center">
               <div class="col-sm-4">
                 <label for="newPrice">Ввести новую</label>
-                <input id="newPrice" name="newPrice" type="text" class="form-control input-sm">
+                <input id="newPrice" name="newPrice" type="text" class="form-control input-sm" [(ngModel)]="goodsUpdate.NewPrice">
               </div>
               <div class="col-sm-4">
                 <label for="currentPrice">Текущее значение</label>
-                <input id="currentPrice" name="currentPrice" type="text" class="form-control input-sm">
+                <input id="currentPrice" name="currentPrice" type="text" class="form-control input-sm" [(ngModel)]="goodsUpdate.Price">
               </div>
               <div class="col-sm-4">
                 <label for="previousPrice">Предыдущий ввод</label>
-                <input id="previousPrice" name="previousPrice" type="text" class="form-control input-sm">
+                <input id="previousPrice" name="previousPrice" type="text" class="form-control input-sm" [(ngModel)]="goodsUpdate.PreviousPrice">
               </div>
             </div>
           </div>
         </div>
         <div class="form-group btns">
           <div class="col-sm-3">
-            <button class="btn btn-danger" (click)='ConfigState($event)' #cancelBtn>Отмена</button>
+            <button type="button" class="btn btn-danger" (click)='ConfigState($event)' #cancelBtn>Отмена</button>
           </div>
           <div class="col-sm-6">
-            <button id="" name="" class="btn btn-default" (click)='ConfigState($event)'>Я согласен с настройками</button>
+            <button type="button" id="" name="" class="btn btn-default" (click)='ConfigState($event)'>Я согласен с настройками</button>
           </div>
           <div class="col-sm-3">
-            <button id="" name="" class="btn btn-success" (click)='SaveConfig($event)'>Применить</button>
+            <button type="submit" id="" name="" class="btn btn-success">Применить</button>
           </div>
         </div>
       </fieldset>
