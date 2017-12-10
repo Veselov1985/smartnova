@@ -165,7 +165,7 @@
                   <th>Дата/Время</th>
                   <th>Квитировать</th>
                   <th>Динамика</th>
-                  <th  *ngIf="stateConfigMode == 'active'">Конфигурирование </th>
+                  <th *ngIf="stateConfigMode == 'active'">Конфигурирование</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,7 +177,7 @@
                   <td class="text-center">12 сент. 2016 г., 09:31:11</td>
                   <td><a *ngIf="item.Viewed!=null" (click)="item.Viewed=true" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
                   <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type, item.Pk )"></a></td>
-                  <td class="text-center"  *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)="ConfigState($event, item.Pk)"></a></td>
+                  <td class="text-center" *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)="ConfigState($event, item.Pk)"></a></td>
                 </tr>
               </tbody>
             </table>

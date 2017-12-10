@@ -52,7 +52,6 @@ import {DndModule} from 'ng2-dnd';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    StartRoutingModule,
     // ChartModule.forRoot(Highcharts),
     DataTableModule,
     DateTimePickerModule,

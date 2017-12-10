@@ -27,7 +27,7 @@ export class IngridientsComponent implements OnInit {
   public state: string;
   public stateConfig: string;
   public stateConfigMode: string;
-  public courentIngredientPk: string;
+  public currentIngredient: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,8 +69,8 @@ export class IngridientsComponent implements OnInit {
     return false;
   }
 
-  ConfigState(event: any, thisPk: string): void {
-    this.courentIngredientPk = thisPk;
+  ConfigState(currentIngredient: any): void {
+    this.currentIngredient = currentIngredient;
     this.stateConfig = this.stateConfiguratorService.getStateConfigurator();
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);

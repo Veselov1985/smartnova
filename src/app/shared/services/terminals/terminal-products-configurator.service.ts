@@ -1,5 +1,6 @@
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { urlApi } from '../../url.api';
 
@@ -33,6 +34,12 @@ export class TerminalProductsConfiguratorService {
     const serviseUrl = this.baseUrl + 'GetGoodsUpdate';
     const terminalPk = sessionStorage.getItem('productPk');
     return this.http.post(serviseUrl, JSON.stringify({ TerminalPk: terminalPk, GoodsPk: pk }), { headers: this.headers })
+      .map(response => response.json());
+  }
+
+  setCurrentProduct(data: any): Observable<any> {
+    const serviseUrl = this.baseUrl + 'SetGoodsUpdate';
+    return this.http.post(serviseUrl, data, { headers: this.headers })
       .map(response => response.json());
   }
 }

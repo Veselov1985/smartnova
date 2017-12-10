@@ -1,4 +1,4 @@
-<app-ingredients-configurator [courentIngredientPk] = "courentIngredientPk"></app-ingredients-configurator>
+<app-ingredients-configurator [currentIngredient] = "currentIngredient"></app-ingredients-configurator>
 <app-ingredients-multifilter></app-ingredients-multifilter>
 
 
@@ -72,7 +72,7 @@
           <td class="text-center">{{item.DownloadVol}}</td>
           <td class="text-center">{{item.CurrentVol}}</td>
           <td class="text-center">{{item.Threshold}}</td>
-          <td class="text-center" *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)="ConfigState($event, item.Pid)"></a></td>
+          <td class="text-center" *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)="ConfigState(item)"></a></td>
         </tr>
       </tbody>
       <tfoot>

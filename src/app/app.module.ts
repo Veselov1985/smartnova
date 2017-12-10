@@ -1,7 +1,6 @@
 import {enableProdMode} from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { NgModule, LOCALE_ID } from '@angular/core';

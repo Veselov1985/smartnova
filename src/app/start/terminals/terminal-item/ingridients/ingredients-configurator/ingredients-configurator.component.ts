@@ -1,4 +1,5 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import {
   triggerConfigState,
@@ -23,11 +24,23 @@ import {
 })
 
 export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
-
-  @Input() courentIngredientPk: string;
+  @ViewChild('cancelBtn') private cancelBtn: ElementRef;
+  @ViewChild('form') private form: NgForm;
+  @Input() currentIngredient: any;
 
   public stateConfig = 'inactive';
   public ingredientConfig: string;
+  ingredientUpdate = {
+    IngredientPk: '',
+    NewIssuanceVol: '',
+    IssuanceVol: '',
+    PreviousIssuanceVol: '',
+    NewThreshold: '',
+    Threshold: '',
+    PreviousThreshold: ''
+  };
+  errorVol: string;
+  errorThreshold: string;
 
   constructor(
     private stateConfiguratorService: StateConfiguratorService,
@@ -36,6 +49,11 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
     stateConfiguratorService.stateChange$.subscribe(
       stateConfig => {
         this.stateConfig = stateConfig;
+        if (stateConfig === 'active') {
+          setTimeout(() => {
+            this.cancelBtn.nativeElement.focus();
+          }, 100);
+        }
       }
     );
   }
@@ -43,9 +61,28 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === 27 && this.stateConfig === 'active') {
+      this.ConfigState(event);
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.courentIngredientPk && !changes.courentIngredientPk.isFirstChange()) {
-      this.ingredientConfig = this.terminalIngredientsConfiguratorService.getCourentIngredientConfig(this.courentIngredientPk);
+    this.form.resetForm();
+    this.errorVol = '';
+    this.errorThreshold = '';
+    if (changes.currentIngredient && !changes.currentIngredient.isFirstChange()) {
+      this.ingredientConfig = this.terminalIngredientsConfiguratorService.getCourentIngredientConfig(this.currentIngredient);
+      this.terminalIngredientsConfiguratorService.getCurrentIngredientConfig(this.currentIngredient.Pk).subscribe(resp => {
+        this.ingredientUpdate = resp.IngredientUpdat;
+        // if (this.ingredientUpdate.PreviousIssuanceVol) {
+        //   this.ingredientUpdate.NewIssuanceVol = this.ingredientUpdate.PreviousIssuanceVol;
+        // }
+        // if (this.ingredientUpdate.PreviousThreshold) {
+        //   this.ingredientUpdate.NewThreshold = this.ingredientUpdate.PreviousThreshold;
+        // }
+      });
     }
   }
 
@@ -55,9 +92,29 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   }
 
   SaveConfig(event: any): void {
-    this.terminalIngredientsConfiguratorService.setCourentIngredientConfig(this.courentIngredientPk);
+    this.terminalIngredientsConfiguratorService.setCourentIngredientConfig(this.currentIngredient);
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
+  }
+
+  submitConfig() {
+    const issuanceVol = this.form.value.NewIssuanceVol || this.ingredientUpdate.PreviousIssuanceVol;
+    const threshold = this.form.value.NewThreshold || this.ingredientUpdate.PreviousThreshold;
+    if (issuanceVol && threshold) {
+      const setData = {
+        IssuanceVol: issuanceVol,
+        Threshold: threshold,
+        IngredientPk: this.ingredientUpdate.IngredientPk,
+        TerminalPk: sessionStorage.getItem('productPk')
+      };
+      this.terminalIngredientsConfiguratorService.setCurrentIngredientConfig(setData).subscribe(resp => {
+        this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
+        this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
+      });
+    } else {
+      this.errorVol = !issuanceVol ? 'Укажите объём выдачи' : '';
+      this.errorThreshold = !threshold ? 'Укажите порог' : '';
+    }
   }
 
 }

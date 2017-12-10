@@ -189,9 +189,9 @@ export class EventsComponent implements OnInit {
       } else {
         item.Viewed = true;
         if (group === 'System') {
-          //this.getTerminals.setNewEventsAlert();
+          // this.getTerminals.setNewEventsAlert();
         } else if (group === 'Operational') {
-          //this.getTerminals.setNewEventsEvent();
+          // this.getTerminals.setNewEventsEvent();
         }
       }
     }
