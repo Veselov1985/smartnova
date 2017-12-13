@@ -16,16 +16,16 @@ export class AuthService {
   private baseUrl: string;
 
   constructor(private http: Http, private router: Router) {
-    // this.loggedIn = !!localStorage.getItem('auth_token');
-    // if (this.loggedIn) {
-    //  this.baseUrl = urlApi.server;
-    // } else {
-    //   this.baseUrl = urlApi.serverdemo;
-    // }
+    this.loggedIn = !!localStorage.getItem('auth_token');
+    if (this.loggedIn) {
+      this.baseUrl = urlApi.server;
+    } else {
+      this.baseUrl = urlApi.serverdemo;
+    }
   }
 
   login(data: any) {
-    const serviseUrl = this.baseUrl + 'Login';
+    const serviseUrl = urlApi.serveraccount + 'Login';
     return this.http
       .post(
       serviseUrl,
