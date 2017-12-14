@@ -16,12 +16,12 @@ export class AuthService {
   private baseUrl: string;
 
   constructor(private http: Http, private router: Router) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
-    if (this.loggedIn) {
-      this.baseUrl = urlApi.server;
-    } else {
-      this.baseUrl = urlApi.serverdemo;
-    }
+    // this.loggedIn = !!localStorage.getItem('auth_token');
+    // if (this.loggedIn) {
+    //   this.baseUrl = urlApi.server;
+    // } else {
+    //   this.baseUrl = urlApi.serverdemo;
+    // }
   }
 
   login(data: any) {
@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   logout() {
-    const serviseUrl = this.baseUrl + 'Logout';
+    const serviseUrl = urlApi.serveraccount + 'Logout';
     return this.http
       .post(
       serviseUrl,
@@ -75,7 +75,7 @@ export class AuthService {
     const options = new RequestOptions({
       headers: this.headers
     });
-    const serviseUrl = this.baseUrl + 'Signin';
+    const serviseUrl = urlApi.serveraccount + 'Signin';
     return this.http
       .post(serviseUrl, '', {
         headers: this.headers
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   restorePassword(data: any) {
-    const serviseUrl = this.baseUrl + 'RestorePassword';
+    const serviseUrl = urlApi.serveraccount + 'RestorePassword';
     return this.http
       .post(
       serviseUrl,
@@ -106,7 +106,7 @@ export class AuthService {
   }
 
   changePassword(data: any) {
-    const serviseUrl = this.baseUrl + 'ChangePassword';
+    const serviseUrl = urlApi.serveraccount + 'ChangePassword';
     return this.http
       .post(
       serviseUrl,
@@ -118,7 +118,7 @@ export class AuthService {
   }
 
   register(data: any) {
-    const serviseUrl = this.baseUrl + 'Register';
+    const serviseUrl = urlApi.serveraccount + 'Register';
     return this.http
       .post(
       serviseUrl,
