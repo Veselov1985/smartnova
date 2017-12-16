@@ -15,6 +15,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-ingredients-configurator',
@@ -45,6 +46,7 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   constructor(
     private stateConfiguratorService: StateConfiguratorService,
     private terminalIngredientsConfiguratorService: TerminalIngredientsConfiguratorService,
+    public snackBar: MatSnackBar
   ) {
     stateConfiguratorService.stateChange$.subscribe(
       stateConfig => {
@@ -104,17 +106,39 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
       const setData = {
         IssuanceVol: issuanceVol,
         Threshold: threshold,
-        IngredientPk: this.ingredientUpdate.IngredientPk,
+        IngredientPk: this.currentIngredient.Pk,
         TerminalPk: sessionStorage.getItem('productPk')
       };
       this.terminalIngredientsConfiguratorService.setCurrentIngredientConfig(setData).subscribe(resp => {
         this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
         this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
+        this.snackBarShow('Конфигурация отправлена');
+      }, error => {
+        this.snackBarShow('Произошла ошибка');
       });
     } else {
       this.errorVol = !issuanceVol ? 'Укажите объём выдачи' : '';
       this.errorThreshold = !threshold ? 'Укажите порог' : '';
     }
+  }
+
+  applyConfig() {
+    const setData = {
+      IngredientPk: this.currentIngredient.Pk,
+      TerminalPk: sessionStorage.getItem('productPk')
+    }
+    this.terminalIngredientsConfiguratorService.applyIngredientConfig(setData).subscribe(resp => {
+      this.snackBarShow('Конфигурация отправлена');
+    }, error => {
+      this.snackBarShow('Произошла ошибка');
+    })
+  }
+
+  snackBarShow(message) {
+    return this.snackBar.open(message, null, {
+      duration: 2000,
+      horizontalPosition: 'right'
+    });
   }
 
 }

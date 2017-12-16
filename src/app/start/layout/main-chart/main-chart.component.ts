@@ -147,7 +147,9 @@ export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this._chart.destroy();
+    if (this._chart) {
+      this._chart.destroy();
+    }
   }
 
 }

@@ -43,4 +43,10 @@ export class TerminalIngredientsConfiguratorService {
       .map(response => response.json());
   }
 
+  applyIngredientConfig(data: any): Observable<any> {
+    const serviseUrl = this.baseUrl + 'ApplyIngredientUpdate';
+    return this.http.post(serviseUrl, data, { headers: this.headers })
+      .map(response => response.json());
+  }
+
 }

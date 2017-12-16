@@ -23,7 +23,6 @@ export class TerminalProductsConfiguratorService {
 
   getCourentProductConfig(pk: string): any {
     const productConfig = 'Конфигурация продукта ' + pk;
-    console.log(productConfig);
     return productConfig;
   }
   setCourentProductConfig(params: string): void {
@@ -39,6 +38,12 @@ export class TerminalProductsConfiguratorService {
 
   setCurrentProduct(data: any): Observable<any> {
     const serviseUrl = this.baseUrl + 'SetGoodsUpdate';
+    return this.http.post(serviseUrl, data, { headers: this.headers })
+      .map(response => response.json());
+  }
+
+  applyProductConfig(data: any): Observable<any> {
+    const serviseUrl = this.baseUrl + 'ApplyGoodsUpdate';
     return this.http.post(serviseUrl, data, { headers: this.headers })
       .map(response => response.json());
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild, ElementRef, HostListener } from '@angular/core';
+import {MatSnackBar} from '@angular/material';
 
 import {
   triggerConfigState,
@@ -43,7 +44,8 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
 
   constructor(
     private stateConfiguratorService: StateConfiguratorService,
-    private productsConfiguratorService: TerminalProductsConfiguratorService
+    private productsConfiguratorService: TerminalProductsConfiguratorService,
+    public snackBar: MatSnackBar
   ) {
     stateConfiguratorService.stateChange$.subscribe(
       stateConfig => {
@@ -96,15 +98,37 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
       const setData = {
         SaleEnable: this.form.value.SaleEnable,
         Price: price,
-        GoodsPk: this.goodsUpdate.GoodsPk,
+        GoodsPk: this.currentProduct.Pk,
         TerminalPk: sessionStorage.getItem('productPk')
       };
       this.productsConfiguratorService.setCurrentProduct(setData).subscribe(resp => {
         this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
         this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
+        this.snackBarShow('Конфигурация отправлена');
+      }, error => {
+        this.snackBarShow('Произошла ошибка');
       });
     } else {
       this.errorMessage = 'Укажите цену';
     }
+  }
+
+  applyConfig() {
+    const setData = {
+      GoodsPk: this.currentProduct.Pk,
+      TerminalPk: sessionStorage.getItem('productPk')
+    }
+    this.productsConfiguratorService.applyProductConfig(setData).subscribe(resp => {
+      this.snackBarShow('Конфигурация отправлена');
+    }, error => {
+      this.snackBarShow('Произошла ошибка');
+    });
+  }
+
+  snackBarShow(message) {
+    return this.snackBar.open(message, null, {
+      duration: 2000,
+      horizontalPosition: 'right'
+    });
   }
 }
