@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import {
   triggerMultifilterState,
@@ -13,6 +13,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-products-multifilter',
@@ -22,8 +23,10 @@ import {
 })
 
 export class ProductsMultifilterComponent implements OnInit {
+  @Output() productsMultiFilter = new EventEmitter();
+  id: string;
 
-  public state: string = 'inactive';
+  public state = 'inactive';
 
   constructor(private StateMultifilter: StateMultifilterService) {
     StateMultifilter.stateChange$.subscribe(
@@ -36,7 +39,9 @@ export class ProductsMultifilterComponent implements OnInit {
   ngOnInit() {
   }
 
-  MultifilterState(event: any) {
+  MultifilterState(form: NgForm) {
+    // console.log(form.valid);
+    this.productsMultiFilter.emit(form.value);
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateMultifilter.setStateMultifilter(this.state);
     return false;

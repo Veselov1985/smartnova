@@ -37,6 +37,9 @@ export class ProductsComponent implements OnInit {
 
   public courentProduct: TItemProducts;
 
+  multiFilter: any;
+  filtered: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -117,5 +120,13 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  applyMultiFilter(multifilter) {
+    this.multiFilter = multifilter;
+    this.filtered = multifilter ? true : false;
+  }
 
+  clearMultiFilter() {
+    this.multiFilter = null;
+    this.filtered = false;
+  }
 }

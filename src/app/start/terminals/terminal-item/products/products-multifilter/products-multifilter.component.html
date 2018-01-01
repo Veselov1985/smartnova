@@ -3,7 +3,7 @@
   <div class="multifilter" [@multifilterState]="state">
     <div class="filter-holder">
       <h2> Мультифильтр </h2>
-      <form class="form-horizontal">
+      <form class="form-horizontal" #form="ngForm">
         <fieldset>
 
           <!-- Form Name -->
@@ -14,7 +14,7 @@
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-5 control-label" for="textinput">ID</label>
             <div class="col-sm-6">
-              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              <input id="textinput" name="id" type="text" class="form-control input-sm" ngModel>
             </div>
           </div>
 
@@ -23,7 +23,7 @@
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-5 control-label" for="textinput">Наименование</label>
             <div class="col-sm-6">
-              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              <input id="textinput" name="name" type="text" class="form-control input-sm" ngModel>
             </div>
           </div>
           <!-- Text input-->
@@ -34,11 +34,11 @@
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="textinput" name="basePriceFrom" type="text" class="form-control input-sm" ngModel>
                   </div>
                   <label class="col-sm-2 text-right" for="textinput">до</label>
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="textinput" name="basePriceTo" type="text" class="form-control input-sm" ngModel>
                   </div>
                 </div>
               </div>
@@ -47,16 +47,16 @@
           <!-- Text input-->
           <div class="form-group">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label" for="textinput">Количество проданых</label>
+            <label class="col-sm-4 control-label" for="textinput">Количество проданных</label>
             <label class="col-sm-1 control-label" for="textinput">от</label>
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="textinput" name="soldNumberFrom" type="text" class="form-control input-sm" ngModel>
                   </div>
                   <label class="col-sm-2 text-right" for="textinput">до</label>
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="textinput" name="soldNumberTo" type="text" class="form-control input-sm" ngModel>
                   </div>
                 </div>
               </div>
@@ -69,11 +69,11 @@
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="textinput" name="soldSumFrom" type="text" class="form-control input-sm" ngModel>
                   </div>
                   <label class="col-sm-2 text-right" for="textinput">до</label>
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="textinput" name="soldSumTo" type="text" class="form-control input-sm" ngModel>
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@
           <div class="form-group">
             <div class="col-sm-12">
               <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState($event)">Отмена</button>
-              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="MultifilterState($event)">Применить</button>
+              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="MultifilterState(form)">Применить</button>
             </div>
           </div>
         </fieldset>

@@ -19,6 +19,7 @@ import { User } from './models';
 import { emailMatcher } from './pipes/email-matcher';
 import { DateTimePipe } from './pipes/date-time.pipe';
 import { DataFilterPipe } from './pipes/data-filter.pipe';
+import { MultiFilterPipe } from './pipes/multi-filter.pipe';
 
 // import { FocusLeavDirective } from './directives/focus-leav.directive';
 // import { HidefoneDirective } from './directives/hidefone.directive';
@@ -33,6 +34,7 @@ const SHARED_INTARFACE: any[] = [
 
 const SHARED_PIPE: any[] = [
   DataFilterPipe,
+  MultiFilterPipe,
   DateTimePipe,
 ];
 const SHARED_PROVIDE: any[] = [
@@ -60,6 +62,7 @@ export {
 
 
   DataFilterPipe,
+  MultiFilterPipe,
   DateTimePipe,
   SHARED_PIPE,
 

@@ -6,25 +6,25 @@ import {
   ProductsMultifilterComponent,
   ProductsConfiguratorComponent,
  } from './products';
-import { 
+import {
   SellsComponent,
   SellsReportComponent,
   SellsMultifilterComponent,
 } from './sells';
-import { 
+import {
   CollectionComponent,
   CollectionReportComponent,
   CollectionMultifilterComponent,
 
  } from './collection';
-import { 
+import {
   EventsComponent,
   EventsReportComponent,
   EventsMultifilterComponent,
   EventsConfiguratorComponent,
   EventsStatsComponent
  } from './events';
-import { 
+import {
   IngridientsComponent,
   IngridientsReportComponent,
   IngredientsMultifilterComponent,
@@ -63,14 +63,14 @@ const TERMINAL_ITEMS_COMPONENTS: any[] = [
   SellsComponent,
   SellsReportComponent,
   SellsMultifilterComponent,
-]
+];
 
 export{
   TerminalItemRoutingModule,
 
   TERMINAL_ITEMS_COMPONENTS,
   TerminalItemComponent,
-  
+
   CollectionComponent,
   CollectionReportComponent,
   CollectionMultifilterComponent,
@@ -96,4 +96,4 @@ export{
   SellsReportComponent,
   SellsMultifilterComponent,
 
-}
+};
