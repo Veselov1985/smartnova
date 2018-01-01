@@ -2,9 +2,9 @@
   <div class='row'>
     <div class='col-sm-2'><span class="report-logo">SMARTNOVA</span></div>
     <div class='col-sm-8 text-center'>
-      <h3>Отчет по Торговой сети QQT3532925</h3>
+      <h3>Отчет по Торговой сети {{ terminal.Id }}</h3>
       <h3>Товары</h3>
-      <h3>от 21.10.2017 на 12:00</h3>
+      <h3>от {{ date | date:"dd.MM.yyyy на HH:mm" }}</h3>
     </div>
     <div class='col-sm-2'>
       <a href="javascript:window.print(); void 0;" class='icon-print' title='Распечатать отчёт'></a>
@@ -24,33 +24,33 @@
             <div class='col-sm-6'>
               <div class='row'>
                 <div class='col-sm-5'>ID</div>
-                <div class='col-sm-7'>#034</div>
+                <div class='col-sm-7'>{{ multiFilter.id }}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Наименование</div>
-                <div class='col-sm-7'>Соль</div>
+                <div class='col-sm-7'>{{ multiFilter.name }}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Базовая цена</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter.basePriceFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter.basePriceTo }}</div>
                   </div>
                 </div>
               </div>
             </div>
             <div class='col-sm-6'>
               <div class='row'>
-                <div class='col-sm-5'>Количество проданых</div>
+                <div class='col-sm-5'>Количество проданных</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter.soldNumberFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter.soldNumberTo }}</div>
                   </div>
                 </div>
               </div>
@@ -59,14 +59,14 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter.soldSumFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter.soldSumTo }}</div>
                   </div>
                 </div>
               </div>
               <div class='row'>
-                <div class='col-sm-5'>Состав ингридиентов</div>
+                <div class='col-sm-5'>Состав ингредиентов</div>
                 <div class='col-sm-7'>Соль, перец, кетчуп</div>
               </div>
             </div>
@@ -100,96 +100,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center">#034</td>
-            <td class="text-center">Соль</td>
-            <td class="text-center">3</td>
-            <td class="text-center">177</td>
-            <td class="text-center">531</td>
-          </tr>
-          <tr>
-            <td class="text-center">#066</td>
-            <td class="text-center">Mars</td>
-            <td class="text-center">12</td>
-            <td class="text-center">6</td>
-            <td class="text-center">456</td>
-          </tr>
-          <tr>
-            <td class="text-center">#116</td>
-            <td class="text-center">Гречка</td>
-            <td class="text-center">30</td>
-            <td class="text-center">144</td>
-            <td class="text-center">4320</td>
-          </tr>
-          <tr>
-            <td class="text-center">#193</td>
-            <td class="text-center">Гречка</td>
-            <td class="text-center">30</td>
-            <td class="text-center">44</td>
-            <td class="text-center">1320</td>
-          </tr>
-          <tr>
-            <td class="text-center">#193</td>
-            <td class="text-center">Шоколад</td>
-            <td class="text-center">26</td>
-            <td class="text-center">31</td>
-            <td class="text-center">936</td>
-          </tr>
-          <tr>
-            <td class="text-center">#199</td>
-            <td class="text-center">Мармелад</td>
-            <td class="text-center">76</td>
-            <td class="text-center">36</td>
-            <td class="text-center">1936</td>
-          </tr>
-          <tr>
-            <td class="text-center">#215</td>
-            <td class="text-center">Гречка</td>
-            <td class="text-center">30</td>
-            <td class="text-center">195</td>
-            <td class="text-center">5850</td>
-          </tr>
-          <tr>
-            <td class="text-center">#222</td>
-            <td class="text-center">Pepsi</td>
-            <td class="text-center">13</td>
-            <td class="text-center">12</td>
-            <td class="text-center">156</td>
-          </tr>
-          <tr>
-            <td class="text-center">#280</td>
-            <td class="text-center">Вода</td>
-            <td class="text-center">0.7</td>
-            <td class="text-center">320</td>
-            <td class="text-center">280</td>
-          </tr>
-          <tr>
-            <td class="text-center">#345</td>
-            <td class="text-center">Молоко</td>
-            <td class="text-center">15</td>
-            <td class="text-center">162</td>
-            <td class="text-center">2430</td>
-          </tr>
-          <tr>
-            <td class="text-center">#691</td>
-            <td class="text-center">Эспрессо</td>
-            <td class="text-center">100</td>
-            <td class="text-center">10</td>
-            <td class="text-center">1800</td>
-          </tr>
-          <tr>
-            <td class="text-center">#766</td>
-            <td class="text-center">Twix</td>
-            <td class="text-center">7</td>
-            <td class="text-center">7</td>
-            <td class="text-center">42</td>
-          </tr>
-          <tr>
-            <td class="text-center">#987</td>
-            <td class="text-center">Marlboro</td>
-            <td class="text-center">21</td>
-            <td class="text-center">19</td>
-            <td class="text-center">381</td>
+          <tr *ngFor="let item of items | multiFilter : multiFilter">
+            <td class="text-center">{{item.Id}}</td>
+            <td class="text-center">{{item.Name}}</td>
+            <td class="text-center">{{item.BaseSum}}</td>
+            <td class="text-center">{{item.SoldNumber}}</td>
+            <td class="text-center">{{item.SoldSum}}</td>
           </tr>
         </tbody>
       </table>

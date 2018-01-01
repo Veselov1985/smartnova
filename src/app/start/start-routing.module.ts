@@ -88,7 +88,7 @@ const startRoutes: Routes = [
       component: TerminalsReportComponent,
     },
     {
-      path: 'start/terminal-item/products/report',
+      path: 'start/terminal-item/products/report/:Pk',
       component: ProductsReportComponent,
     },
     {

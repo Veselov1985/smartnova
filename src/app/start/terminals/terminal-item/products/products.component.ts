@@ -65,6 +65,7 @@ export class ProductsComponent implements OnInit {
     } else {
       Item = JSON.parse(sessionStorage.getItem('ItemProduct'));
     }
+    console.log(Item);
 
     this.productPk = Item.Pk || this.serviceProd.Pk;
     this.serviceProd
