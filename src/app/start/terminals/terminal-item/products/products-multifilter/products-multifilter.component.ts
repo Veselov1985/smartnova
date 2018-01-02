@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 
 import {
   triggerMultifilterState,
@@ -36,14 +36,25 @@ export class ProductsMultifilterComponent implements OnInit {
     );
   }
 
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === 27 && this.state === 'active') {
+      this.MultifilterState();
+    }
+  }
+
   ngOnInit() {
   }
 
-  MultifilterState(form: NgForm) {
-    // console.log(form.valid);
-    this.productsMultiFilter.emit(form.value);
-    this.state = this.state === 'active' ? 'inactive' : 'active';
-    this.StateMultifilter.setStateMultifilter(this.state);
-    return false;
+  checkFilter(form: NgForm) {
+    if (form && form.valid) {
+      this.productsMultiFilter.emit(form.value);
+      sessionStorage.setItem('productMultiFilter', JSON.stringify(form.value));
+      this.MultifilterState();
+    }
+  }
+  MultifilterState() {
+      this.state = this.state === 'active' ? 'inactive' : 'active';
+      this.StateMultifilter.setStateMultifilter(this.state);
   }
 }

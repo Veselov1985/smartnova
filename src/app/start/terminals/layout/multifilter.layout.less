@@ -8,7 +8,13 @@
   left: 0;
   z-index: 200;
 
-
+  .alert {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    border: none;
+    text-align: center;
+  }
   .multifilter-bg{
     background: #000;
     opacity: 0.1;
@@ -93,6 +99,9 @@
       height: 34px;
       border-color: @color-grey-blue;
       padding: 5px 0 5px 10px;
+      &.ng-invalid {
+        border-color: #a94442;
+      }
     }
     .btn-danger{
       background: none;

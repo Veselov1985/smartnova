@@ -65,7 +65,11 @@ export class ProductsComponent implements OnInit {
     } else {
       Item = JSON.parse(sessionStorage.getItem('ItemProduct'));
     }
-    console.log(Item);
+    const mFilter = sessionStorage.getItem('productMultiFilter');
+    if (mFilter) {
+      this.multiFilter = JSON.parse(mFilter);
+      this.filtered = true;
+    }
 
     this.productPk = Item.Pk || this.serviceProd.Pk;
     this.serviceProd
@@ -128,6 +132,7 @@ export class ProductsComponent implements OnInit {
 
   clearMultiFilter() {
     this.multiFilter = null;
+    sessionStorage.removeItem('productMultiFilter');
     this.filtered = false;
   }
 }

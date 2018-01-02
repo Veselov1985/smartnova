@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'multiFilter'
+  name: 'multiFilterProducts'
 })
-export class MultiFilterPipe implements PipeTransform {
+export class MultiFilterProductsPipe implements PipeTransform {
 
   transform(items: any[], multifilter: any): any {
     if (!items || !multifilter) {

@@ -3,131 +3,131 @@
   <div class="multifilter" [@multifilterState]="state">
     <div class="filter-holder">
       <h2> Мультифильтр </h2>
-      <form class="form-horizontal">
+      <form class="form-horizontal" #form="ngForm">
         <fieldset dnd-sortable-container [sortableData]="thisMultifilterForm">
           <legend>Торговая сеть</legend>
-          <div class="form-group" *ngFor="let item of thisMultifilterForm; let i = index" dnd-sortable [sortableIndex]="i">
+          <!-- <div class="form-group" *ngFor="let item of thisMultifilterForm; let i = index" dnd-sortable [sortableIndex]="i">
               {{item}}
-            </div>
+            </div> -->
 
-          <div class="form-group" >
+          <div class="form-group" dnd-sortable [sortableIndex]="0">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="textinput">EID</label>
+            <label class="col-sm-5 control-label" for="eid">EID</label>
             <div class="col-sm-6">
-              <input id="textinputdate" name="textinput" type="text" class="form-control input-sm">
+              <input id="eid" name="eid" type="text" class="form-control input-sm" ngModel maxlength="10">
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" dnd-sortable [sortableIndex]="1">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="textinput">Наименование</label>
+            <label class="col-sm-5 control-label" for="name">Наименование</label>
             <div class="col-sm-6">
-              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              <input id="name" name="name" type="text" class="form-control input-sm" ngModel>
             </div>
           </div>
 
           <!-- Multiple Radios (inline) -->
-          <div class="form-group">
+          <div class="form-group" dnd-sortable [sortableIndex]="2">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-5 control-label" for="radios">Связь</label>
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-10" value="1" checked="checked">
-                    <label class="radio-inline" for="radios-10">все</label>
+                    <input type="radio" name="connection" id="connection-10" [value]="null" [(ngModel)]="connection">
+                    <label class="radio-inline" for="connection-10">все</label>
                   </div>
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-11" value="2">
-                    <label class="radio-inline" for="radios-11">есть</label>
+                    <input type="radio" name="connection" id="connection-11" [value]="true" [(ngModel)]="connection">
+                    <label class="radio-inline" for="connection-11">есть</label>
                   </div>
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-12" value="3">
-                    <label class="radio-inline" for="radios-12">нет</label>
+                    <input type="radio" name="connection" id="connection-12" [value]="false" [(ngModel)]="connection">
+                    <label class="radio-inline" for="connection-12">нет</label>
                   </div>
                 </div>
               </div>
           </div>
           <!-- Text input-->
-          <div class="form-group">
+          <div class="form-group" dnd-sortable [sortableIndex]="3">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="textinput">Адресс</label>
+            <label class="col-sm-5 control-label" for="address">Адресс</label>
             <div class="col-sm-6">
-              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              <input id="address" name="address" type="text" class="form-control input-sm" ngModel>
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" dnd-sortable [sortableIndex]="4">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-4 control-label" for="textinput">Сумма продаж</label>
-            <label class="col-sm-1 text-right" for="textinput">от</label>
+            <label class="col-sm-1 text-right" for="salesSumFrom">от</label>
             <div class="col-sm-6">
               <div class="row">
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="salesSumFrom" name="salesSumFrom" type="number" class="form-control input-sm" ngModel>
                 </div>
-                <label class="col-sm-2 text-right" for="textinput">до</label>
+                <label class="col-sm-2 text-right" for="salesSumTo">до</label>
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="salesSumTo" name="salesSumTo" type="number" class="form-control input-sm" ngModel>
                 </div>
               </div>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" dnd-sortable [sortableIndex]="5">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-4 control-label" for="textinput">Сумма инкассации</label>
-            <label class="col-sm-1 text-right" for="textinput">от</label>
+            <label class="col-sm-1 text-right" for="collectSumFrom">от</label>
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="collectSumFrom" name="collectSumFrom" type="text" class="form-control input-sm" ngModel>
                   </div>
-                  <label class="col-sm-2 text-right" for="textinput">до</label>
+                  <label class="col-sm-2 text-right" for="collectSumTo">до</label>
                   <div class="col-sm-5">
-                    <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                    <input id="collectSumTo" name="collectSumTo" type="text" class="form-control input-sm" ngModel>
                   </div>
                 </div>
               </div>
           </div>
 
           <!-- Multiple Radios (inline) -->
-          <div class="form-group">
+          <div class="form-group" dnd-sortable [sortableIndex]="6">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="radios">Обслуживание</label>
+            <label class="col-sm-5 control-label" for="service">Обслуживание</label>
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-20" value="1" checked="checked">
-                    <label class="radio-inline" for="radios-20">все</label>
+                    <input type="radio" name="service" id="service-20" [value]="null" [(ngModel)]="service">
+                    <label class="radio-inline" for="service-20">все</label>
                   </div>
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-21" value="2">
-                    <label class="radio-inline" for="radios-21">есть</label>
+                    <input type="radio" name="service" id="service-21" [value]="true" [(ngModel)]="service">
+                    <label class="radio-inline" for="service-21">есть</label>
                   </div>
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-22" value="3">
-                    <label class="radio-inline" for="radios-22">нет</label>
+                    <input type="radio" name="service" id="service-22" [value]="false" [(ngModel)]="service">
+                    <label class="radio-inline" for="service-22">нет</label>
                   </div>
                 </div>
               </div>
           </div>
 
           <!-- Multiple Radios (inline) -->
-          <div class="form-group">
+          <div class="form-group" dnd-sortable [sortableIndex]="7">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="radios">Аварии</label>
+            <label class="col-sm-5 control-label" for="failure">Аварии</label>
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-30" value="1" checked="checked">
-                    <label class="radio-inline" for="radios-30">все</label>
+                    <input type="radio" name="failure" id="failure-30" [value]="null" [(ngModel)]="failure">
+                    <label class="radio-inline" for="failure-30">все</label>
                   </div>
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-31" value="2">
-                    <label class="radio-inline" for="radios-31">есть</label>
+                    <input type="radio" name="failure" id="failure-31" [value]="true" [(ngModel)]="failure">
+                    <label class="radio-inline" for="failure-31">есть</label>
                   </div>
                   <div class="col-sm-4 radio">
-                    <input type="radio" name="radios" id="radios-32" value="3">
-                    <label class="radio-inline" for="radios-32">нет</label>
+                    <input type="radio" name="failure" id="failure-32" [value]="false" [(ngModel)]="failure">
+                    <label class="radio-inline" for="failure-32">нет</label>
                   </div>
                 </div>
               </div>
@@ -135,8 +135,8 @@
           <!-- Button (Double) -->
           <div class="form-group">
             <div class="col-sm-12">
-              <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState($event)">Отмена</button>
-              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="MultifilterState($event)">Применить</button>
+              <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState()">Отмена</button>
+              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="checkFilter(form)">Применить</button>
             </div>
           </div>
         </fieldset>

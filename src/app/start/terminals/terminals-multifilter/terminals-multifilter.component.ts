@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
 
 import { DateTimePickerModule } from 'ng-pick-datetime';
 
@@ -9,6 +9,7 @@ import {
   triggerPanelState,
   StateMultifilterService,
 } from '../../../shared';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-terminals-multifilter',
@@ -19,6 +20,7 @@ import {
 
 export class TerminalsMultifilterComponent implements OnInit {
 
+  @Output() terminalsMultiFilter = new EventEmitter();
   public state = 'inactive';
 
   // temp data
@@ -28,10 +30,16 @@ export class TerminalsMultifilterComponent implements OnInit {
     '222',
     '333',
     '444',
+    '555',
+    '666',
+    '777',
+    '888',
   ];
 
   // temp data
-
+  connection = null;
+  service = null;
+  failure = null;
 
   constructor(private StateMultifilter: StateMultifilterService) {
     StateMultifilter.stateChange$.subscribe(
@@ -41,13 +49,27 @@ export class TerminalsMultifilterComponent implements OnInit {
     );
   }
 
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === 27 && this.state === 'active') {
+      this.MultifilterState();
+    }
+  }
+
   ngOnInit() {
   }
 
-  MultifilterState(event: any) {
+  checkFilter(form: NgForm) {
+    if (form && form.valid) {
+      this.terminalsMultiFilter.emit(form.value);
+      sessionStorage.setItem('terminalsMultiFilter', JSON.stringify(form.value));
+      this.MultifilterState();
+    }
+  }
+
+  MultifilterState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateMultifilter.setStateMultifilter(this.state);
-    return false;
   }
 }
 

@@ -67,7 +67,7 @@
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Состав ингредиентов</div>
-                <div class='col-sm-7'>Соль, перец, кетчуп</div>
+                <div class='col-sm-7'></div>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of items | multiFilter : multiFilter">
+          <tr *ngFor="let item of items | multiFilterProducts : multiFilter">
             <td class="text-center">{{item.Id}}</td>
             <td class="text-center">{{item.Name}}</td>
             <td class="text-center">{{item.BaseSum}}</td>

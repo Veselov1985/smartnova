@@ -26,6 +26,9 @@ export class TerminalsComponent implements OnInit {
   public data: StorageTerminalsData;
   public state: string;
 
+  multiFilter: any;
+  filtered: boolean;
+
   constructor(
     private router: Router,
     private getTerminalsService: GetTerminalsService,
@@ -40,6 +43,11 @@ export class TerminalsComponent implements OnInit {
           this.data = data.Terminals;
         }
       });
+    const mFilter = sessionStorage.getItem('terminalsMultiFilter');
+    if (mFilter) {
+      this.multiFilter = JSON.parse(mFilter);
+      this.filtered = true;
+    }
   }
 
   MultifilterState(event: any) {
@@ -61,5 +69,16 @@ export class TerminalsComponent implements OnInit {
   goToProduct(item: any) {
     sessionStorage.setItem('ItemProduct', JSON.stringify(item));
     this.router.navigate(['start/terminal-item/sells', { Item: JSON.stringify(item) }]);
+  }
+
+  applyMultiFilter(multifilter) {
+    this.multiFilter = multifilter;
+    this.filtered = multifilter ? true : false;
+  }
+
+  clearMultiFilter() {
+    this.multiFilter = null;
+    sessionStorage.removeItem('terminalsMultiFilter');
+    this.filtered = false;
   }
 }

@@ -117,7 +117,7 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
     const setData = {
       GoodsPk: this.currentProduct.Pk,
       TerminalPk: sessionStorage.getItem('productPk')
-    }
+    };
     this.productsConfiguratorService.applyProductConfig(setData).subscribe(resp => {
       this.snackBarShow('Конфигурация отправлена');
     }, error => {

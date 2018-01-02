@@ -8,13 +8,13 @@
 
           <!-- Form Name -->
           <legend>Товары</legend>
-
+          <p class="alert alert-danger" *ngIf="!form.valid">Неверный формат данных</p>
           <!-- Text input-->
           <div class="form-group">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-5 control-label" for="textinput">ID</label>
             <div class="col-sm-6">
-              <input id="textinput" name="id" type="text" class="form-control input-sm" ngModel>
+              <input id="textinput" name="id" type="text" class="form-control input-sm" ngModel maxlength="6" pattern="^[A-Za-z0-9]+$">
             </div>
           </div>
 
@@ -34,11 +34,11 @@
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-5">
-                    <input id="textinput" name="basePriceFrom" type="text" class="form-control input-sm" ngModel>
+                    <input id="textinput" name="basePriceFrom" type="number" class="form-control input-sm" ngModel>
                   </div>
                   <label class="col-sm-2 text-right" for="textinput">до</label>
                   <div class="col-sm-5">
-                    <input id="textinput" name="basePriceTo" type="text" class="form-control input-sm" ngModel>
+                    <input id="textinput" name="basePriceTo" type="number" class="form-control input-sm" ngModel>
                   </div>
                 </div>
               </div>
@@ -52,11 +52,11 @@
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-5">
-                    <input id="textinput" name="soldNumberFrom" type="text" class="form-control input-sm" ngModel>
+                    <input id="textinput" name="soldNumberFrom" type="number" class="form-control input-sm" ngModel>
                   </div>
                   <label class="col-sm-2 text-right" for="textinput">до</label>
                   <div class="col-sm-5">
-                    <input id="textinput" name="soldNumberTo" type="text" class="form-control input-sm" ngModel>
+                    <input id="textinput" name="soldNumberTo" type="number" class="form-control input-sm" ngModel>
                   </div>
                 </div>
               </div>
@@ -69,11 +69,11 @@
             <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-5">
-                    <input id="textinput" name="soldSumFrom" type="text" class="form-control input-sm" ngModel>
+                    <input id="textinput" name="soldSumFrom" type="number" class="form-control input-sm" ngModel>
                   </div>
                   <label class="col-sm-2 text-right" for="textinput">до</label>
                   <div class="col-sm-5">
-                    <input id="textinput" name="soldSumTo" type="text" class="form-control input-sm" ngModel>
+                    <input id="textinput" name="soldSumTo" type="number" class="form-control input-sm" ngModel>
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@
           <div class="form-group">
             <div class="col-sm-12">
               <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState($event)">Отмена</button>
-              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="MultifilterState(form)">Применить</button>
+              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="checkFilter(form)">Применить</button>
             </div>
           </div>
         </fieldset>
