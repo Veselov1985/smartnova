@@ -3,7 +3,7 @@
   <div class="multifilter" [@multifilterState]="state">
     <div class="filter-holder">
       <h2>Мультифильтр</h2>
-      <form class="form-horizontal">
+      <form class="form-horizontal" #form="ngForm">
         <fieldset>
 
           <!-- Form Name -->
@@ -19,10 +19,10 @@
                     <div class="col-sm-10">
                       <div class="row">
                         <div class="col-sm-10">
-                          <owl-date-time [(ngModel)]="input1Moment" [inputId]="'textinputdate'" [readonlyInput]="false" name="something" [inputStyleClass]="'form-control input-sm'"></owl-date-time>
+                          <owl-date-time [(ngModel)]="dateSearchFrom" [dateFormat]="'DD-MM-YYYY HH:mm'" [inputId]="'textinputdate'" [autoClose]="true" [readonlyInput]="false" name="dateSearchFrom" [inputStyleClass]="'form-control input-sm'"></owl-date-time>
                         </div>
                         <div class="col-sm-2">
-                          <owl-date-time [(ngModel)]="input1Moment" [inputId]="'textinputdate'" [readonlyInput]="false" name="something">
+                          <owl-date-time [(ngModel)]="dateSearchFrom" [inputId]="'textinputdate'" [autoClose]="true" [readonlyInput]="false" name="dateSearchFrom">
                             <div class="calendar-btn">
                             </div>
                           </owl-date-time>
@@ -37,10 +37,10 @@
                     <div class="col-sm-10">
                       <div class="row">
                         <div class="col-sm-10">
-                          <owl-date-time [(ngModel)]="input2Moment" [inputId]="'textinputdate2'" [readonlyInput]="false" name="something123" [inputStyleClass]="'form-control input-sm'"></owl-date-time>
+                          <owl-date-time [(ngModel)]="dateSearchTo" [dateFormat]="'DD-MM-YYYY HH:mm'" [inputId]="'textinputdate2'" [autoClose]="true" [readonlyInput]="false" name="dateSearchTo" [inputStyleClass]="'form-control input-sm'"></owl-date-time>
                         </div>
                         <div class="col-sm-2">
-                          <owl-date-time [(ngModel)]="input2Moment" [inputId]="'textinputdate2'" [readonlyInput]="false" name="something123">
+                          <owl-date-time [(ngModel)]="dateSearchTo" [inputId]="'textinputdate2'" [autoClose]="true" [readonlyInput]="false" name="dateSearchTo">
                             <div class="calendar-btn">
                             </div>
                           </owl-date-time>
@@ -56,25 +56,25 @@
           <!-- Text input-->
           <div class="form-group">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="textinput">Наименование</label>
+            <label class="col-sm-5 control-label" for="name">Наименование</label>
             <div class="col-sm-6">
-              <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+              <input id="name" name="name" type="text" class="form-control input-sm" ngModel>
             </div>
           </div>
 
           <!-- Text input-->
           <div class="form-group">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label" for="textinput">Цена</label>
-            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <label class="col-sm-4 control-label">Цена</label>
+            <label class="col-sm-1 control-label" for="priceFrom">от</label>
             <div class="col-sm-6">
               <div class="row">
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="priceFrom" name="priceFrom" type="number" class="form-control input-sm" ngModel>
                 </div>
-                <label class="col-sm-2 text-right" for="textinput">до</label>
+                <label class="col-sm-2 text-right" for="priceTo">до</label>
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="priceTo" name="priceTo" type="number" class="form-control input-sm" ngModel>
                 </div>
               </div>
             </div>
@@ -82,16 +82,16 @@
           <!-- Text input-->
           <div class="form-group">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label" for="textinput">Количество</label>
-            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <label class="col-sm-4 control-label">Количество</label>
+            <label class="col-sm-1 control-label" for="soldNumberFrom">от</label>
             <div class="col-sm-6">
               <div class="row">
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="soldNumberFrom" name="soldNumberFrom" type="number" class="form-control input-sm" ngModel>
                 </div>
-                <label class="col-sm-2 text-right" for="textinput">до</label>
+                <label class="col-sm-2 text-right" for="soldNumberTo">до</label>
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="soldNumberTo" name="soldNumberTo" type="number" class="form-control input-sm" ngModel>
                 </div>
               </div>
             </div>
@@ -99,24 +99,24 @@
           <!-- Text input-->
           <div class="form-group">
             <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label" for="textinput">Сумма</label>
-            <label class="col-sm-1 control-label" for="textinput">от</label>
+            <label class="col-sm-4 control-label">Сумма</label>
+            <label class="col-sm-1 control-label" for="soldSumFrom">от</label>
             <div class="col-sm-6">
               <div class="row">
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="soldSumFrom" name="soldSumFrom" type="number" class="form-control input-sm" ngModel>
                 </div>
-                <label class="col-sm-2 text-right" for="textinput">до</label>
+                <label class="col-sm-2 text-right" for="soldSumTo">до</label>
                 <div class="col-sm-5">
-                  <input id="textinput" name="textinput" type="text" class="form-control input-sm">
+                  <input id="soldSumTo" name="soldSumTo" type="number" class="form-control input-sm" ngModel>
                 </div>
               </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-12">
-              <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState($event)">Отмена</button>
-              <button id="button1id" name="button1id" class="btn btn-success pull-right" (click)="MultifilterState($event)">Применить</button>
+              <button id="button2id" name="button2id" class="btn btn-danger" (click)="MultifilterState()" #cancelBtn>Отмена</button>
+              <button id="button1id" name="button1id" class="btn btn-success pull-right"  (click)="checkFilter(form)">Применить</button>
             </div>
           </div>
 

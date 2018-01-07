@@ -26,6 +26,10 @@ export class SellsComponent implements OnInit {
   public sortOrder = 'desc';
   public state: string;
 
+  multiFilter: any;
+  filtered: boolean;
+  totalSum: number;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -48,11 +52,20 @@ export class SellsComponent implements OnInit {
       .subscribe(product => {
         this.data = product.TerminalSales;
         sessionStorage.setItem('key', 'value');
+        this.totalSum = this.data.reduce((sum, current) => {
+          return sum + current.SoldSum;
+        }, 0);
         return product;
       },
       err => {
         console.log(err);
       });
+
+    const mFilter = sessionStorage.getItem('sellsMultiFilter');
+    if (mFilter) {
+      this.multiFilter = JSON.parse(mFilter);
+      this.filtered = true;
+    }
   }
 
   toInt(num: string) {
@@ -70,4 +83,15 @@ export class SellsComponent implements OnInit {
   // sortByWordLength = (a: any) => {
   //    return a.city.length;
   // }
+
+  applyMultiFilter(multifilter) {
+    this.multiFilter = multifilter;
+    this.filtered = multifilter ? true : false;
+  }
+
+  clearMultiFilter() {
+    this.multiFilter = null;
+    sessionStorage.removeItem('sellsMultiFilter');
+    this.filtered = false;
+  }
 }

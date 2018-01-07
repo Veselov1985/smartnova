@@ -24,19 +24,19 @@
             <div class='col-sm-6'>
               <div class='row'>
                 <div class='col-sm-5'>EID</div>
-                <div class='col-sm-7'>{{multiFilter.eid}}</div>
+                <div class='col-sm-7'>{{multiFilter?.eid}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Наименование</div>
-                <div class='col-sm-7'>{{multiFilter.name}}</div>
+                <div class='col-sm-7'>{{multiFilter?.name}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Связь</div>
-                <div class='col-sm-7'>{{multiFilter.connection | radioValueTransform}}</div>
+                <div class='col-sm-7'>{{multiFilter?.connection | radioValueTransform}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Адрес</div>
-                <div class='col-sm-7'>{{multiFilter.address}}</div>
+                <div class='col-sm-7'>{{multiFilter?.address}}</div>
               </div>
             </div>
             <div class='col-sm-6'>
@@ -45,9 +45,9 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{multiFilter.salesSumFrom}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.salesSumFrom}}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{multiFilter.salesSumTo}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.salesSumTo}}</div>
                   </div>
                 </div>
               </div>
@@ -56,19 +56,19 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{multiFilter.collectSumFrom}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.collectSumFrom}}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{multiFilter.collectSumTo}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.collectSumTo}}</div>
                   </div>
                 </div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Обслуживание</div>
-                <div class='col-sm-7'>{{multiFilter.service | radioValueTransform}}</div>
+                <div class='col-sm-7'>{{multiFilter?.service | radioValueTransform}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Аварии</div>
-                <div class='col-sm-7'>{{multiFilter.failure | radioValueTransform}}</div>
+                <div class='col-sm-7'>{{multiFilter?.failure | radioValueTransform}}</div>
               </div>
             </div>
           </div>

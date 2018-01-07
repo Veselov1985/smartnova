@@ -24,7 +24,6 @@ export class TerminalsReportComponent implements OnInit {
       }
     });
     // this.multiFilter = this.route.snapshot.queryParams;
-    console.log(this.multiFilter);
     const mFilter = sessionStorage.getItem('terminalsMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener, ViewChild, ElementRef } from '@angular/core';
 
 import {
   triggerMultifilterState,
@@ -23,6 +23,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class ProductsMultifilterComponent implements OnInit {
+  @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @Output() productsMultiFilter = new EventEmitter();
   id: string;
 
@@ -30,8 +31,13 @@ export class ProductsMultifilterComponent implements OnInit {
 
   constructor(private StateMultifilter: StateMultifilterService) {
     StateMultifilter.stateChange$.subscribe(
-      state => {
-        this.state = state;
+      stateConfig => {
+        this.state = stateConfig;
+        if (stateConfig === 'active') {
+          setTimeout(() => {
+            this.cancelBtn.nativeElement.focus();
+          }, 100);
+        }
       }
     );
   }

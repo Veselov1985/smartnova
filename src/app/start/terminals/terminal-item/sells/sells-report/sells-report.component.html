@@ -2,9 +2,9 @@
   <div class='row'>
     <div class='col-sm-2'><span class="report-logo">SMARTNOVA</span></div>
     <div class='col-sm-8 text-center'>
-      <h3>Отчет по Торговой сети QQT3532925</h3>
-      <h3>События</h3>
-      <h3>от 21.10.2017 на 12:00</h3>
+      <h3>Отчет по Торговой сети</h3>
+      <h3>Продажи</h3>
+      <h3>от {{ date | date:"dd.MM.yyyy на HH:mm" }}</h3>
     </div>
     <div class='col-sm-2'>
       <a href="javascript:window.print(); void 0;" class='icon-print' title='Распечатать отчёт'></a>
@@ -23,10 +23,8 @@
           <div class='row'>
             <div class='col-sm-6 col-sm-offset-3'>
               <div class='row'>
-                <div class='col-sm-1'>с</div>
-                <div class='col-sm-5'>12 мар. 2016г., 10:32:21</div>
-                <div class='col-sm-1'>по</div>
-                <div class='col-sm-5'>20 авг. 2016г., 10:20:14</div>
+                <div class='col-sm-6'>с {{ multiFilter?.dateSearchFrom | date:'medium'}}</div>
+                <div class='col-sm-6'>по {{ multiFilter?.dateSearchTo | date:'medium'}}</div>
               </div>
             </div>
           </div>
@@ -34,16 +32,16 @@
             <div class='col-sm-6'>
               <div class='row'>
                 <div class='col-sm-5'>Наименование</div>
-                <div class='col-sm-7'>Мармелад</div>
+                <div class='col-sm-7'>{{ multiFilter?.name }}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Цена</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter?.priceFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter?.priceTo }}</div>
                   </div>
                 </div>
               </div>
@@ -54,9 +52,9 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter?.soldNumberFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter?.soldNumberTo }}</div>
                   </div>
                 </div>
               </div>
@@ -65,9 +63,9 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter?.soldSumFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter?.soldSumTo }}</div>
                   </div>
                 </div>
               </div>
@@ -105,101 +103,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center">20 авг. 2016 г.</td>
-            <td class="text-center">22:22</td>
-            <td class="text-center">Кетчуп</td>
-            <td class="text-center">16</td>
-            <td class="text-center">12</td>
-            <td class="text-center">530</td>
-          </tr>
-          <tr>
-            <td class="text-center">29 июл. 2016 г.</td>
-            <td class="text-center">15:23</td>
-            <td class="text-center">Шоколад</td>
-            <td class="text-center">26</td>
-            <td class="text-center">36</td>
-            <td class="text-center">936</td>
-          </tr>
-          <tr>
-            <td class="text-center">11 июл. 2016 г.</td>
-            <td class="text-center">20:56</td>
-            <td class="text-center">Мармелад</td>
-            <td class="text-center">76</td>
-            <td class="text-center">36</td>
-            <td class="text-center">1936</td>
-          </tr>
-          <tr>
-            <td class="text-center">28 июн. 2016 г.</td>
-            <td class="text-center">14:34</td>
-            <td class="text-center">Молоко</td>
-            <td class="text-center">15</td>
-            <td class="text-center">162</td>
-            <td class="text-center">2430</td>
-          </tr>
-          <tr>
-            <td class="text-center">27 июн. 2016 г.</td>
-            <td class="text-center">14:11</td>
-            <td class="text-center">Pepsi</td>
-            <td class="text-center">13</td>
-            <td class="text-center">12</td>
-            <td class="text-center">156</td>
-          </tr>
-          <tr>
-            <td class="text-center">26 мая 2016 г.</td>
-            <td class="text-center">13:55</td>
-            <td class="text-center">Marlboro</td>
-            <td class="text-center">21</td>
-            <td class="text-center">19</td>
-            <td class="text-center">381</td>
-          </tr>
-          <tr>
-            <td class="text-center">25 мая 2016 г.</td>
-            <td class="text-center">12:45</td>
-            <td class="text-center">Twix</td>
-            <td class="text-center">7</td>
-            <td class="text-center">6</td>
-            <td class="text-center">42</td>
-          </tr>
-          <tr>
-            <td class="text-center">24 апр. 2016 г.</td>
-            <td class="text-center">12:42</td>
-            <td class="text-center">Mars</td>
-            <td class="text-center">12</td>
-            <td class="text-center">6</td>
-            <td class="text-center">456</td>
-          </tr>
-          <tr>
-            <td class="text-center">23 апр. 2016 г.</td>
-            <td class="text-center">11:40</td>
-            <td class="text-center">Вода</td>
-            <td class="text-center">0.7</td>
-            <td class="text-center">320</td>
-            <td class="text-center">280</td>
-          </tr>
-          <tr>
-            <td class="text-center">23 мар. 2016 г.</td>
-            <td class="text-center">10:33</td>
-            <td class="text-center">Соль</td>
-            <td class="text-center">3</td>
-            <td class="text-center">177</td>
-            <td class="text-center">531</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 мар. 2016 г.</td>
-            <td class="text-center">10:32</td>
-            <td class="text-center">Гречка</td>
-            <td class="text-center">30</td>
-            <td class="text-center">144</td>
-            <td class="text-center">4320</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 февр. 2016 г.</td>
-            <td class="text-center">09:31</td>
-            <td class="text-center">Эспрессо</td>
-            <td class="text-center">9</td>
-            <td class="text-center">10</td>
-            <td class="text-center">1800</td>
+          <tr *ngFor="let item of items | multiFilterSells : multiFilter">
+            <td class="text-center">{{item.DateTime| date: 'mediumDate'}}</td>
+            <td class="text-center">{{item.DateTime| date: 'HH:mm'}}</td>
+            <td class="text-center">{{item.Name}}</td>
+            <td class="text-center">{{item.Summ}}</td>
+            <td class="text-center">{{item.SoldNumber}}</td>
+            <td class="text-center">{{item.SoldSum}}</td>
           </tr>
         </tbody>
       </table>
