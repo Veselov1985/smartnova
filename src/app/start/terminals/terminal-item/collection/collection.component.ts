@@ -27,6 +27,9 @@ export class CollectionComponent implements OnInit {
 
   public state: string;
 
+  multiFilter: any;
+  filtered: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -44,6 +47,12 @@ export class CollectionComponent implements OnInit {
       err => {
         console.log(err);
       });
+
+    const mFilter = sessionStorage.getItem('collectMultiFilter');
+    if (mFilter) {
+      this.multiFilter = JSON.parse(mFilter);
+      this.filtered = true;
+    }
   }
 
   MultifilterState(event: any) {
@@ -58,5 +67,14 @@ export class CollectionComponent implements OnInit {
     return +num;
   }
 
+  applyMultiFilter(multifilter) {
+    this.multiFilter = multifilter;
+    this.filtered = multifilter ? true : false;
+  }
 
+  clearMultiFilter() {
+    this.multiFilter = null;
+    sessionStorage.removeItem('collectMultiFilter');
+    this.filtered = false;
+  }
 }

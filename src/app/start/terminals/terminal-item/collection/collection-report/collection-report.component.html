@@ -2,9 +2,9 @@
   <div class='row'>
     <div class='col-sm-2'><span class="report-logo">SMARTNOVA</span></div>
     <div class='col-sm-8 text-center'>
-      <h3>Отчет по Торговой сети QQT3532925</h3>
-      <h3>Инкасация</h3>
-      <h3>от 21.10.2017 на 12:00</h3>
+      <h3>Отчет по Торговой сети</h3>
+      <h3>Инкассация</h3>
+      <h3>от {{ date | date:"dd.MM.yyyy на HH:mm" }}</h3>
     </div>
     <div class='col-sm-2'>
       <a href="javascript:window.print(); void 0;" class='icon-print' title='Распечатать отчёт'></a>
@@ -23,23 +23,21 @@
           <div class='row'>
             <div class='col-sm-6 col-sm-offset-3'>
               <div class='row'>
-                <div class='col-sm-1'>с</div>
-                <div class='col-sm-5'>12 мар. 2016г., 10:32:21</div>
-                <div class='col-sm-1'>по</div>
-                <div class='col-sm-5'>20 авг. 2016г., 10:20:14</div>
+                <div class='col-sm-6'>с {{ multiFilter?.dateSearchFrom | date:'medium'}}</div>
+                <div class='col-sm-6'>по {{ multiFilter?.dateSearchTo | date:'medium'}}</div>
               </div>
             </div>
           </div>
           <div class='row'>
             <div class='col-sm-6'>
               <div class='row'>
-                <div class='col-sm-5'>Инкасировано</div>
+                <div class='col-sm-5'>Инкассировано</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter?.collectionFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter?.collectionTo }}</div>
                   </div>
                 </div>
               </div>
@@ -48,9 +46,9 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter?.givenChangeFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter?.givenChangeTo }}</div>
                   </div>
                 </div>
               </div>
@@ -58,19 +56,19 @@
             </div>
             <div class='col-sm-6'>
               <div class='row'>
-                <div class='col-sm-5'>Связь</div>
+                <div class='col-sm-5'>Фонд сдачи</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>100</div>
+                    <div class='col-sm-3'>{{ multiFilter?.fundChangeFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>1000</div>
+                    <div class='col-sm-3'>{{ multiFilter?.fundChangeTo }}</div>
                   </div>
                 </div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>ФИО сервисмена</div>
-                <div class='col-sm-7'>Шумило Д.П.</div>
+                <div class='col-sm-7'>{{ multiFilter?.serviceman }}</div>
               </div>
             </div>
           </div>
@@ -106,117 +104,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center">12 окт. 2016 г.</td>
-            <td class="text-center">10:37</td>
-            <td class="text-center">9887</td>
-            <td class="text-center">198</td>
-            <td class="text-center">2200</td>
-            <td class="text-center">Шумило Д.П.</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 сент. 2016 г.</td>
-            <td class="text-center">09:31</td>
-            <td class="text-center">5890</td>
-            <td class="text-center">99</td>
-            <td class="text-center">1200</td>
-            <td class="text-center">Шумило Д.П.</td>
-          </tr>
-          <tr>
-            <td class="text-center">20 авг. 2016 г.</td>
-            <td class="text-center">22:22</td>
-            <td class="text-center">658</td>
-            <td class="text-center">19</td>
-            <td class="text-center">2803</td>
-            <td class="text-center">Ярыга К.У.</td>
-          </tr>
-          <tr>
-            <td class="text-center">29 июл. 2016 г.</td>
-            <td class="text-center">15:23</td>
-            <td class="text-center">478</td>
-            <td class="text-center">27</td>
-            <td class="text-center">811</td>
-            <td class="text-center">Ярыга К.У.</td>
-          </tr>
-          <tr>
-            <td class="text-center">11 июл. 2016 г.</td>
-            <td class="text-center">20:56</td>
-            <td class="text-center">114</td>
-            <td class="text-center">56.75</td>
-            <td class="text-center">652</td>
-            <td class="text-center">Ярыга К.У.</td>
-          </tr>
-          <tr>
-            <td class="text-center">28 июн. 2016 г.</td>
-            <td class="text-center">14:34</td>
-            <td class="text-center">491</td>
-            <td class="text-center">15.5</td>
-            <td class="text-center">2430</td>
-            <td class="text-center">Иванкин Ю.Б.</td>
-          </tr>
-          <tr>
-            <td class="text-center">27 июн. 2016 г.</td>
-            <td class="text-center">14:11</td>
-            <td class="text-center">463</td>
-            <td class="text-center">13</td>
-            <td class="text-center">156</td>
-            <td class="text-center">Иванкин Ю.Б.</td>
-          </tr>
-          <tr>
-            <td class="text-center">26 мая 2016 г.</td>
-            <td class="text-center">13:55</td>
-            <td class="text-center">527</td>
-            <td class="text-center">21.2</td>
-            <td class="text-center">399</td>
-            <td class="text-center">Иванкин Ю.Б.</td>
-          </tr>
-          <tr>
-            <td class="text-center">25 мая 2016 г.</td>
-            <td class="text-center">12:45</td>
-            <td class="text-center">125</td>
-            <td class="text-center">7</td>
-            <td class="text-center">42</td>
-            <td class="text-center">Малюта К.С.</td>
-          </tr>
-          <tr>
-            <td class="text-center">24 апр. 2016 г.</td>
-            <td class="text-center">12:42</td>
-            <td class="text-center">741</td>
-            <td class="text-center">12</td>
-            <td class="text-center">456</td>
-            <td class="text-center">Малюта К.С.</td>
-          </tr>
-          <tr>
-            <td class="text-center">29 июл. 2016 г.</td>
-            <td class="text-center">15:23</td>
-            <td class="text-center">478</td>
-            <td class="text-center">27</td>
-            <td class="text-center">811</td>
-            <td class="text-center">Ярыга К.У.</td>
-          </tr>
-          <tr>
-            <td class="text-center">11 июл. 2016 г.</td>
-            <td class="text-center">20:56</td>
-            <td class="text-center">114</td>
-            <td class="text-center">56.75</td>
-            <td class="text-center">652</td>
-            <td class="text-center">Ярыга К.У.</td>
-          </tr>
-          <tr>
-            <td class="text-center">28 июн. 2016 г.</td>
-            <td class="text-center">14:34</td>
-            <td class="text-center">491</td>
-            <td class="text-center">15.5</td>
-            <td class="text-center">2430</td>
-            <td class="text-center">Иванкин Ю.Б.</td>
-          </tr>
-          <tr>
-            <td class="text-center">27 июн. 2016 г.</td>
-            <td class="text-center">14:11</td>
-            <td class="text-center">463</td>
-            <td class="text-center">13</td>
-            <td class="text-center">156</td>
-            <td class="text-center">Иванкин Ю.Б.</td>
+          <tr *ngFor="let item of items | multiFilterCollect : multiFilter">
+            <td class="text-center">{{item.DateTime | date: 'mediumDate'}}</td>
+            <td class="text-center">{{item.DateTime | date: 'HH:mm'}}</td>
+            <td class="text-center">{{item.Collection}}</td>
+            <td class="text-center">{{item.GivenChange}}</td>
+            <td class="text-center">{{item.FundChange}}</td>
+            <td class="text-center">{{item.ServiceMan}}</td>
           </tr>
         </tbody>
       </table>
