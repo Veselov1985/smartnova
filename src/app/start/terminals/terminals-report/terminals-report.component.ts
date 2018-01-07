@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Terminal } from '../../../shared/models/terminal.model';
+import { GetTerminalsService } from '../../../shared/index';
 
 @Component({
   selector: 'app-terminals-report',
@@ -6,10 +9,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./terminals-report.component.less']
 })
 export class TerminalsReportComponent implements OnInit {
-
-  constructor() { }
+  terminals: Terminal[];
+  multiFilter: any;
+  date = new Date();
+  constructor(private route: ActivatedRoute, private getTerminalsService: GetTerminalsService) { }
 
   ngOnInit() {
+    this.getTerminalsService.getTerminals()
+    .subscribe((data) => {
+      if (data.IsSuccess) {
+        this.terminals = data.Terminals;
+      } else {
+        this.terminals = [];
+      }
+    });
+    // this.multiFilter = this.route.snapshot.queryParams;
+    console.log(this.multiFilter);
+    const mFilter = sessionStorage.getItem('terminalsMultiFilter');
+    if (mFilter) {
+      this.multiFilter = JSON.parse(mFilter);
+    }
   }
 
 }

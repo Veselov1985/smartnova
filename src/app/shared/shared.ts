@@ -1,3 +1,4 @@
+import { RadioLabelsPipe } from './pipes/radio-labels.pipe';
 
 import { BurgerService } from './services/common/burger.service';
 import { AuthService } from './services/auth/auth.service';
@@ -37,6 +38,7 @@ const SHARED_PIPE: any[] = [
   DataFilterPipe,
   MultiFilterProductsPipe,
   MultiFilterTerminalsPipe,
+  RadioLabelsPipe,
   DateTimePipe,
 ];
 const SHARED_PROVIDE: any[] = [
@@ -66,6 +68,7 @@ export {
   DataFilterPipe,
   MultiFilterProductsPipe,
   MultiFilterTerminalsPipe,
+  RadioLabelsPipe,
   DateTimePipe,
   SHARED_PIPE,
 

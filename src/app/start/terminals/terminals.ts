@@ -12,13 +12,13 @@ const TERMINALS_COMPONENT: any[] = [
   TerminalsReportComponent,
   TerminalsMultifilterComponent,
   TERMINAL_ITEMS_COMPONENTS,
-]
+];
 
-export{
+export {
   TerminalsComponent,
   TerminalsReportComponent,
   TerminalItemRoutingModule,
   TerminalsMultifilterComponent,
   TERMINAL_ITEMS_COMPONENTS,
   TERMINALS_COMPONENT
-}
+};
