@@ -126,12 +126,12 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
     const setData = {
       IngredientPk: this.currentIngredient.Pk,
       TerminalPk: sessionStorage.getItem('productPk')
-    }
+    };
     this.terminalIngredientsConfiguratorService.applyIngredientConfig(setData).subscribe(resp => {
       this.snackBarShow('Конфигурация отправлена');
     }, error => {
       this.snackBarShow('Произошла ошибка');
-    })
+    });
   }
 
   snackBarShow(message) {

@@ -29,6 +29,9 @@ export class IngridientsComponent implements OnInit {
   public stateConfigMode: string;
   public currentIngredient: any;
 
+  multiFilter: any;
+  filtered: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -57,6 +60,12 @@ export class IngridientsComponent implements OnInit {
       err => {
         console.log(err);
       });
+
+    const mFilter = sessionStorage.getItem('ingrMultiFilter');
+    if (mFilter) {
+      this.multiFilter = JSON.parse(mFilter);
+      this.filtered = true;
+    }
   }
 
 
@@ -82,5 +91,16 @@ export class IngridientsComponent implements OnInit {
 
   sortByWordLength = (a: any) => {
     return a.city.length;
+  }
+
+  applyMultiFilter(multifilter) {
+    this.multiFilter = multifilter;
+    this.filtered = multifilter ? true : false;
+  }
+
+  clearMultiFilter() {
+    this.multiFilter = null;
+    sessionStorage.removeItem('ingrMultiFilter');
+    this.filtered = false;
   }
 }

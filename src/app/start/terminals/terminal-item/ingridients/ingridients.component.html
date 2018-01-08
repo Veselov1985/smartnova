@@ -1,16 +1,15 @@
 <app-ingredients-configurator [currentIngredient] = "currentIngredient"></app-ingredients-configurator>
-<app-ingredients-multifilter></app-ingredients-multifilter>
-
+<app-ingredients-multifilter (ingrMultiFilter)="applyMultiFilter($event)"></app-ingredients-multifilter>
 
 <div class="col-sm-12">
   <div class="top-panel-min">
-    Количество ингредиентов: 200
+    Количество ингредиентов: {{ data?.length }}
   </div>
 </div>
 
 <div class="col-xs-12 col-sm-12">
   <div class="panel panel-default">
-    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+    <table class="table table-striped" [mfData]="data | multiFilterIngr : multiFilter | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
       [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
       <thead>
         <tr>
@@ -26,8 +25,8 @@
               </div>
               <div class="col-xs-4">
                 <ul class="icon-multifilter">
-                  <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
-                  <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                  <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" [ngClass]="{filtered: filtered}" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                  <li class="tooltip-wrap"><a (click)="clearMultiFilter()" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
                   <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                 </ul>
               </div>
@@ -81,7 +80,7 @@
             <mfBootstrapPaginator></mfBootstrapPaginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
-              <li class="page-item"> <span>{{data?.length}}</span></li>
+              <li class="page-item"> <span>{{(data | multiFilterIngr : multiFilter | dataFilter : filterQuery)?.length}}</span></li>
             </ul>
           </td>
         </tr>
