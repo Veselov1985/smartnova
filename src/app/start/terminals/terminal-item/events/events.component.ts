@@ -41,6 +41,9 @@ export class EventsComponent implements OnInit {
   public stateConfigMode: string;
   public courentEventPk: string;
 
+  multiFilter: any;
+  filtered: boolean;
+  notViewed = 0;
 
   private headers = new Headers({
     'Content-Type': 'application/json'
@@ -67,20 +70,23 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.serviceProd
-      .getEvents()
-      .subscribe(product => {
-        for (const key of Object.keys(product.TerminalEvents)) {
-          product.TerminalEvents[key].forEach((item: any) => {
-            this.data[key][item.Type] = item;
-          });
-        }
-        this.addAllEv('Operational');
-      },
-      err => {
-        console.log(err);
-      });
+    this.serviceProd.getEvents().subscribe(product => {
+      for (const key of Object.keys(product.TerminalEvents)) {
+        product.TerminalEvents[key].forEach((item: any) => {
+          if (item.Viewed === false) {
+            this.notViewed += 1;
+          }
+          this.data[key][item.Type] = item;
+        });
+      }
+      this.addAllEv('Operational');
+    }, err => console.log(err));
 
+    const mFilter = sessionStorage.getItem('eventsMultiFilter');
+    if (mFilter) {
+      this.multiFilter = JSON.parse(mFilter);
+      this.filtered = true;
+    }
 
   }
 
@@ -194,13 +200,20 @@ export class EventsComponent implements OnInit {
           // this.getTerminals.setNewEventsEvent();
         }
       }
+      this.notViewed -= 1;
     }
   }
 
+  applyMultiFilter(multifilter) {
+    this.multiFilter = multifilter;
+    this.filtered = multifilter ? true : false;
+  }
 
-
-
-
+  clearMultiFilter() {
+    this.multiFilter = null;
+    sessionStorage.removeItem('eventsMultiFilter');
+    this.filtered = false;
+  }
 
   openMultifilter(ev: any, tabindex: any): any {
     ev.preventDefault();

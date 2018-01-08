@@ -1,11 +1,11 @@
 <app-events-configurator [courentEventPk] = "courentEventPk"></app-events-configurator>
-<app-events-multifilter></app-events-multifilter>
+<app-events-multifilter (eventsMultiFilter)="applyMultiFilter($event)"></app-events-multifilter>
 
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
       <div class="top-panel-min">
-        Количество не квитированных событий: 12
+        Количество не квитированных событий: {{ notViewed }}
       </div>
     </div>
   </div>
@@ -39,8 +39,8 @@
                     <div class="row">
                       <div class="col-xs-4 col-xs-offset-4">
                         <ul class="icon-multifilter">
-                          <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
-                          <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="fltr" (click)="MultifilterState($event)" [ngClass]="{filtered: filtered}"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
                           <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                         </ul>
                       </div>
@@ -57,7 +57,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of operationalEv">
+                <tr *ngFor="let item of operationalEv | multiFilterEvents : multiFilter">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
@@ -76,8 +76,8 @@
                     <div class="row">
                       <div class="col-xs-4 col-xs-offset-4">
                         <ul class="icon-multifilter">
-                          <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
-                          <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="fltr" (click)="MultifilterState($event)" [ngClass]="{filtered: filtered}"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
                           <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                         </ul>
                       </div>
@@ -94,10 +94,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of systemEv">
+                <tr *ngFor="let item of systemEv | multiFilterEvents : multiFilter">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
-                  <td class="text-center">{{item.Duration | date: 'hh:mm:ss'}}</td>
+                  <td class="text-center">{{item.Duration}}</td>
                   <td class="text-center">{{item.DateTime | dateTime: 'date'}},&nbsp;{{item.DateTime | date: 'hh:mm:ss'}}</td>
                   <td><a *ngIf="item.Viewed!=null" (click)="setEventViewed(item, 'System')" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
                   <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type, item.Pk )"></a></td>
@@ -113,8 +113,8 @@
                     <div class="row">
                       <div class="col-xs-4 col-xs-offset-4">
                         <ul class="icon-multifilter">
-                          <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
-                          <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="fltr" (click)="MultifilterState($event)" [ngClass]="{filtered: filtered}"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
                           <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                         </ul>
                       </div>
@@ -131,10 +131,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of uncertainEv">
+                <tr *ngFor="let item of uncertainEv | multiFilterEvents : multiFilter">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
-                  <td class="text-center">{{item.Duration | date: 'hh:mm:ss'}}</td>
+                  <td class="text-center">{{item.Duration}}</td>
                   <td class="text-center">{{item.DateTime | dateTime: 'date'}},&nbsp;{{item.DateTime | dateTime: 'hh:mm:ss'}}</td>
                   <td><a *ngIf="item.Viewed!=null" (click)="item.Viewed=true" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
                   <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type, item.Pk )"></a></td>
@@ -150,8 +150,8 @@
                     <div class="row">
                       <div class="col-xs-4 col-xs-offset-4">
                         <ul class="icon-multifilter">
-                          <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
-                          <li class="tooltip-wrap"><a href="#ClearMultifilter" class="clrfltr"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="fltr" (click)="MultifilterState($event)" [ngClass]="{filtered: filtered}"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                          <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
                           <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                         </ul>
                       </div>

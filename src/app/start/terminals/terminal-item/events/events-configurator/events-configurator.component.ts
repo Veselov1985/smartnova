@@ -47,7 +47,6 @@ export class EventsConfiguratorComponent implements OnInit, OnChanges {
     if (changes.courentEventPk && !changes.courentEventPk.isFirstChange()) {
       this.eventConfig = this.terminalEventsConfiguratorService.getCourentEventConfig(this.courentEventPk);
     }
-    console.log(this.eventConfig);
   }
 
   ConfigState(event: any): void {

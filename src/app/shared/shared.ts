@@ -25,6 +25,7 @@ import { MultiFilterTerminalsPipe } from './pipes/multi-filter-terminals.pipe';
 import { MultiFilterSellsPipe } from './pipes/multi-filter-sells.pipe';
 import { MultiFilterCollectPipe } from './pipes/multi-filter-collect.pipe';
 import { MultiFilterIngredientsPipe } from './pipes/multi-filter-ingredients.pipe';
+import { MultiFilterEventsPipe } from './pipes/multi-filter-events.pipe';
 
 // import { FocusLeavDirective } from './directives/focus-leav.directive';
 // import { HidefoneDirective } from './directives/hidefone.directive';
@@ -42,6 +43,7 @@ const SHARED_PIPE: any[] = [
   MultiFilterProductsPipe,
   MultiFilterSellsPipe,
   MultiFilterCollectPipe,
+  MultiFilterEventsPipe,
   MultiFilterIngredientsPipe,
   MultiFilterTerminalsPipe,
   RadioLabelsPipe,
@@ -75,6 +77,7 @@ export {
   MultiFilterProductsPipe,
   MultiFilterSellsPipe,
   MultiFilterCollectPipe,
+  MultiFilterEventsPipe,
   MultiFilterIngredientsPipe,
   MultiFilterTerminalsPipe,
   RadioLabelsPipe,
