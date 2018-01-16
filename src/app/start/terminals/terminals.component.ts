@@ -41,6 +41,7 @@ export class TerminalsComponent implements OnInit {
       .subscribe((data) => {
         if (data.IsSuccess) {
           this.data = data.Terminals;
+          console.log(this.data);
         }
       });
     const mFilter = sessionStorage.getItem('terminalsMultiFilter');
@@ -82,3 +83,4 @@ export class TerminalsComponent implements OnInit {
     this.filtered = false;
   }
 }
+

@@ -48,7 +48,7 @@ export class SellsComponent implements OnInit {
     }
     this.productPk = Item.Pk || this.serviceProd.Pk;
     this.serviceProd
-      .getSell()
+      .getSell(this.productPk)
       .subscribe(product => {
         this.data = product.TerminalSales;
         sessionStorage.setItem('key', 'value');

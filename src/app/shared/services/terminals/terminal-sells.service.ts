@@ -29,9 +29,9 @@ export class GetTerminalSellsService {
     }
   }
 
-  getSell(): Observable<any> {
+  getSell(pk: string): Observable<any> {
     const serviseUrl = this.baseUrl + 'GetTerminalSales';
-    return this.http.post(serviseUrl, JSON.stringify({ Pk: this.Pk }), { headers: this.headers })
+    return this.http.post(serviseUrl, JSON.stringify({ Pk: pk }), { headers: this.headers })
     .map(response => response.json());
   }
 }
