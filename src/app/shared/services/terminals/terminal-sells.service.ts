@@ -6,27 +6,23 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/publishLast';
 import { urlApi } from '../../url.api';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class GetTerminalSellsService {
 
   productStore: Array<any>;
   Pk: string;
-  loggedIn: boolean;
   baseUrl: string;
 
   private headers = new Headers({
     'Content-Type': 'application/json'
   });
 
-  constructor(public http: Http) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
-    this.Pk = sessionStorage.getItem('productPk');
-    if (this.loggedIn) {
-     this.baseUrl = urlApi.server;
-    } else {
-      this.baseUrl = urlApi.serverdemo;
-    }
+  constructor(public http: Http, private auth: AuthService) {
+    this.auth.isLoggedIn.subscribe(isLoggedIn => {
+      this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
+    });
   }
 
   getSell(pk: string): Observable<any> {

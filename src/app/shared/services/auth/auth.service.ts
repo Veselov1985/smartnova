@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { urlApi } from '../../url.api';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 // import localStorage from 'localStorage';
 
 @Injectable()
@@ -14,6 +15,7 @@ export class AuthService {
     'Content-Type': 'application/json'
   });
   private baseUrl: string;
+  isLoggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: Http, private router: Router) {
     // this.loggedIn = !!localStorage.getItem('auth_token');
@@ -40,6 +42,7 @@ export class AuthService {
           localStorage.setItem('UserPk', res.UserPk);
           localStorage.setItem('TnPk', res.TnPk);
           this.loggedIn = true;
+          this.isLoggedIn.next(true);
         }
         return res;
       });
@@ -61,15 +64,16 @@ export class AuthService {
           localStorage.removeItem('UserPk');
           localStorage.removeItem('TnPk');
           this.loggedIn = false;
+          this.isLoggedIn.next(false);
           this.router.navigate(['/']);
         }
         return res;
       });
   }
 
-  isLoggedIn() {
-    return this.loggedIn;
-  }
+  // isLoggedIn() {
+  //   return this.loggedIn;
+  // }
 
   singin() {
     const options = new RequestOptions({
@@ -85,9 +89,11 @@ export class AuthService {
         if (res.Authenticated) {
           localStorage.setItem('auth_token', 'true');
           this.loggedIn = true;
+          this.isLoggedIn.next(true);
         } else {
           localStorage.removeItem('auth_token');
           this.loggedIn = false;
+          this.isLoggedIn.next(false);
         }
         return res;
       });

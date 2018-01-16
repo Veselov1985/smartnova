@@ -3,22 +3,19 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { urlApi } from '../../url.api';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class TerminalIngredientsConfiguratorService {
   private headers = new Headers({
     'Content-Type': 'application/json'
   });
-  loggedIn: boolean;
   baseUrl: string;
 
-  constructor(private http: Http) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
-    if (this.loggedIn) {
-      this.baseUrl = urlApi.server;
-    } else {
-      this.baseUrl = urlApi.serverdemo;
-    }
+  constructor(private http: Http, private auth: AuthService) {
+    this.auth.isLoggedIn.subscribe(isLoggedIn => {
+      this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
+    });
   }
 
   getCourentIngredientConfig(pk: string): any {

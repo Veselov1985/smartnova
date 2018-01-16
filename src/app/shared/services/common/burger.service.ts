@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 export class BurgerService {
   private actionAnnouncedSource = new Subject<string>();
   actionAnnounced$ = this.actionAnnouncedSource.asObservable();
-  mission: string = 'closed';
+  mission = 'closed';
   constructor() { }
 
   openCloseSidebar() {

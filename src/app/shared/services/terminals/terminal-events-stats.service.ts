@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/publishLast';
 import { urlApi } from '../../url.api';
-
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class GetEventsStatsService {
@@ -20,15 +20,12 @@ export class GetEventsStatsService {
     'Content-Type': 'application/json'
   });
 
-  constructor(public http: Http) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
+  constructor(public http: Http, private auth: AuthService) {
     this.Pk = sessionStorage.getItem('productPk');
 
-    if (this.loggedIn) {
-      this.baseUrl = urlApi.server;
-    } else {
-      this.baseUrl = urlApi.serverdemo;
-    }
+    this.auth.isLoggedIn.subscribe(isLoggedIn => {
+      this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
+    });
   }
 
   getTerminalEventsStats(params: any): Observable<any> {

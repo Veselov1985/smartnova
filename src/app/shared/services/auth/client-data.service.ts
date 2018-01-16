@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { urlApi } from '../../url.api';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class ClientDataService {
@@ -11,15 +12,10 @@ export class ClientDataService {
     'Content-Type': 'application/json'
   });
 
-  constructor(
-    public http: Http
-  ) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
-    if (this.loggedIn) {
-      this.baseUrl = urlApi.server;
-    } else {
-      this.baseUrl = urlApi.serverdemo;
-    }
+  constructor(public http: Http, private auth: AuthService) {
+    this.auth.isLoggedIn.subscribe(isLoggedIn => {
+      this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
+    });
    }
 
   getClientData() {

@@ -75,7 +75,7 @@ export class HeaderStartComponent implements OnInit {
 
   logOut(ev: Event) {
     ev.preventDefault();
-    if (this.authService.isLoggedIn) {
+    if (this.authService.isLoggedIn.getValue()) {
       this.authService.logout().subscribe(() => console.log('logout'));
     } else {
       this.router.navigate(['/']);

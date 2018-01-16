@@ -8,6 +8,7 @@ import 'rxjs/add/operator/publishLast';
 
 import { StorageTerminalsData } from '../../models';
 import { urlApi } from '../../url.api';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class GetTerminalsService {
@@ -21,13 +22,10 @@ export class GetTerminalsService {
   });
   loggedIn: boolean;
 
-  constructor(public http: Http) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
-    if (this.loggedIn) {
-      this.baseUrl = urlApi.server;
-    } else {
-      this.baseUrl = urlApi.serverdemo;
-    }
+  constructor(public http: Http, private auth: AuthService) {
+    this.auth.isLoggedIn.subscribe(isLoggedIn => {
+      this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
+    });
     // this.dataStore = new StorageTerminalsData();
     // this._terminals$ = <BehaviorSubject<StorageTerminalsData>>new BehaviorSubject(new StorageTerminalsData());
     // this.terminals = this._terminals$.asObservable();

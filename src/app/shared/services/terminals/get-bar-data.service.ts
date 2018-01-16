@@ -8,6 +8,7 @@ import 'rxjs/add/operator/publishLast';
 
 import { StorageBarData } from '../../models';
 import { urlApi } from '../../url.api';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class GetBarDataService {
@@ -22,13 +23,10 @@ export class GetBarDataService {
   loggedIn: boolean;
   public state = 'inactive';
 
-  constructor(public http: Http) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
-    if (this.loggedIn) {
-      this.baseUrl = urlApi.server;
-    } else {
-      this.baseUrl = urlApi.serverdemo;
-    }
+  constructor(public http: Http, private auth: AuthService) {
+    this.auth.isLoggedIn.subscribe(isLoggedIn => {
+      this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
+    });
 
     this.barData = new StorageBarData();
      this._terminals$ = <BehaviorSubject<StorageBarData>>new BehaviorSubject(new StorageBarData());
