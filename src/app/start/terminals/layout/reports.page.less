@@ -22,3 +22,12 @@
   display: block;
   overflow: hidden;
 }
+
+@media print {
+  .panel {
+    text-align: center;
+    .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-2, .col-sm-3 {
+      display: inline-block;
+    }
+  }
+}

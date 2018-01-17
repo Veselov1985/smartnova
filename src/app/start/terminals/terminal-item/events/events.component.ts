@@ -69,7 +69,6 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.serviceProd.getEvents().subscribe(product => {
       for (const key of Object.keys(product.TerminalEvents)) {
         product.TerminalEvents[key].forEach((item: any) => {
@@ -207,6 +206,7 @@ export class EventsComponent implements OnInit {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
+    console.log(this.multiFilter);
   }
 
   clearMultiFilter() {

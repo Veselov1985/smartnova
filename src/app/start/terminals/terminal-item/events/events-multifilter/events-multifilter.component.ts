@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, ElementRef, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, ElementRef, EventEmitter, HostListener, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import {
@@ -24,6 +24,7 @@ import {
 
 export class EventsMultifilterComponent implements OnInit {
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
+  @Input() activeEventType: number;
   @Output() eventsMultiFilter = new EventEmitter();
   public state = 'inactive';
   public moment: Date = new Date();
@@ -33,8 +34,8 @@ export class EventsMultifilterComponent implements OnInit {
 
   eventFields = [
     {eventType: 'Operational', eventDescr: 'Операционные', isChecked: false},
-    {eventType: 'Uncertain', eventDescr: 'Неопределенные', isChecked: false},
     {eventType: 'System', eventDescr: 'Системные/аварии', isChecked: false},
+    {eventType: 'Uncertain', eventDescr: 'Неопределенные', isChecked: false},
     {eventType: 'Additional', eventDescr: 'Дополнительные', isChecked: false},
   ];
   viewed = null;
@@ -44,6 +45,8 @@ export class EventsMultifilterComponent implements OnInit {
       stateConfig => {
         this.state = stateConfig;
         if (stateConfig === 'active') {
+          this.eventFields.forEach(item => item.isChecked = false);
+          this.eventFields[this.activeEventType - 1].isChecked = true;
           setTimeout(() => {
             this.cancelBtn.nativeElement.focus();
           }, 100);
@@ -76,6 +79,10 @@ export class EventsMultifilterComponent implements OnInit {
   MultifilterState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateMultifilter.setStateMultifilter(this.state);
+  }
+
+  changeCheckbox(index: number) {
+    this.eventFields[index].isChecked = !this.eventFields[index].isChecked;
   }
 }
 

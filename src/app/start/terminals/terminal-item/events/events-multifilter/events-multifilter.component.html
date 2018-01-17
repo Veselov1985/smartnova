@@ -13,7 +13,7 @@
           <div class="form-group">
             <div class="col-sm-6" *ngFor="let event of eventFields; let i = index">
               <div class="checkbox">
-                <input type="checkbox" name="eventTypes" id="eventType-{{i}}" [value]="event.eventType" [(ngModel)]="event.isChecked">
+                <input type="checkbox" name="eventTypes" id="eventType-{{i}}" [value]="event.eventType" (change)="changeCheckbox(i)" [checked]="event.isChecked">
                 <label class="checkbox-inline" for="eventType-{{i}}"><span class="fa fa-check"></span>{{event.eventDescr}}</label>
               </div>
             </div>

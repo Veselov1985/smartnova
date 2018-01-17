@@ -70,7 +70,7 @@
     </div>
   </div>
 
-  <div class='col-sm-12' *ngIf="multiFilter?.eventTypes.includes('Operational')">
+  <div class='col-sm-12' *ngIf="!multiFilter || multiFilter?.eventTypes.includes('Operational')">
     <div class="panel panel-default">
       <h3 class='text-center'>Операционные</h3>
       <table class="table table-striped">
@@ -96,7 +96,7 @@
     </div>
   </div>
 
-  <div class='col-sm-12' *ngIf="multiFilter?.eventTypes.includes('System')">
+  <div class='col-sm-12' *ngIf="!multiFilter || multiFilter?.eventTypes.includes('System')">
     <div class="panel panel-default">
       <h3 class='text-center'>Системные/аварии</h3>
       <table class="table table-striped">
@@ -122,7 +122,7 @@
     </div>
   </div>
 
-  <div class='col-sm-12' *ngIf="multiFilter?.eventTypes.includes('Uncertain')">
+  <div class='col-sm-12' *ngIf="!multiFilter || multiFilter?.eventTypes.includes('Uncertain')">
     <div class="panel panel-default">
       <h3 class='text-center'>Неопределенные</h3>
       <table class="table table-striped">
@@ -148,7 +148,7 @@
     </div>
   </div>
 
-  <div class='col-sm-12' *ngIf="multiFilter?.eventTypes.includes('Additional')">
+  <div class='col-sm-12' *ngIf="!multiFilter || multiFilter?.eventTypes.includes('Additional')">
     <div class="panel panel-default">
       <h3 class='text-center'>Дополнительные</h3>
       <table class="table table-striped">
