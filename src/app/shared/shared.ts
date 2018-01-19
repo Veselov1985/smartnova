@@ -1,3 +1,4 @@
+import { ShareDataService } from './services/common/share-data.service';
 import { RadioLabelsPipe } from './pipes/radio-labels.pipe';
 
 import { BurgerService } from './services/common/burger.service';
@@ -59,7 +60,8 @@ const SHARED_PROVIDE: any[] = [
   StateUserpanelService,
   TerminalProductsConfiguratorService,
   TerminalIngredientsConfiguratorService,
-  TerminalEventsConfiguratorService
+  TerminalEventsConfiguratorService,
+  ShareDataService
 ];
 
 const SHARED_DERECTIVE: any[] = [

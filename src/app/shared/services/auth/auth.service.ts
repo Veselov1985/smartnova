@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 
 import { urlApi } from '../../url.api';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-// import localStorage from 'localStorage';
 
 @Injectable()
 export class AuthService {
@@ -18,25 +17,17 @@ export class AuthService {
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: Http, private router: Router) {
-    // this.loggedIn = !!localStorage.getItem('auth_token');
-    // if (this.loggedIn) {
-    //   this.baseUrl = urlApi.server;
-    // } else {
-    //   this.baseUrl = urlApi.serverdemo;
-    // }
+    if (!!localStorage.getItem('auth_token')) {
+      this.isLoggedIn.next(true);
+    }
   }
 
   login(data: any) {
     const serviseUrl = urlApi.serveraccount + 'Login';
     return this.http
-      .post(
-      serviseUrl,
-      JSON.stringify(data), {
-        headers: this.headers
-      }
-      )
+      .post(serviseUrl, JSON.stringify(data), { headers: this.headers })
       .map(res => res.json())
-      .map((res) => {
+      .map(res => {
         if (res.IsSuccess) {
           localStorage.setItem('auth_token', 'true');
           localStorage.setItem('UserPk', res.UserPk);
@@ -51,14 +42,9 @@ export class AuthService {
   logout() {
     const serviseUrl = urlApi.serveraccount + 'Logout';
     return this.http
-      .post(
-      serviseUrl,
-      '', {
-        headers: this.headers
-      }
-      )
+      .post(serviseUrl, '', { headers: this.headers })
       .map(res => res.json())
-      .map((res) => {
+      .map(res => {
         if (res.IsSuccess) {
           localStorage.removeItem('auth_token');
           localStorage.removeItem('UserPk');
@@ -81,11 +67,9 @@ export class AuthService {
     });
     const serviseUrl = urlApi.serveraccount + 'Signin';
     return this.http
-      .post(serviseUrl, '', {
-        headers: this.headers
-      })
+      .post(serviseUrl, '', { headers: this.headers })
       .map(res => res.json())
-      .map((res) => {
+      .map(res => {
         if (res.Authenticated) {
           localStorage.setItem('auth_token', 'true');
           this.loggedIn = true;
@@ -102,36 +86,21 @@ export class AuthService {
   restorePassword(data: any) {
     const serviseUrl = urlApi.serveraccount + 'RestorePassword';
     return this.http
-      .post(
-      serviseUrl,
-      JSON.stringify(data), {
-        headers: this.headers
-      }
-      )
+      .post(serviseUrl, JSON.stringify(data), { headers: this.headers })
       .map(res => res.json());
   }
 
   changePassword(data: any) {
     const serviseUrl = urlApi.serveraccount + 'ChangePassword';
     return this.http
-      .post(
-      serviseUrl,
-      JSON.stringify(data), {
-        headers: this.headers
-      }
-      )
+      .post(serviseUrl, JSON.stringify(data), { headers: this.headers })
       .map(res => res.json());
   }
 
   register(data: any) {
     const serviseUrl = urlApi.serveraccount + 'Register';
     return this.http
-      .post(
-      serviseUrl,
-      JSON.stringify(data), {
-        headers: this.headers
-      }
-      )
+      .post(serviseUrl, JSON.stringify(data), { headers: this.headers })
       .map(res => res.json());
   }
 }

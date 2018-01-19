@@ -15,6 +15,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/publishLast';
 
+import { ShareDataService } from './../../../../shared/services/common/share-data.service';
+// import { MultiFilterEventsPipe } from './../../../../shared/pipes/multi-filter-events.pipe';
 
 
 @Component({
@@ -58,6 +60,8 @@ export class EventsComponent implements OnInit {
     private StateMultifilter: StateMultifilterService,
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
+    private sharedData: ShareDataService,
+    // private filterPipe: MultiFilterEventsPipe
   ) {
     this.loggedIn = !!localStorage.getItem('auth_token');
     if (this.loggedIn) { } else { }
@@ -206,7 +210,6 @@ export class EventsComponent implements OnInit {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
-    console.log(this.multiFilter);
   }
 
   clearMultiFilter() {
@@ -218,5 +221,11 @@ export class EventsComponent implements OnInit {
   openMultifilter(ev: any, tabindex: any): any {
     ev.preventDefault();
     this.typeMultifilter = tabindex;
+  }
+
+  setData() {
+    // this.filterPipe.transform(this.data, 'yyyy-MM-dd');
+    // console.log(this.data);
+    // sessionStorage.setItem('eventsData', JSON.stringify(this.data.Operational));
   }
 }
