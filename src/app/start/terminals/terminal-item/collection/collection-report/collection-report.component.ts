@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TItemCollections, GetTerminalCollectionService } from '../../../../../shared/index';
 
 @Component({
@@ -10,10 +11,10 @@ export class CollectionReportComponent implements OnInit {
   items: TItemCollections[];
   multiFilter: any;
   date = new Date();
-  constructor(private serviceProd: GetTerminalCollectionService) { }
+  constructor(private serviceProd: GetTerminalCollectionService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.serviceProd.getTerminalCollection().subscribe(product => {
+    this.serviceProd.getTerminalCollection(this.route.snapshot.params['Pk']).subscribe(product => {
       this.items = product.TerminalIncaso;
     }, err => console.log(err));
 

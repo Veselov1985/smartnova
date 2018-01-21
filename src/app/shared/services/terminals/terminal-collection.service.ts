@@ -27,9 +27,9 @@ export class GetTerminalCollectionService {
   }
 
   // rename GetTerminalIncaso to getTerminalCollection
-  getTerminalCollection(): Observable<any> {
+  getTerminalCollection(Pk: string): Observable<any> {
     const serviseUrl = this.baseUrl + 'GetTerminalIncaso';
-    return this.http.post(serviseUrl, JSON.stringify({ Pk: this.Pk }), { headers: this.headers })
+    return this.http.post(serviseUrl, JSON.stringify({ Pk: Pk }), { headers: this.headers })
     .map(response => response.json());
   }
 }

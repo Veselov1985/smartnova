@@ -29,10 +29,9 @@ export class GetEventsStatsService {
   }
 
   getTerminalEventsStats(params: any): Observable<any> {
-    const paramsEvents = JSON.parse(params);
     const serviseUrl = this.baseUrl + 'GetAllTerminalEventsByType';
 
-    return this.http.post(serviseUrl, JSON.stringify({ Pk: paramsEvents.pk, eventType: paramsEvents.type }), { headers: this.headers })
+    return this.http.post(serviseUrl, JSON.stringify({ Pk: params.pk, eventType: params.type }), { headers: this.headers })
       .map(response => response.json());
   }
 }

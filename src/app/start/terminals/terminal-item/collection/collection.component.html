@@ -22,9 +22,9 @@
               </div>
               <div class="col-xs-4">
                 <ul class="icon-multifilter">
-                  <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" [ngClass]="{filtered: filtered}" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
+                  <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" [ngClass]="{filtered: filtered}" (click)="MultifilterState($event)"></a><span class="tooltiptext">Открыть панель мультифильтра</span></li>
                   <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
-                  <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
+                  <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['/start/terminal-item/collection/report', productPk]" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                 </ul>
               </div>
               <div class="search-block col-xs-4">
@@ -70,7 +70,8 @@
       <tfoot>
         <tr>
           <td colspan="6">
-            <mfBootstrapPaginator></mfBootstrapPaginator>
+            <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
+            <app-data-table-paginator></app-data-table-paginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
               <li class="page-item"> <span>{{(data | multiFilterCollect : multiFilter | dataFilter : filterQuery)?.length}}</span></li>

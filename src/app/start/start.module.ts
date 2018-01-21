@@ -10,7 +10,7 @@ import { StartRoutingModule, StartComponent } from './start';
 
 // import { START_LAYOUT_COMPONENT } from './layout/layout';
 import { START_COMPONENT } from './start';
-import { DataFilterPipe } from '../shared/shared';
+import { DataFilterPipe, MultiFilterEventsPipe } from '../shared/shared';
 
 import { SharedModule } from '../shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
@@ -20,7 +20,6 @@ import {
   GetBarDataService,
   GetChartLineService,
   ChartMainService,
-
   GetTerminalsService,
   GetTerminalCollectionService,
   GetTerminalEventsService,
@@ -36,12 +35,16 @@ import { ReportLoggingComponent } from './report-logging/report-logging.componen
 import { DateTimePickerModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {DndModule} from 'ng2-dnd';
+import { DndModule } from 'ng2-dnd';
+import { CollectionResolver } from './../shared/resolvers/collection.resolver';
+import { EventsResolver } from '../shared/resolvers/events.resolver';
+import { EventsStatsResolver } from './../shared/resolvers/events-stats.resolver';
+import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
+    // RouterModule,
     SharedModule,
     LayoutModule,
     DndModule.forRoot(),
@@ -73,7 +76,12 @@ import {DndModule} from 'ng2-dnd';
     GetTerminalIngridientsService,
     GetTerminalSellsService,
     GetTerminalProductsService,
-    GetEventsStatsService
+    GetEventsStatsService,
+    MultiFilterEventsPipe,
+    EventsResolver,
+    EventsStatsResolver,
+    CollectionResolver,
+    IngredientsResolver
   ],
   exports: [DataTableModule, START_COMPONENT, ProdictIngredientsComponent, ReportLoggingComponent],
   entryComponents: [ProdictIngredientsComponent],

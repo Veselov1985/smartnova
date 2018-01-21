@@ -29,6 +29,11 @@ import {
 
 } from './terminals/terminal-item';
 
+import { EventsResolver } from '../shared/resolvers/events.resolver';
+import { EventsStatsResolver } from '../shared/resolvers/events-stats.resolver';
+import { CollectionResolver } from '../shared/resolvers/collection.resolver';
+import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
+
 const startRoutes: Routes = [
     {
       path: 'start',
@@ -43,30 +48,38 @@ const startRoutes: Routes = [
           component: TerminalsComponent,
         },
         {
-          path: 'terminal-item',
+          path: 'terminal-item/:terminalPk',
           component: TerminalItemComponent,
           children: [
             {
-              path: '',
-              component: SellsComponent,
-            },
-            {
               path: 'collection',
               component: CollectionComponent,
+              resolve: {
+                collection: CollectionResolver
+              }
             },
 
             {
               path: 'events',
               component: EventsComponent,
+              resolve: {
+                events: EventsResolver
+              }
             },
 
             {
               path: 'events/stats',
               component: EventsStatsComponent,
+              resolve: {
+                stats: EventsStatsResolver
+              }
             },
             {
               path: 'ingridients',
               component: IngridientsComponent,
+              resolve: {
+                ingredients: IngredientsResolver
+              }
             },
 
             {
@@ -78,7 +91,11 @@ const startRoutes: Routes = [
               path: 'sells',
               component: SellsComponent,
             },
-
+            {
+              path: '',
+              redirectTo: 'sells',
+              pathMatch: 'full'
+            }
           ]
         }
       ],
@@ -92,7 +109,7 @@ const startRoutes: Routes = [
       component: ProductsReportComponent,
     },
     {
-      path: 'start/terminal-item/ingridients/report',
+      path: 'start/terminal-item/ingridients/report/:Pk',
       component: IngridientsReportComponent,
     },
     {
@@ -100,7 +117,7 @@ const startRoutes: Routes = [
       component: EventsReportComponent,
     },
     {
-      path: 'start/terminal-item/collection/report',
+      path: 'start/terminal-item/collection/report/:Pk',
       component: CollectionReportComponent,
     },
     {

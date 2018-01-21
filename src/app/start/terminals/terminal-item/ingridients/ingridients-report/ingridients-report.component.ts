@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TItemIngridients, GetTerminalIngridientsService } from '../../../../../shared/index';
 
 @Component({
@@ -11,10 +12,10 @@ export class IngridientsReportComponent implements OnInit {
   multiFilter: any;
   date = new Date();
 
-  constructor(private serviceProd: GetTerminalIngridientsService) { }
+  constructor(private serviceProd: GetTerminalIngridientsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.serviceProd.getIngredients().subscribe(product => {
+    this.serviceProd.getIngredients(this.route.snapshot.params['Pk']).subscribe(product => {
       this.items = product.TerminalIngredients;
       return product;
     }, err => console.log(err));

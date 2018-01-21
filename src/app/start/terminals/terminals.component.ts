@@ -68,7 +68,7 @@ export class TerminalsComponent implements OnInit {
 
   goToProduct(item: any) {
     sessionStorage.setItem('ItemProduct', JSON.stringify(item));
-    this.router.navigate(['start/terminal-item/sells', { Item: JSON.stringify(item) }]);
+    this.router.navigate(['start/terminal-item', item.Pk]);
   }
 
   applyMultiFilter(multifilter) {

@@ -1,28 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GetTerminalEventsService } from '../../../../../shared/index';
-import { ShareDataService } from '../../../../../shared/services/common/share-data.service';
 
 @Component({
   selector: 'app-events-report',
   templateUrl: './events-report.component.html',
   styleUrls: ['./events-report.component.less']
 })
-export class EventsReportComponent implements OnInit {
-  events: any;
+export class EventsReportComponent implements OnInit, OnDestroy {
+  events = {
+    Operational: null,
+    System: null,
+    Uncertain: null,
+    Additional: null
+  };
   multiFilter: any;
   date = new Date();
-  constructor(private serviceProd: GetTerminalEventsService, private sharedData: ShareDataService) { }
+  constructor(private serviceProd: GetTerminalEventsService) { }
 
   ngOnInit() {
-    this.serviceProd.getEvents().subscribe(product => {
-      this.events = product.TerminalEvents;
-    }, err => console.log(err));
-
-    // setTimeout(() => {
-    //   this.events = this.sharedData.eventsData;
-    // }, 500);
-    // this.events = JSON.parse(sessionStorage.getItem('eventsData'));
-    // console.log(this.events);
+    this.events.Operational = JSON.parse(sessionStorage.getItem('operationalEvents'));
+    this.events.System = JSON.parse(sessionStorage.getItem('systemEvents'));
+    this.events.Uncertain = JSON.parse(sessionStorage.getItem('uncertainEvents'));
 
     const mFilter = sessionStorage.getItem('eventsMultiFilter');
     if (mFilter) {
@@ -30,4 +28,9 @@ export class EventsReportComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    sessionStorage.removeItem('operationalEvents');
+    sessionStorage.removeItem('systemEvents');
+    sessionStorage.removeItem('uncertainEvents');
+  }
 }

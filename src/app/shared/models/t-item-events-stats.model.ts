@@ -1,3 +1,5 @@
 export class TItemEventsStats {
-  private asd: string;
+  DateTime: string;
+  Name: string;
+  TotalNumber: number;
 }

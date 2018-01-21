@@ -10,4 +10,11 @@ export class AppComponent {
   public moment: Date = new Date();
   @HostBinding('class') public cssClass = 'sidebar-closed';
 
+  @HostListener('window:beforeunload', ['$event'])
+  clearAuthData($event) {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('UserPk');
+    localStorage.removeItem('TnPk');
+  }
+
 }

@@ -28,9 +28,9 @@ export class GetTerminalEventsService {
     });
   }
 
-  getEvents(): Observable<any> {
+  getEvents(Pk: string): Observable<any> {
     const serviseUrl = this.baseUrl + 'GetTerminalEvents';
-    return this.http.post(serviseUrl, JSON.stringify({ Pk: this.Pk }), { headers: this.headers })
+    return this.http.post(serviseUrl, JSON.stringify({ Pk: Pk }), { headers: this.headers })
       .map(response => response.json());
   }
 

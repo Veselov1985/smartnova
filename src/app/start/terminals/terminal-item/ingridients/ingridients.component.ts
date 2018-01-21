@@ -20,6 +20,7 @@ export class IngridientsComponent implements OnInit {
   @Input('configMode') configMode: boolean;
 
   public data: TItemIngridients[];
+  public productPk: string;
   public filterQuery = '';
   public rowsOnPage = 10;
   public sortBy = 'email';
@@ -49,17 +50,8 @@ export class IngridientsComponent implements OnInit {
 
 
   ngOnInit() {
-
-    // this.configMode.subscribe(() => console.log('yay!'));
-    this.serviceProd
-      .getIngredients()
-      .subscribe(product => {
-        this.data = product.TerminalIngredients;
-        return product;
-      },
-      err => {
-        console.log(err);
-      });
+    this.data = this.route.snapshot.data['ingredients'];
+    this.productPk = this.route.snapshot.parent.params['terminalPk'];
 
     const mFilter = sessionStorage.getItem('ingrMultiFilter');
     if (mFilter) {

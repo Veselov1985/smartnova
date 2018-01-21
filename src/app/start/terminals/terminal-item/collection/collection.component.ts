@@ -38,15 +38,8 @@ export class CollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serviceProd
-      .getTerminalCollection()
-      .subscribe(product => {
-        this.data = product.TerminalIncaso;
-        return product;
-      },
-      err => {
-        console.log(err);
-      });
+    this.data = this.route.snapshot.data['collection'];
+    this.productPk = this.route.snapshot.parent.params['terminalPk'];
 
     const mFilter = sessionStorage.getItem('collectMultiFilter');
     if (mFilter) {

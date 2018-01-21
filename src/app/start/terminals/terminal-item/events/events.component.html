@@ -13,16 +13,16 @@
     <div class="row">
       <div class="col-sm-12 col-xs-12 checkboxes-wrap">
         <ul class="checkbox-nesting">
-          <li [ngClass]="{'active': tab === 1 }" (click)="setTab(1, $event)" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Operational')">
+          <li [ngClass]="{'active': tab === 1 }" (click)="tab = 1" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Operational')">
             Операционные
           </li>
-          <li [ngClass]="{'active': tab === 2 }" (click)="setTab(2, $event)" *ngIf="!multiFilter || multiFilter.eventTypes.includes('System')">
+          <li [ngClass]="{'active': tab === 2 }" (click)="tab = 2" *ngIf="!multiFilter || multiFilter.eventTypes.includes('System')">
             Системные/аварии
           </li>
-          <li [ngClass]="{'active': tab === 3 }" (click)="setTab(3, $event)" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Uncertain')">
+          <li [ngClass]="{'active': tab === 3 }" (click)="tab = 3" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Uncertain')">
             Неопределенные
           </li>
-          <li [ngClass]="{'active': tab === 4 }" (click)="setTab(4, $event)" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Additional')">
+          <li [ngClass]="{'active': tab === 4 }" (click)="tab = 4" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Additional')">
             Дополнительные
           </li>
         </ul>
@@ -57,7 +57,7 @@
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Operational')">
-                <tr *ngFor="let item of operationalEv | multiFilterEvents : multiFilter">
+                <tr *ngFor="let item of events?.Operational | multiFilterEvents : multiFilter">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
@@ -94,7 +94,7 @@
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('System')">
-                <tr *ngFor="let item of systemEv | multiFilterEvents : multiFilter">
+                <tr *ngFor="let item of events?.System | multiFilterEvents : multiFilter">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
@@ -131,7 +131,7 @@
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Uncertain')">
-                <tr *ngFor="let item of uncertainEv | multiFilterEvents : multiFilter">
+                <tr *ngFor="let item of events?.Uncertain | multiFilterEvents : multiFilter">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
@@ -169,7 +169,7 @@
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Additional')">
-                <tr *ngFor="let item of uncertainEv">
+                <tr *ngFor="let item of events?.Additional">
                   <!-- <td>{{item.Name}}</td> -->
                   <td>Срабатывание сигнализации</td>
                   <td class="text-center">1</td>

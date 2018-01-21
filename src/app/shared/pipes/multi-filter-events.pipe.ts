@@ -12,7 +12,7 @@ export class MultiFilterEventsPipe implements PipeTransform {
     const regName = new RegExp(multifilter.name, 'i');
     const searchDateFrom = new Date(multifilter.dateSearchFrom);
     const searchDateTo = new Date(multifilter.dateSearchTo);
-    return Array.from(items).filter(item => {
+    return items.filter(item => {
       const date = new Date(item.DateTime);
       if (date < searchDateFrom && multifilter.dateSearchFrom) {
         return false;
