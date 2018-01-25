@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../app.component';
@@ -6,8 +6,8 @@ import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../shared';
 
 import { GetBarDataService, StorageBarData, StateUserpanelService, } from '../../../shared';
-
-
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-header-start',
@@ -15,7 +15,9 @@ import { GetBarDataService, StorageBarData, StateUserpanelService, } from '../..
   styleUrls: ['./header-start.component.less']
 })
 export class HeaderStartComponent implements OnInit {
+  @ViewChild('dropdownList') dropdownList: ElementRef;
   dropdownToggle = false;
+  dropdownSubscription: Subscription;
   isAuth: string;
   bardata: StorageBarData;
   signalReload = false;
@@ -27,18 +29,15 @@ export class HeaderStartComponent implements OnInit {
     private getBarDataServise: GetBarDataService,
     private router: Router,
     private StateUserpanel: StateUserpanelService,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.isAuth = localStorage.getItem('auth_token');
-    this.getBarDataServise.getBarData()
-      .subscribe((data) => {
-        if (data.IsSuccess) {
-          this.bardata = data;
-        }
-      });
+    this.getBarDataServise.getBarData().subscribe((data) => {
+      if (data.IsSuccess) {
+        this.bardata = data;
+      }
+    });
   }
 
   downloadEvents(ev: Event) {
@@ -48,7 +47,20 @@ export class HeaderStartComponent implements OnInit {
 
   dropdownMenu(ev: Event) {
     ev.preventDefault();
-    this.dropdownToggle = this.dropdownToggle ? false : true;
+    ev.stopImmediatePropagation();
+    this.dropdownToggle = !this.dropdownToggle;
+    if (this.dropdownToggle) {
+      this.dropdownSubscription = Observable.fromEvent(document, 'click').subscribe((event: Event) => {
+        if (!this.dropdownList.nativeElement.contains(event.target)) {
+          this.dropdownToggle = false;
+          this.dropdownSubscription.unsubscribe();
+        }
+      });
+    } else {
+      if (this.dropdownSubscription) {
+        this.dropdownSubscription.unsubscribe();
+      }
+    }
   }
   signalReloadToggle(ev: Event) {
     if (ev) {
@@ -66,11 +78,6 @@ export class HeaderStartComponent implements OnInit {
     this.StateUserpanel.setStateUserpanel(this.state);
 
     return false;
-  }
-
-  onClickedOutside(e: Event) {
-    console.log('Clicked outside:', e);
-    // this.dropdownToggle = false;
   }
 
   logOut(ev: Event) {

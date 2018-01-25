@@ -11,10 +11,10 @@ import * as _ from 'lodash';
                 <a class="page-link" style="cursor: pointer">В начало</a>
             </li>
             <li class="page-item" (click)="p.activePage > 5 ? p.setPage(p.activePage - 5) : p.setPage(1)">
-                <a class="page-link" style="cursor: pointer">&laquo;</a>
+                <a class="page-link" style="cursor: pointer; -webkit-user-select: none;">&laquo;</a>
             </li>
             <li class="page-item" (click)="p.activePage > 1 ? p.setPage(p.activePage - 1) : p.setPage(1)">
-                <a class="page-link" style="cursor: pointer">&lsaquo;</a>
+                <a class="page-link" style="cursor: pointer; -webkit-user-select: none;">&lsaquo;</a>
             </li>
             <li class="page-item" *ngIf="p.activePage > 2 && p.activePage + 1 > p.lastPage" (click)="p.setPage(p.activePage - 2)">
                 <a class="page-link" style="cursor: pointer">{{p.activePage-2}}</a>
@@ -32,10 +32,10 @@ import * as _ from 'lodash';
                 <a class="page-link" style="cursor: pointer">{{p.activePage+2}}</a>
             </li>
             <li class="page-item" (click)="p.activePage < p.lastPage ? p.setPage(p.activePage + 1) : p.setPage(p.lastPage)">
-                <a class="page-link" style="cursor: pointer">&rsaquo;</a>
+                <a class="page-link" style="cursor: pointer; -webkit-user-select: none;">&rsaquo;</a>
             </li>
             <li class="page-item" (click)="(p.activePage < p.lastPage - 4) ? p.setPage(p.activePage + 5) : p.setPage(p.lastPage)">
-                <a class="page-link" style="cursor: pointer">&raquo;</a>
+                <a class="page-link" style="cursor: pointer; -webkit-user-select: none;">&raquo;</a>
             </li>
             <li class="page-item" [class.disabled]="p.activePage >= p.lastPage" (click)="p.setPage(p.lastPage)">
                 <a class="page-link" style="cursor: pointer">В конец</a>
@@ -60,8 +60,4 @@ export class DataTablePaginatorComponent implements OnChanges {
             this.minRowsOnPage = _.min(this.rowsOnPageSet);
         }
     }
-
-    // setPage(page: number) {
-    //     this.mfTable
-    // }
 }

@@ -24,7 +24,7 @@
                 <ul class="icon-multifilter">
                   <li class="tooltip-wrap"><a href="#OpenMultifilter" class="fltr" [ngClass]="{filtered: filtered}" (click)="MultifilterState($event)"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
                   <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
-                  <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" [queryParams]="{pk: productPk}" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
+                  <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['/start/terminal-item/sells/report']" [queryParams]="{pk: productPk}" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                 </ul>
               </div>
               <div class="search-block col-xs-4">
