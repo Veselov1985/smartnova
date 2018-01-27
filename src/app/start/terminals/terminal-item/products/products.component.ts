@@ -15,6 +15,7 @@ import {
 } from '../../../../shared';
 
 import { ProdictIngredientsComponent } from './prodict-ingredients/prodict-ingredients.component';
+import { MultiFilterProductsPipe } from '../../../../shared/shared';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class ProductsComponent implements OnInit {
 
   multiFilter: any;
   filtered: boolean;
+  productsNumber: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,7 +49,8 @@ export class ProductsComponent implements OnInit {
     public dialog: MatDialog,
     private stateMultifilter: StateMultifilterService,
     private stateConfiguratorService: StateConfiguratorService,
-    private stateConfigModeService: StateConfigModeService
+    private stateConfigModeService: StateConfigModeService,
+    private filterPipe: MultiFilterProductsPipe
   ) {
     this.stateConfigMode = this.stateConfigModeService.getStateConfigMode();
     stateConfigModeService.changeConfigMode$.subscribe(
@@ -72,18 +75,14 @@ export class ProductsComponent implements OnInit {
     }
 
     this.productPk = Item.Pk || this.serviceProd.Pk;
-    this.serviceProd
-      .getTerminalProducts(this.productPk)
-      .subscribe(product => {
+    this.serviceProd.getTerminalProducts(this.productPk).subscribe(product => {
         if (product.IsSuccess) {
           this.data = product.TerminalGoods;
         } else {
           this.data = [];
         }
-      },
-      err => {
-        console.log(err);
-      });
+        this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
+      }, err => console.log(err));
   }
 
   MultifilterState(event: any) {
@@ -128,11 +127,13 @@ export class ProductsComponent implements OnInit {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
+    this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
   }
 
   clearMultiFilter() {
     this.multiFilter = null;
     sessionStorage.removeItem('productMultiFilter');
     this.filtered = false;
+    this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
   }
 }

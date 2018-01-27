@@ -9,6 +9,7 @@ import {
   StateConfiguratorService,
   StateConfigModeService
 } from '../../../../shared';
+import { MultiFilterIngredientsPipe } from '../../../../shared/shared';
 
 @Component({
   selector: 'app-ingridients',
@@ -33,6 +34,8 @@ export class IngridientsComponent implements OnInit {
   multiFilter: any;
   filtered: boolean;
 
+  ingrNumber: number;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -40,6 +43,7 @@ export class IngridientsComponent implements OnInit {
     private StateMultifilter: StateMultifilterService,
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
+    private filterPipe: MultiFilterIngredientsPipe
   ) {
     stateConfigModeService.changeConfigMode$.subscribe(
       stateConfigMode => {
@@ -58,9 +62,9 @@ export class IngridientsComponent implements OnInit {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
+
+    this.ingrNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
   }
-
-
 
   MultifilterState(event: any) {
     event.stopPropagation();
@@ -88,11 +92,13 @@ export class IngridientsComponent implements OnInit {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
+    this.ingrNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
   }
 
   clearMultiFilter() {
     this.multiFilter = null;
     sessionStorage.removeItem('ingrMultiFilter');
     this.filtered = false;
+    this.ingrNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
   }
 }

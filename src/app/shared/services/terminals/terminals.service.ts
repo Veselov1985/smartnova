@@ -36,7 +36,7 @@ export class GetTerminalsService {
   // }
 
   getTerminals() {
-    const Pk = localStorage.getItem('TnPk');
+    const Pk = sessionStorage.getItem('TnPk');
     const serviseUrl = this.baseUrl + 'GetTerminals';
     return this.http.post(serviseUrl, JSON.stringify({ Pk }), { headers: this.headers })
       .map(response => response.json());

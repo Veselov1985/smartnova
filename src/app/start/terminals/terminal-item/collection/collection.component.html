@@ -1,7 +1,7 @@
 <app-collection-multifilter (collectMultiFilter)="applyMultiFilter($event)"></app-collection-multifilter> 
 <div class="col-sm-12">
   <div class="top-panel-min">
-    Сумма инкасированных: 1247,23 &nbsp;&nbsp;&nbsp; Сумма выданых: 104,12 &nbsp;&nbsp;&nbsp; Сумма добавленых: 511,55
+    Сумма инкасированных: {{sumCollection}} &nbsp;&nbsp;&nbsp; Сумма выданых: {{sumGivenChange}} &nbsp;&nbsp;&nbsp; Сумма добавленых: {{sumFundChange}}
   </div>
 </div>
 <div class="col-xs-12 col-sm-12">
@@ -59,8 +59,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of mf.data">
-          <td class="text-center">{{item.DateTime| dateTime: 'date'}}</td>
-          <td class="text-center">{{item.DateTime| dateTime: 'time'}}</td>
+          <td class="text-center">{{item.DateTime | dateTime: 'date'}}</td>
+          <td class="text-center">{{item.DateTime | dateTime: 'time'}}</td>
           <td class="text-center">{{item.Collection}}</td>
           <td class="text-center">{{item.GivenChange}}</td>
           <td class="text-center">{{item.FundChange}}</td>

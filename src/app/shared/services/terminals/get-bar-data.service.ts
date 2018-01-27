@@ -34,7 +34,7 @@ export class GetBarDataService {
   }
 
   getBarData() {
-    const Pk = localStorage.getItem('TnPk');
+    const Pk = sessionStorage.getItem('TnPk');
     const serviseUrl = this.baseUrl + 'GetBarData';
     return this.http
     .post(serviseUrl, JSON.stringify({Pk}), { headers: this.headers })

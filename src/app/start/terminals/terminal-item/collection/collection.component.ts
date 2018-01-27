@@ -9,6 +9,7 @@ import {
 } from '../../../../shared';
 
 import { CollectionMultifilterComponent } from './collection-multifilter/collection-multifilter.component';
+import { MultiFilterCollectPipe } from '../../../../shared/shared';
 
 @Component({
   selector: 'app-collection',
@@ -30,12 +31,17 @@ export class CollectionComponent implements OnInit {
   multiFilter: any;
   filtered: boolean;
 
+  sumCollection: number;
+  sumGivenChange: number;
+  sumFundChange: number;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private serviceProd: GetTerminalCollectionService,
-    private StateMultifilter: StateMultifilterService, ) {
-  }
+    private StateMultifilter: StateMultifilterService,
+    private filterPipe: MultiFilterCollectPipe
+  ) {}
 
   ngOnInit() {
     this.data = this.route.snapshot.data['collection'];
@@ -46,6 +52,8 @@ export class CollectionComponent implements OnInit {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
+
+    this.countAggregatedData();
   }
 
   MultifilterState(event: any) {
@@ -63,11 +71,25 @@ export class CollectionComponent implements OnInit {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
+    this.countAggregatedData();
   }
 
   clearMultiFilter() {
     this.multiFilter = null;
     sessionStorage.removeItem('collectMultiFilter');
     this.filtered = false;
+    this.countAggregatedData();
+  }
+
+  countAggregatedData() {
+    this.sumCollection = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+      return sum + current.Collection;
+    }, 0);
+    this.sumGivenChange = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+      return sum + current.GivenChange;
+    }, 0);
+    this.sumFundChange = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+      return sum + current.FundChange;
+    }, 0);
   }
 }

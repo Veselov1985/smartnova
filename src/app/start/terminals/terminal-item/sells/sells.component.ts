@@ -7,6 +7,7 @@ import {
   TItemSells,
   StateMultifilterService,
 } from '../../../../shared';
+import { MultiFilterSellsPipe } from '../../../../shared/shared';
 
 
 
@@ -35,6 +36,7 @@ export class SellsComponent implements OnInit {
     private router: Router,
     private serviceProd: GetTerminalSellsService,
     private StateMultifilter: StateMultifilterService,
+    private filterPipe: MultiFilterSellsPipe
   ) { }
 
   ngOnInit() {
@@ -46,26 +48,21 @@ export class SellsComponent implements OnInit {
     } else {
       Item = JSON.parse(sessionStorage.getItem('ItemProduct'));
     }
-    this.productPk = Item.Pk || this.serviceProd.Pk;
-    this.serviceProd
-      .getSell(this.productPk)
-      .subscribe(product => {
-        this.data = product.TerminalSales;
-        sessionStorage.setItem('key', 'value');
-        this.totalSum = this.data.reduce((sum, current) => {
-          return sum + current.SoldSum;
-        }, 0);
-        return product;
-      },
-      err => {
-        console.log(err);
-      });
 
     const mFilter = sessionStorage.getItem('sellsMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
+
+    this.productPk = Item.Pk || this.serviceProd.Pk;
+    this.serviceProd.getSell(this.productPk).subscribe(product => {
+        this.data = product.TerminalSales;
+        this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+          return sum + current.SoldSum;
+        }, 0);
+        return product;
+      }, err => console.log(err));
   }
 
   toInt(num: string) {
@@ -87,11 +84,17 @@ export class SellsComponent implements OnInit {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
+    this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+      return sum + current.SoldSum;
+    }, 0);
   }
 
   clearMultiFilter() {
     this.multiFilter = null;
     sessionStorage.removeItem('sellsMultiFilter');
     this.filtered = false;
+    this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+      return sum + current.SoldSum;
+    }, 0);
   }
 }

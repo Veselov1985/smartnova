@@ -17,7 +17,7 @@ export class AuthService {
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: Http, private router: Router) {
-    if (!!localStorage.getItem('auth_token')) {
+    if (!!sessionStorage.getItem('auth_token')) {
       this.isLoggedIn.next(true);
     }
   }
@@ -29,9 +29,9 @@ export class AuthService {
       .map(res => res.json())
       .map(res => {
         if (res.IsSuccess) {
-          localStorage.setItem('auth_token', 'true');
-          localStorage.setItem('UserPk', res.UserPk);
-          localStorage.setItem('TnPk', res.TnPk);
+          sessionStorage.setItem('auth_token', 'true');
+          sessionStorage.setItem('UserPk', res.UserPk);
+          sessionStorage.setItem('TnPk', res.TnPk);
           this.loggedIn = true;
           this.isLoggedIn.next(true);
         }
@@ -46,9 +46,9 @@ export class AuthService {
       .map(res => res.json())
       .map(res => {
         if (res.IsSuccess) {
-          localStorage.removeItem('auth_token');
-          localStorage.removeItem('UserPk');
-          localStorage.removeItem('TnPk');
+          sessionStorage.removeItem('auth_token');
+          sessionStorage.removeItem('UserPk');
+          sessionStorage.removeItem('TnPk');
           this.loggedIn = false;
           this.isLoggedIn.next(false);
           this.router.navigate(['/']);
@@ -71,11 +71,11 @@ export class AuthService {
       .map(res => res.json())
       .map(res => {
         if (res.Authenticated) {
-          localStorage.setItem('auth_token', 'true');
+          sessionStorage.setItem('auth_token', 'true');
           this.loggedIn = true;
           this.isLoggedIn.next(true);
         } else {
-          localStorage.removeItem('auth_token');
+          sessionStorage.removeItem('auth_token');
           this.loggedIn = false;
           this.isLoggedIn.next(false);
         }

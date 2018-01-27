@@ -10,7 +10,14 @@ import { StartRoutingModule, StartComponent } from './start';
 
 // import { START_LAYOUT_COMPONENT } from './layout/layout';
 import { START_COMPONENT } from './start';
-import { DataFilterPipe, MultiFilterEventsPipe } from '../shared/shared';
+import {
+  DataFilterPipe,
+  MultiFilterEventsPipe,
+  MultiFilterSellsPipe,
+  MultiFilterProductsPipe,
+  MultiFilterCollectPipe,
+  MultiFilterIngredientsPipe
+} from '../shared/shared';
 
 import { SharedModule } from '../shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
@@ -78,6 +85,10 @@ import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
     GetTerminalProductsService,
     GetEventsStatsService,
     MultiFilterEventsPipe,
+    MultiFilterSellsPipe,
+    MultiFilterProductsPipe,
+    MultiFilterCollectPipe,
+    MultiFilterIngredientsPipe,
     EventsResolver,
     EventsStatsResolver,
     CollectionResolver,

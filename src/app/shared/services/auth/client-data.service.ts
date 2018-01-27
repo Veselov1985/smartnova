@@ -19,7 +19,7 @@ export class ClientDataService {
    }
 
   getClientData() {
-    const Pk = localStorage.getItem('UserPk');
+    const Pk = sessionStorage.getItem('UserPk');
     const serviseUrl = this.baseUrl + 'GetClientData';
     return this.http.post(serviseUrl, JSON.stringify({ Pk }), { headers: this.headers })
       .map(response => response.json());

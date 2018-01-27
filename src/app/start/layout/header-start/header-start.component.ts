@@ -32,7 +32,7 @@ export class HeaderStartComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isAuth = localStorage.getItem('auth_token');
+    this.isAuth = sessionStorage.getItem('auth_token');
     this.getBarDataServise.getBarData().subscribe((data) => {
       if (data.IsSuccess) {
         this.bardata = data;

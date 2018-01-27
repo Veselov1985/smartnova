@@ -34,7 +34,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   multiFilter: any;
   filtered: boolean;
-  notViewed = 0;
+  notViewed: number;
   events: any;
 
   private headers = new Headers({
@@ -57,21 +57,14 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.events = this.route.snapshot.data['events'];
-    if (this.events) {
-      for (const key of Object.keys(this.events)) {
-        this.events[key].forEach((item: any) => {
-          if (item.Viewed === false) {
-            this.notViewed += 1;
-          }
-        });
-      }
-    }
 
     const mFilter = sessionStorage.getItem('eventsMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
+
+    this.countNotViewedEvents();
   }
 
   MultifilterState(event: any): void {
@@ -94,7 +87,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   setEventViewed(item: TItemEvent, group: string) {
     if (!item.Viewed) {
-      if (!!localStorage.getItem('auth_token')) {
+      if (!!sessionStorage.getItem('auth_token')) {
         this.serviceProd
           .setEventAsViewed(item.Pk)
           .subscribe(res => {
@@ -117,12 +110,16 @@ export class EventsComponent implements OnInit, OnDestroy {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
+
+    this.countNotViewedEvents();
   }
 
   clearMultiFilter() {
     this.multiFilter = null;
     sessionStorage.removeItem('eventsMultiFilter');
     this.filtered = false;
+
+    this.countNotViewedEvents();
   }
 
   openMultifilter(ev: any, tabindex: any): any {
@@ -140,5 +137,20 @@ export class EventsComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem('operationalEvents');
     sessionStorage.removeItem('systemEvents');
     sessionStorage.removeItem('uncertainEvents');
+  }
+
+  countNotViewedEvents() {
+    if (this.events) {
+      this.notViewed = 0;
+      for (const key of Object.keys(this.events)) {
+        if (!this.multiFilter || this.multiFilter.eventTypes.indexOf(key) !== -1) {
+          this.filterPipe.transform(this.events[key], this.multiFilter).forEach((item: any) => {
+            if (item.Viewed === false) {
+              this.notViewed += 1;
+            }
+          });
+        }
+      }
+    }
   }
 }

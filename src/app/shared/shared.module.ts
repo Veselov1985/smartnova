@@ -33,6 +33,4 @@ import { DataTablePaginatorComponent } from './components/data-table-paginator';
     DataTablePaginatorComponent
   ]
 })
-export class SharedModule {
-
-}
+export class SharedModule {}
