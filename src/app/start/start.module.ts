@@ -48,6 +48,7 @@ import { EventsResolver } from '../shared/resolvers/events.resolver';
 import { EventsStatsResolver } from './../shared/resolvers/events-stats.resolver';
 import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
 import { SettingsService } from './../shared/services/common/settings.service';
+import { SignalRResolver } from '../shared/resolvers/signalR.resolver';
 
 @NgModule({
   imports: [
@@ -94,7 +95,8 @@ import { SettingsService } from './../shared/services/common/settings.service';
     EventsStatsResolver,
     CollectionResolver,
     IngredientsResolver,
-    SettingsService
+    SettingsService,
+    SignalRResolver
   ],
   exports: [DataTableModule, START_COMPONENT, ProdictIngredientsComponent, ReportLoggingComponent],
   entryComponents: [ProdictIngredientsComponent],
