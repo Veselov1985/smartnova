@@ -1,3 +1,4 @@
+import { SettingsService } from './shared/services/common/settings.service';
 import { Component, HostBinding, HostListener } from '@angular/core';
 
 @Component({
@@ -8,13 +9,14 @@ import { Component, HostBinding, HostListener } from '@angular/core';
 export class AppComponent {
   title = 'Smartnova';
   public moment: Date = new Date();
+
+  constructor(private settingsService: SettingsService) {}
+
   @HostBinding('class') public cssClass = 'sidebar-closed';
 
-  // @HostListener('window:onunload', ['$event'])
-  // clearAuthData($event) {
-  //   localStorage.removeItem('auth_token');
-  //   localStorage.removeItem('UserPk');
-  //   localStorage.removeItem('TnPk');
-  // }
+  @HostListener('window:beforeunload', ['$event'])
+  saveSettings($event) {
+    sessionStorage.setItem('settings', JSON.stringify(this.settingsService.settings));
+  }
 
 }

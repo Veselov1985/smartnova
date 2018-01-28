@@ -16,6 +16,7 @@ import {
 
 import { ProdictIngredientsComponent } from './prodict-ingredients/prodict-ingredients.component';
 import { MultiFilterProductsPipe } from '../../../../shared/shared';
+import { SettingsService } from './../../../../shared/services/common/settings.service';
 
 
 @Component({
@@ -28,8 +29,8 @@ export class ProductsComponent implements OnInit {
   public data: TItemProducts[] = [];
   public filterQuery = '';
   public rowsOnPage = 10;
-  public sortBy = 'Id';
-  public sortOrder = 'asc';
+  public sortBy: string;
+  public sortOrder: string;
 
   productPk: string;
   public state: string;
@@ -50,7 +51,8 @@ export class ProductsComponent implements OnInit {
     private stateMultifilter: StateMultifilterService,
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
-    private filterPipe: MultiFilterProductsPipe
+    private filterPipe: MultiFilterProductsPipe,
+    private settingsService: SettingsService
   ) {
     this.stateConfigMode = this.stateConfigModeService.getStateConfigMode();
     stateConfigModeService.changeConfigMode$.subscribe(
@@ -83,6 +85,11 @@ export class ProductsComponent implements OnInit {
         }
         this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
       }, err => console.log(err));
+
+    if (this.settingsService.settings) {
+      this.sortBy = this.settingsService.settings.products.sortBy || 'Id';
+      this.sortOrder = this.settingsService.settings.products.sortOrder || 'asc';
+    }
   }
 
   MultifilterState(event: any) {
@@ -136,4 +143,13 @@ export class ProductsComponent implements OnInit {
     this.filtered = false;
     this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
   }
+
+  onChangeSort(sortBy: string) {
+    this.settingsService.settings.products.sortBy = sortBy;
+  }
+
+  onChangeSortOrder(sortOrder: string) {
+    this.settingsService.settings.products.sortOrder = sortOrder;
+  }
+
 }

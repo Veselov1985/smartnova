@@ -8,6 +8,7 @@ import {
   StorageTerminalsData,
   StateMultifilterService,
 } from '../../shared';
+import { SettingsService } from '../../shared/services/common/settings.service';
 
 @Component({
   selector: 'app-terminals',
@@ -20,8 +21,8 @@ export class TerminalsComponent implements OnInit {
   // @Input() data: any;
   public filterQuery = '';
   public rowsOnPage = 10;
-  public sortBy = 'email';
-  public sortOrder = 'asc';
+  public sortBy: string;
+  public sortOrder: string;
 
   public data: StorageTerminalsData;
   public state: string;
@@ -33,6 +34,7 @@ export class TerminalsComponent implements OnInit {
     private router: Router,
     private getTerminalsService: GetTerminalsService,
     private StateMultifilter: StateMultifilterService,
+    private settingsService: SettingsService
   ) { }
 
 
@@ -47,6 +49,11 @@ export class TerminalsComponent implements OnInit {
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
+    }
+
+    if (this.settingsService.settings) {
+      this.sortBy = this.settingsService.settings.terminals.sortBy || 'Id';
+      this.sortOrder = this.settingsService.settings.terminals.sortOrder || 'asc';
     }
   }
 
@@ -80,6 +87,14 @@ export class TerminalsComponent implements OnInit {
     this.multiFilter = null;
     sessionStorage.removeItem('terminalsMultiFilter');
     this.filtered = false;
+  }
+
+  onChangeSort(sortBy: string) {
+    this.settingsService.settings.terminals.sortBy = sortBy;
+  }
+
+  onChangeSortOrder(sortOrder: string) {
+    this.settingsService.settings.terminals.sortOrder = sortOrder;
   }
 }
 

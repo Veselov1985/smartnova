@@ -10,6 +10,7 @@ import {
 
 import { CollectionMultifilterComponent } from './collection-multifilter/collection-multifilter.component';
 import { MultiFilterCollectPipe } from '../../../../shared/shared';
+import { SettingsService } from '../../../../shared/services/common/settings.service';
 
 @Component({
   selector: 'app-collection',
@@ -23,8 +24,8 @@ export class CollectionComponent implements OnInit {
   productPk: string;
   public filterQuery = '';
   public rowsOnPage = 10;
-  public sortBy = 'DateTime';
-  public sortOrder = 'desc';
+  public sortBy: string;
+  public sortOrder: string;
 
   public state: string;
 
@@ -40,7 +41,8 @@ export class CollectionComponent implements OnInit {
     private router: Router,
     private serviceProd: GetTerminalCollectionService,
     private StateMultifilter: StateMultifilterService,
-    private filterPipe: MultiFilterCollectPipe
+    private filterPipe: MultiFilterCollectPipe,
+    private settingsService: SettingsService
   ) {}
 
   ngOnInit() {
@@ -54,6 +56,11 @@ export class CollectionComponent implements OnInit {
     }
 
     this.countAggregatedData();
+
+    if (this.settingsService.settings) {
+      this.sortBy = this.settingsService.settings.collection.sortBy || 'DateTime';
+      this.sortOrder = this.settingsService.settings.collection.sortOrder || 'desc';
+    }
   }
 
   MultifilterState(event: any) {
@@ -91,5 +98,13 @@ export class CollectionComponent implements OnInit {
     this.sumFundChange = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
       return sum + current.FundChange;
     }, 0);
+  }
+
+  onChangeSort(sortBy: string) {
+    this.settingsService.settings.collection.sortBy = sortBy;
+  }
+
+  onChangeSortOrder(sortOrder: string) {
+    this.settingsService.settings.collection.sortOrder = sortOrder;
   }
 }

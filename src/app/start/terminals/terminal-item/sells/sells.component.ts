@@ -8,8 +8,7 @@ import {
   StateMultifilterService,
 } from '../../../../shared';
 import { MultiFilterSellsPipe } from '../../../../shared/shared';
-
-
+import { SettingsService } from '../../../../shared/services/common/settings.service';
 
 @Component({
   selector: 'app-sells',
@@ -23,8 +22,8 @@ export class SellsComponent implements OnInit {
   productPk: string;
   public filterQuery = '';
   public rowsOnPage = 10;
-  public sortBy = 'DateTime';
-  public sortOrder = 'desc';
+  public sortBy: string;
+  public sortOrder: string;
   public state: string;
 
   multiFilter: any;
@@ -36,7 +35,8 @@ export class SellsComponent implements OnInit {
     private router: Router,
     private serviceProd: GetTerminalSellsService,
     private StateMultifilter: StateMultifilterService,
-    private filterPipe: MultiFilterSellsPipe
+    private filterPipe: MultiFilterSellsPipe,
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit() {
@@ -63,6 +63,11 @@ export class SellsComponent implements OnInit {
         }, 0);
         return product;
       }, err => console.log(err));
+
+    if (this.settingsService.settings) {
+      this.sortBy = this.settingsService.settings.sells.sortBy || 'DateTime';
+      this.sortOrder = this.settingsService.settings.sells.sortOrder || 'desc';
+    }
   }
 
   toInt(num: string) {
@@ -96,5 +101,13 @@ export class SellsComponent implements OnInit {
     this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
       return sum + current.SoldSum;
     }, 0);
+  }
+
+  onChangeSort(sortBy: string) {
+    this.settingsService.settings.sells.sortBy = sortBy;
+  }
+
+  onChangeSortOrder(sortOrder: string) {
+    this.settingsService.settings.sells.sortOrder = sortOrder;
   }
 }

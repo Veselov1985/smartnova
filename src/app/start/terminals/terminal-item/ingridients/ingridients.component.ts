@@ -10,6 +10,7 @@ import {
   StateConfigModeService
 } from '../../../../shared';
 import { MultiFilterIngredientsPipe } from '../../../../shared/shared';
+import { SettingsService } from '../../../../shared/services/common/settings.service';
 
 @Component({
   selector: 'app-ingridients',
@@ -24,8 +25,8 @@ export class IngridientsComponent implements OnInit {
   public productPk: string;
   public filterQuery = '';
   public rowsOnPage = 10;
-  public sortBy = 'email';
-  public sortOrder = 'asc';
+  public sortBy: string;
+  public sortOrder: string;
   public state: string;
   public stateConfig: string;
   public stateConfigMode: string;
@@ -43,7 +44,8 @@ export class IngridientsComponent implements OnInit {
     private StateMultifilter: StateMultifilterService,
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
-    private filterPipe: MultiFilterIngredientsPipe
+    private filterPipe: MultiFilterIngredientsPipe,
+    private settingsService: SettingsService
   ) {
     stateConfigModeService.changeConfigMode$.subscribe(
       stateConfigMode => {
@@ -64,6 +66,11 @@ export class IngridientsComponent implements OnInit {
     }
 
     this.ingrNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
+
+    if (this.settingsService.settings) {
+      this.sortBy = this.settingsService.settings.ingredients.sortBy || 'Pid';
+      this.sortOrder = this.settingsService.settings.ingredients.sortOrder || 'asc';
+    }
   }
 
   MultifilterState(event: any) {
@@ -100,5 +107,13 @@ export class IngridientsComponent implements OnInit {
     sessionStorage.removeItem('ingrMultiFilter');
     this.filtered = false;
     this.ingrNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
+  }
+
+  onChangeSort(sortBy: string) {
+    this.settingsService.settings.ingredients.sortBy = sortBy;
+  }
+
+  onChangeSortOrder(sortOrder: string) {
+    this.settingsService.settings.ingredients.sortOrder = sortOrder;
   }
 }

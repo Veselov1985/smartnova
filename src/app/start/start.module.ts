@@ -47,6 +47,7 @@ import { CollectionResolver } from './../shared/resolvers/collection.resolver';
 import { EventsResolver } from '../shared/resolvers/events.resolver';
 import { EventsStatsResolver } from './../shared/resolvers/events-stats.resolver';
 import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
+import { SettingsService } from './../shared/services/common/settings.service';
 
 @NgModule({
   imports: [
@@ -92,7 +93,8 @@ import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
     EventsResolver,
     EventsStatsResolver,
     CollectionResolver,
-    IngredientsResolver
+    IngredientsResolver,
+    SettingsService
   ],
   exports: [DataTableModule, START_COMPONENT, ProdictIngredientsComponent, ReportLoggingComponent],
   entryComponents: [ProdictIngredientsComponent],
