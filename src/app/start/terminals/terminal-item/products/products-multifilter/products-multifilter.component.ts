@@ -27,6 +27,14 @@ export class ProductsMultifilterComponent implements OnInit {
   @Output() productsMultiFilter = new EventEmitter();
   id: string;
 
+  filterForm = [
+    {id: 'Id', name: 'ID', type: 'single', pattern: '^[A-Za-z0-9]+$'},
+    {id: 'Name', name: 'Наименование', type: 'single', pattern: null},
+    {id: 'BaseSum', name: 'Базовая цена', type: 'multi', pattern: null},
+    {id: 'SoldNumber', name: 'Количество проданных', type: 'multi', pattern: null},
+    {id: 'SoldSum', name: 'Сумма проданных', type: 'multi', pattern: null},
+  ];
+
   public state = 'inactive';
 
   constructor(private StateMultifilter: StateMultifilterService) {
@@ -50,6 +58,12 @@ export class ProductsMultifilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const sort = JSON.parse(sessionStorage.getItem('productsSortOrder'));
+    if (sort) {
+      this.filterForm.sort((a, b) => {
+        return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
+      });
+    }
   }
 
   checkFilter(form: NgForm) {
@@ -62,5 +76,9 @@ export class ProductsMultifilterComponent implements OnInit {
   MultifilterState() {
       this.state = this.state === 'active' ? 'inactive' : 'active';
       this.StateMultifilter.setStateMultifilter(this.state);
+  }
+
+  onSort() {
+    sessionStorage.setItem('productsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
   }
 }

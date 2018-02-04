@@ -9,8 +9,8 @@ export class MultiFilterIngredientsPipe implements PipeTransform {
     if (!items || !multifilter) {
       return items;
     }
-    const regId = new RegExp(multifilter.id, 'i');
-    const regName = new RegExp(multifilter.name, 'i');
+    const regId = new RegExp(multifilter.Pid, 'i');
+    const regName = new RegExp(multifilter.Name, 'i');
     return items.filter(item => {
       if (!regId.test(item.Pid)) {
         return false;
@@ -19,31 +19,31 @@ export class MultiFilterIngredientsPipe implements PipeTransform {
         return false;
       }
       const issuance = +item.IssuanceVol.slice(0, item.IssuanceVol.indexOf(' '));
-      if (issuance < multifilter.issuanceVolFrom && multifilter.issuanceVolFrom) {
+      if (issuance < multifilter.IssuanceVolFrom && multifilter.IssuanceVolFrom) {
         return false;
       }
-      if (issuance > multifilter.issuanceVolTo && multifilter.issuanceVolTo) {
+      if (issuance > multifilter.IssuanceVolTo && multifilter.IssuanceVolTo) {
         return false;
       }
       const download = +item.DownloadVol.slice(0, item.DownloadVol.indexOf(' '));
-      if (download < multifilter.downloadVolFrom && multifilter.downloadVolFrom) {
+      if (download < multifilter.DownloadVolFrom && multifilter.DownloadVolFrom) {
         return false;
       }
-      if (download > multifilter.downloadVolTo && multifilter.downloadVolTo) {
+      if (download > multifilter.DownloadVolTo && multifilter.DownloadVolTo) {
         return false;
       }
       const curVol = +item.CurrentVol.slice(0, item.CurrentVol.indexOf(' '));
-      if (curVol < multifilter.currentVolFrom && multifilter.currentVolFrom) {
+      if (curVol < multifilter.CurrentVolFrom && multifilter.CurrentVolFrom) {
         return false;
       }
-      if (curVol > multifilter.currentVolTo && multifilter.currentVolTo) {
+      if (curVol > multifilter.CurrentVolTo && multifilter.CurrentVolTo) {
         return false;
       }
       const threshold = +item.Threshold.slice(0, item.Threshold.indexOf(' '));
-      if (threshold < multifilter.thresholdFrom && multifilter.thresholdFrom) {
+      if (threshold < multifilter.ThresholdFrom && multifilter.ThresholdFrom) {
         return false;
       }
-      if (threshold > multifilter.thresholdTo && multifilter.thresholdTo) {
+      if (threshold > multifilter.ThresholdTo && multifilter.ThresholdTo) {
         return false;
       }
       return true;

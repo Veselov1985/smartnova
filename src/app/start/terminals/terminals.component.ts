@@ -51,7 +51,10 @@ export class TerminalsComponent implements OnInit {
       this.filtered = true;
     }
 
-    if (this.settingsService.settings) {
+    if (mFilter && sessionStorage.getItem('terminalsSortOrder')) {
+      this.sortBy = JSON.parse(sessionStorage.getItem('terminalsSortOrder'));
+      this.sortOrder = 'asc';
+    } else if (this.settingsService.settings) {
       this.sortBy = this.settingsService.settings.terminals.sortBy || 'Id';
       this.sortOrder = this.settingsService.settings.terminals.sortOrder || 'asc';
     }
@@ -81,6 +84,8 @@ export class TerminalsComponent implements OnInit {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
+    this.sortBy = JSON.parse(sessionStorage.getItem('terminalsSortOrder'));
+    this.sortOrder = 'asc';
   }
 
   clearMultiFilter() {

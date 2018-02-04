@@ -9,9 +9,9 @@ export class MultiFilterTerminalsPipe implements PipeTransform {
     if (!items || !multifilter) {
       return items;
     }
-    const regId = new RegExp(multifilter.eid, 'i');
-    const regName = new RegExp(multifilter.name, 'i');
-    const regAddress = new RegExp(multifilter.address, 'i');
+    const regId = new RegExp(multifilter.Id, 'i');
+    const regName = new RegExp(multifilter.Name, 'i');
+    const regAddress = new RegExp(multifilter.Address, 'i');
     return items.filter(item => {
       if (!regId.test(item.Id)) {
         return false;
@@ -22,25 +22,25 @@ export class MultiFilterTerminalsPipe implements PipeTransform {
       if (!regAddress.test(item.Address)) {
         return false;
       }
-      if (multifilter.connection !== null && multifilter.connection !== item.Connection) {
+      if (multifilter.Connection !== null && multifilter.Connection !== item.Connection) {
         return false;
       }
-      if (multifilter.service !== null && multifilter.service !== item.Service) {
+      if (multifilter.Service !== null && multifilter.Service !== item.Service) {
         return false;
       }
-      if (multifilter.failure !== null && multifilter.failure !== item.Failure) {
+      if (multifilter.Failure !== null && multifilter.Failure !== item.Failure) {
         return false;
       }
-      if (item.SalesSum < multifilter.salesSumFrom && multifilter.salesSumFrom) {
+      if (item.SalesSum < multifilter.SalesSumFrom && multifilter.SalesSumFrom) {
         return false;
       }
-      if (item.SalesSum > multifilter.salesSumTo && multifilter.salesSumTo) {
+      if (item.SalesSum > multifilter.SalesSumTo && multifilter.SalesSumTo) {
         return false;
       }
-      if (item.CollectSum < multifilter.collectSumFrom && multifilter.collectSumFrom) {
+      if (item.CollectSum < multifilter.CollectSumFrom && multifilter.CollectSumFrom) {
         return false;
       }
-      if (item.CollectSum > multifilter.collectSumTo && multifilter.collectSumTo) {
+      if (item.CollectSum > multifilter.CollectSumTo && multifilter.CollectSumTo) {
         return false;
       }
       return true;

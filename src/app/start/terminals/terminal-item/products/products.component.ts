@@ -86,7 +86,10 @@ export class ProductsComponent implements OnInit {
         this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
       }, err => console.log(err));
 
-    if (this.settingsService.settings) {
+    if (mFilter && sessionStorage.getItem('productsSortOrder')) {
+      this.sortBy = JSON.parse(sessionStorage.getItem('productsSortOrder'));
+      this.sortOrder = 'asc';
+    } else if (this.settingsService.settings) {
       this.sortBy = this.settingsService.settings.products.sortBy || 'Id';
       this.sortOrder = this.settingsService.settings.products.sortOrder || 'asc';
     }
@@ -135,6 +138,8 @@ export class ProductsComponent implements OnInit {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
     this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
+    this.sortBy = JSON.parse(sessionStorage.getItem('productsSortOrder'));
+    this.sortOrder = 'asc';
   }
 
   clearMultiFilter() {

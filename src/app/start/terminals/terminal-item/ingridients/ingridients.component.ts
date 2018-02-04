@@ -67,7 +67,10 @@ export class IngridientsComponent implements OnInit {
 
     this.ingrNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
 
-    if (this.settingsService.settings) {
+    if (mFilter && sessionStorage.getItem('ingredientsSortOrder')) {
+      this.sortBy = JSON.parse(sessionStorage.getItem('ingredientsSortOrder'));
+      this.sortOrder = 'asc';
+    } else if (this.settingsService.settings) {
       this.sortBy = this.settingsService.settings.ingredients.sortBy || 'Pid';
       this.sortOrder = this.settingsService.settings.ingredients.sortOrder || 'asc';
     }
@@ -100,6 +103,8 @@ export class IngridientsComponent implements OnInit {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
     this.ingrNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
+    this.sortBy = JSON.parse(sessionStorage.getItem('ingredientsSortOrder'));
+    this.sortOrder = 'asc';
   }
 
   clearMultiFilter() {

@@ -23,30 +23,25 @@ export class TerminalsMultifilterComponent implements OnInit {
   @Output() terminalsMultiFilter = new EventEmitter();
   public state = 'inactive';
 
-  // temp data
-
-  public thisMultifilterForm: Array<string> = [
-    '111',
-    '222',
-    '333',
-    '444',
-    '555',
-    '666',
-    '777',
-    '888',
+  filterForm = [
+    {id: 'Id', name: 'EID', type: 'single'},
+    {id: 'Name', name: 'Наименование', type: 'single'},
+    {id: 'Connection', name: 'Связь', type: 'checkbox'},
+    {id: 'Address', name: 'Адрес', type: 'single'},
+    {id: 'SalesSum', name: 'Сумма продаж', type: 'multi'},
+    {id: 'CollectSum', name: 'Сумма инкассации', type: 'multi'},
+    {id: 'Service', name: 'Обслуживание', type: 'checkbox'},
+    {id: 'Failure', name: 'Аварии', type: 'checkbox'},
   ];
 
-  // temp data
-  connection = null;
-  service = null;
-  failure = null;
+  checkboxes = {
+    Connection: null,
+    Service: null,
+    Failure: null
+  };
 
   constructor(private StateMultifilter: StateMultifilterService) {
-    StateMultifilter.stateChange$.subscribe(
-      state => {
-        this.state = state;
-      }
-    );
+    StateMultifilter.stateChange$.subscribe(stateConfig => this.state = stateConfig);
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -57,6 +52,12 @@ export class TerminalsMultifilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const sort = JSON.parse(sessionStorage.getItem('terminalsSortOrder'));
+    if (sort) {
+      this.filterForm.sort((a, b) => {
+        return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
+      });
+    }
   }
 
   checkFilter(form: NgForm) {
@@ -70,6 +71,10 @@ export class TerminalsMultifilterComponent implements OnInit {
   MultifilterState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateMultifilter.setStateMultifilter(this.state);
+  }
+
+  onSort() {
+    sessionStorage.setItem('terminalsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
   }
 }
 

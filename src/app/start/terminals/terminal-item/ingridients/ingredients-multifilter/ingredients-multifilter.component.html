@@ -4,29 +4,51 @@
     <div class="filter-holder">
       <h2>Мультифильтр</h2>
       <form class="form-horizontal" #form="ngForm">
-        <fieldset>
+        <fieldset dnd-sortable-container [sortableData]="filterForm">
           <!-- Form Name -->
           <legend>Ингредиенты</legend>
 
+          <div *ngFor="let item of filterForm; let i = index;" class="form-group" dnd-sortable [sortableIndex]="i" (onDragSuccess)="onSort()">
+            <div class='col-sm-1 drag' dnd-sortable-handle></div>
+            <label class="col-sm-4 control-label" for="{{item.id}}">{{item.name}}</label>
+            <label class="col-sm-1 text-right">{{ item.type === 'multi' ? 'от' : ''}}</label>
+
+            <div *ngIf="item.type === 'single'" class="col-sm-6">
+              <input id="{{item.id}}" name="{{item.id}}" type="text" class="form-control input-sm" ngModel [pattern]="item.pattern">
+            </div>
+  
+            <div *ngIf="item.type === 'multi'" class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-5">
+                  <input id="{{item.id}}From" name="{{item.id}}From" type="number" class="form-control input-sm" ngModel>
+                </div>
+                <label class="col-sm-2 text-right" for="salesSumTo">до</label>
+                <div class="col-sm-5">
+                  <input id="{{item.id}}To" name="{{item.id}}To" type="number" class="form-control input-sm" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Text input-->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-5 control-label" for="id">ID</label>
             <div class="col-sm-6">
               <input id="id" name="id" type="text" class="form-control input-sm" ngModel>
             </div>
-          </div>
+          </div> -->
 
           <!-- Text input-->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-5 control-label" for="name">Наименование</label>
             <div class="col-sm-6">
               <input id="name" name="name" type="text" class="form-control input-sm" ngModel>
             </div>
-          </div>
+          </div> -->
           <!-- Text input-->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-4 control-label">Объём выдачи</label>
             <label class="col-sm-1 control-label" for="issuanceVolFrom">от</label>
@@ -41,10 +63,10 @@
                   </div>
                 </div>
               </div>
-          </div>
+          </div> -->
 
           <!-- Text input-->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-4 control-label">Объём загрузки</label>
             <label class="col-sm-1 control-label" for="downloadVolFrom">от</label>
@@ -59,9 +81,9 @@
                   </div>
                 </div>
               </div>
-          </div>
+          </div> -->
           <!-- Text input-->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class='col-sm-1 drag'></div>
             <label class="col-sm-4 control-label">Текущий объём</label>
             <label class="col-sm-1 control-label" for="currentVolFrom">от</label>
@@ -92,7 +114,7 @@
                   </div>
                 </div>
               </div>
-          </div>
+          </div> -->
 
           <!-- Button (Double) -->
           <div class="form-group">

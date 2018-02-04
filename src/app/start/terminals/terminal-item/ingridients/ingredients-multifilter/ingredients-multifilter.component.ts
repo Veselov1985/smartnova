@@ -26,6 +26,15 @@ export class IngredientsMultifilterComponent implements OnInit {
   @Output() ingrMultiFilter = new EventEmitter();
   public state = 'inactive';
 
+  filterForm = [
+    {id: 'Pid', name: 'ID', type: 'single', pattern: '^[A-Za-z0-9]+$'},
+    {id: 'Name', name: 'Наименование', type: 'single', pattern: null},
+    {id: 'IssuanceVol', name: 'Объем выдачи', type: 'multi', pattern: null},
+    {id: 'DownloadVol', name: 'Объем загрузки', type: 'multi', pattern: null},
+    {id: 'CurrentVol', name: 'Текущий объем', type: 'multi', pattern: null},
+    {id: 'Threshold', name: 'Порог', type: 'multi', pattern: null},
+  ];
+
   constructor(private StateMultifilter: StateMultifilterService) {
     StateMultifilter.stateChange$.subscribe(
       stateConfig => {
@@ -40,6 +49,10 @@ export class IngredientsMultifilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const sort = JSON.parse(sessionStorage.getItem('ingredientsSortOrder'));
+    if (sort) {
+      this.filterForm.sort((a, b) => sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item));
+    }
   }
 
   checkFilter(form: NgForm) {
@@ -53,5 +66,9 @@ export class IngredientsMultifilterComponent implements OnInit {
   MultifilterState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateMultifilter.setStateMultifilter(this.state);
+  }
+
+  onSort() {
+    sessionStorage.setItem('ingredientsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
   }
 }

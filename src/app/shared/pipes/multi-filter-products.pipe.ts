@@ -9,8 +9,8 @@ export class MultiFilterProductsPipe implements PipeTransform {
     if (!items || !multifilter) {
       return items;
     }
-    const regId = new RegExp(multifilter.id, 'i');
-    const regName = new RegExp(multifilter.name, 'i');
+    const regId = new RegExp(multifilter.Id, 'i');
+    const regName = new RegExp(multifilter.Name, 'i');
     return items.filter(item => {
       if (!regId.test(item.Id)) {
         return false;
@@ -18,22 +18,22 @@ export class MultiFilterProductsPipe implements PipeTransform {
       if (!regName.test(item.Name)) {
         return false;
       }
-      if (item.BaseSum < multifilter.basePriceFrom && multifilter.basePriceFrom) {
+      if (item.BaseSum < multifilter.BaseSumFrom && multifilter.BaseSumFrom) {
         return false;
       }
-      if (item.BaseSum > multifilter.basePriceTo && multifilter.basePriceTo) {
+      if (item.BaseSum > multifilter.BaseSumTo && multifilter.BaseSumTo) {
         return false;
       }
-      if (item.SoldNumber < multifilter.soldNumberFrom && multifilter.soldNumberFrom) {
+      if (item.SoldNumber < multifilter.SoldNumberFrom && multifilter.SoldNumberFrom) {
         return false;
       }
-      if (item.SoldNumber > multifilter.soldNumberTo && multifilter.soldNumberTo) {
+      if (item.SoldNumber > multifilter.SoldNumberTo && multifilter.SoldNumberTo) {
         return false;
       }
-      if (item.SoldSum < multifilter.soldSumFrom && multifilter.soldSumFrom) {
+      if (item.SoldSum < multifilter.SoldSumFrom && multifilter.SoldSumFrom) {
         return false;
       }
-      if (item.SoldSum > multifilter.soldSumTo && multifilter.soldSumTo) {
+      if (item.SoldSum > multifilter.SoldSumTo && multifilter.SoldSumTo) {
         return false;
       }
       return true;
