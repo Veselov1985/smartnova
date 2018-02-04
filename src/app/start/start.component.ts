@@ -21,6 +21,9 @@ export class StartComponent implements OnInit {
 
   ngOnInit() {
     this.connection = this.route.snapshot.data['connection'];
-    console.log(this.connection);
+    this.connection.invoke('Connect', {userGuid: '200', groupTid: '100'}).then((data) => {
+        console.log(data);
+    }).catch(err => console.log(err));
+    // console.log(this.connection);
   }
 }
