@@ -27,10 +27,20 @@ export class SellsMultifilterComponent implements OnInit {
 
   public state = 'inactive';
 
+  filterForm = [
+    {id: 'DateTime', name: 'Дата', type: 'date'},
+    {id: 'Name', name: 'Наименование', type: 'single'},
+    {id: 'Summ', name: 'Цена', type: 'multi'},
+    {id: 'SoldNumber', name: 'Количество', type: 'multi'},
+    {id: 'SoldSum', name: 'Сумма', type: 'multi'},
+  ];
+
   public moment: Date = new Date();
 
-  public dateSearchFrom = this.moment;
-  public dateSearchTo: Date = new Date();
+  searchDates = {
+    DateTimeFrom: this.moment,
+    DateTimeTo: new Date()
+  };
 
   constructor(private StateMultifilter: StateMultifilterService) {
     StateMultifilter.stateChange$.subscribe(
@@ -54,6 +64,12 @@ export class SellsMultifilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const sort = JSON.parse(sessionStorage.getItem('sellsSortOrder'));
+    if (sort) {
+      this.filterForm.sort((a, b) => {
+        return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
+      });
+    }
   }
 
   checkFilter(form: NgForm) {
@@ -69,4 +85,7 @@ export class SellsMultifilterComponent implements OnInit {
     this.StateMultifilter.setStateMultifilter(this.state);
   }
 
+  onSort() {
+    sessionStorage.setItem('sellsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
+  }
 }

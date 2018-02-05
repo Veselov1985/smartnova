@@ -9,36 +9,36 @@ export class MultiFilterSellsPipe implements PipeTransform {
     if (!items || !multifilter) {
       return items;
     }
-    const regName = new RegExp(multifilter.name, 'i');
-    const searchDateFrom = new Date(multifilter.dateSearchFrom);
-    const searchDateTo = new Date(multifilter.dateSearchTo);
+    const regName = new RegExp(multifilter.Name, 'i');
+    const searchDateFrom = new Date(multifilter.DateTimeFrom);
+    const searchDateTo = new Date(multifilter.DateTimeTo);
     return items.filter(item => {
       const date = new Date(item.DateTime);
-      if (date < searchDateFrom && multifilter.dateSearchFrom) {
+      if (date < searchDateFrom && multifilter.DateTimeFrom) {
         return false;
       }
-      if (date > searchDateTo && multifilter.dateSearchTo) {
+      if (date > searchDateTo && multifilter.DateTimeTo) {
         return false;
       }
       if (!regName.test(item.Name)) {
         return false;
       }
-      if (item.Summ < multifilter.priceFrom && multifilter.priceFrom) {
+      if (item.Summ < multifilter.SummFrom && multifilter.SummFrom) {
         return false;
       }
-      if (item.Summ > multifilter.priceTo && multifilter.priceTo) {
+      if (item.Summ > multifilter.SummTo && multifilter.SummTo) {
         return false;
       }
-      if (item.SoldNumber < multifilter.soldNumberFrom && multifilter.soldNumberFrom) {
+      if (item.SoldNumber < multifilter.SoldNumberFrom && multifilter.SoldNumberFrom) {
         return false;
       }
-      if (item.SoldNumber > multifilter.soldNumberTo && multifilter.soldNumberTo) {
+      if (item.SoldNumber > multifilter.SoldNumberTo && multifilter.SoldNumberTo) {
         return false;
       }
-      if (item.SoldSum < multifilter.soldSumFrom && multifilter.soldSumFrom) {
+      if (item.SoldSum < multifilter.SoldSumFrom && multifilter.SoldSumFrom) {
         return false;
       }
-      if (item.SoldSum > multifilter.soldSumTo && multifilter.soldSumTo) {
+      if (item.SoldSum > multifilter.SoldSumTo && multifilter.SoldSumTo) {
         return false;
       }
       return true;

@@ -26,9 +26,19 @@ export class CollectionMultifilterComponent implements OnInit {
   @Output() collectMultiFilter = new EventEmitter();
   public state = 'inactive';
 
+  filterForm = [
+    {id: 'DateTime', name: 'Дата', type: 'date'},
+    {id: 'Collection', name: 'Инкассировано', type: 'multi'},
+    {id: 'GivenChange', name: 'Выдано сдачи', type: 'multi'},
+    {id: 'FundChange', name: 'Фонд сдачи', type: 'multi'},
+    {id: 'ServiceMan', name: 'ФИО сервисмена', type: 'single'},
+  ];
+
   public moment: Date = new Date();
-  public dateSearchFrom = this.moment;
-  public dateSearchTo: Date = new Date();
+  searchDates = {
+    DateTimeFrom: this.moment,
+    DateTimeTo: new Date()
+  };
 
 
   constructor(private StateMultifilter: StateMultifilterService) {
@@ -53,6 +63,12 @@ export class CollectionMultifilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const sort = JSON.parse(sessionStorage.getItem('collectSortOrder'));
+    if (sort) {
+      this.filterForm.sort((a, b) => {
+        return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
+      });
+    }
   }
 
   checkFilter(form: NgForm) {
@@ -66,5 +82,9 @@ export class CollectionMultifilterComponent implements OnInit {
   MultifilterState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateMultifilter.setStateMultifilter(this.state);
+  }
+
+  onSort() {
+    sessionStorage.setItem('collectSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
   }
 }

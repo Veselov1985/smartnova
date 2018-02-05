@@ -64,7 +64,10 @@ export class SellsComponent implements OnInit {
         return product;
       }, err => console.log(err));
 
-    if (this.settingsService.settings) {
+    if (mFilter && sessionStorage.getItem('sellsSortOrder')) {
+      this.sortBy = JSON.parse(sessionStorage.getItem('sellsSortOrder'));
+      this.sortOrder = 'asc';
+    } else if (this.settingsService.settings) {
       this.sortBy = this.settingsService.settings.sells.sortBy || 'DateTime';
       this.sortOrder = this.settingsService.settings.sells.sortOrder || 'desc';
     }
@@ -92,6 +95,8 @@ export class SellsComponent implements OnInit {
     this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
       return sum + current.SoldSum;
     }, 0);
+    this.sortBy = JSON.parse(sessionStorage.getItem('sellsSortOrder'));
+    this.sortOrder = 'asc';
   }
 
   clearMultiFilter() {

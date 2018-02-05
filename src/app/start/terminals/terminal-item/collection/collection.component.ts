@@ -57,7 +57,10 @@ export class CollectionComponent implements OnInit {
 
     this.countAggregatedData();
 
-    if (this.settingsService.settings) {
+    if (mFilter && sessionStorage.getItem('collectSortOrder')) {
+      this.sortBy = JSON.parse(sessionStorage.getItem('collectSortOrder'));
+      this.sortOrder = 'asc';
+    } else if (this.settingsService.settings) {
       this.sortBy = this.settingsService.settings.collection.sortBy || 'DateTime';
       this.sortOrder = this.settingsService.settings.collection.sortOrder || 'desc';
     }
@@ -79,6 +82,8 @@ export class CollectionComponent implements OnInit {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
     this.countAggregatedData();
+    this.sortBy = JSON.parse(sessionStorage.getItem('collectSortOrder'));
+    this.sortOrder = 'asc';
   }
 
   clearMultiFilter() {
