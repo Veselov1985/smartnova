@@ -16,6 +16,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/publishLast';
 
 import { MultiFilterEventsPipe } from './../../../../shared/pipes/multi-filter-events.pipe';
+import { SettingsService, SortSettings } from '../../../../shared/services/common/settings.service';
 
 
 @Component({
@@ -30,12 +31,19 @@ export class EventsComponent implements OnInit, OnDestroy {
   public state: string;
   public stateConfig: string;
   public stateConfigMode: string;
-  public courentEventPk: string;
+  public currentEventPk: string;
 
   multiFilter: any;
   filtered: boolean;
   notViewed: number;
   events: any;
+
+  sort: {
+    operational: SortSettings,
+    system: SortSettings,
+    uncertain: SortSettings,
+    additional: SortSettings
+  };
 
   private headers = new Headers({
     'Content-Type': 'application/json'
@@ -50,7 +58,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     private StateMultifilter: StateMultifilterService,
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
-    private filterPipe: MultiFilterEventsPipe
+    private filterPipe: MultiFilterEventsPipe,
+    private settingsService: SettingsService
   ) {
     stateConfigModeService.changeConfigMode$.subscribe(stateConfigMode => this.stateConfigMode = stateConfigMode);
   }
@@ -65,6 +74,16 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     this.countNotViewedEvents();
+
+    if (this.settingsService.settings) {
+      this.sort = this.settingsService.settings.events;
+    }
+    if (mFilter && sessionStorage.getItem('eventsSortOrder')) {
+      Object.keys(this.sort).forEach(item => {
+        this.sort[item].sortBy = JSON.parse(sessionStorage.getItem('eventsSortOrder'));
+        this.sort[item].sortOrder = 'asc';
+      });
+    }
   }
 
   MultifilterState(event: any): void {
@@ -74,7 +93,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   ConfigState(event: any, thisPk: string): void {
-    this.courentEventPk = thisPk;
+    this.currentEventPk = thisPk;
     this.stateConfig = this.stateConfiguratorService.getStateConfigurator();
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
@@ -112,6 +131,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.filtered = multifilter ? true : false;
 
     this.countNotViewedEvents();
+    Object.keys(this.sort).forEach(item => {
+      this.sort[item].sortBy = JSON.parse(sessionStorage.getItem('eventsSortOrder'));
+      this.sort[item].sortOrder = 'asc';
+    });
   }
 
   clearMultiFilter() {
@@ -152,5 +175,13 @@ export class EventsComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  onChangeSortOrder(sortOrder, type) {
+    this.settingsService.settings.events[type].sortOrder = sortOrder;
+  }
+
+  onChangeSort(sortBy, type) {
+    this.settingsService.settings.events[type].sortBy = sortBy;
   }
 }

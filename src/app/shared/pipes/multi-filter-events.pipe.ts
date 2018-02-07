@@ -9,33 +9,33 @@ export class MultiFilterEventsPipe implements PipeTransform {
     if (!items || !multifilter) {
       return items;
     }
-    const regName = new RegExp(multifilter.name, 'i');
-    const searchDateFrom = new Date(multifilter.dateSearchFrom);
-    const searchDateTo = new Date(multifilter.dateSearchTo);
+    const regName = new RegExp(multifilter.Name, 'i');
+    const searchDateFrom = new Date(multifilter.DateTimeFrom);
+    const searchDateTo = new Date(multifilter.DateTimeTo);
     return items.filter(item => {
       const date = new Date(item.DateTime);
-      if (date < searchDateFrom && multifilter.dateSearchFrom) {
+      if (date < searchDateFrom && multifilter.DateTimeFrom) {
         return false;
       }
-      if (date > searchDateTo && multifilter.dateSearchTo) {
+      if (date > searchDateTo && multifilter.DateTimeTo) {
         return false;
       }
       if (!regName.test(item.Name)) {
         return false;
       }
-      if (item.TotalNumber < multifilter.totalNumberFrom && multifilter.totalNumberFrom) {
+      if (item.TotalNumber < multifilter.TotalNumberFrom && multifilter.TotalNumberFrom) {
         return false;
       }
-      if (item.TotalNumber > multifilter.totalNumberTo && multifilter.totalNumberTo) {
+      if (item.TotalNumber > multifilter.TotalNumberTo && multifilter.TotalNumberTo) {
         return false;
       }
-      if (item.Duration < multifilter.durationFrom && multifilter.durationFrom) {
+      if (item.Duration < multifilter.DurationFrom && multifilter.DurationFrom) {
         return false;
       }
-      if (item.Duration > multifilter.durationTo && multifilter.durationTo) {
+      if (item.Duration > multifilter.DurationTo && multifilter.DurationTo) {
         return false;
       }
-      if (multifilter.viewed !== null && multifilter.viewed !== item.Viewed) {
+      if (multifilter.Viewed !== null && multifilter.Viewed !== item.Viewed) {
         return false;
       }
       return true;

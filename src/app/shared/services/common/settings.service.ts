@@ -11,6 +11,12 @@ export interface Settings {
     collection: SortSettings;
     ingredients: SortSettings;
     terminals: SortSettings;
+    events: {
+        operational: SortSettings,
+        system: SortSettings,
+        uncertain: SortSettings,
+        additional: SortSettings
+    };
 }
 
 @Injectable()
@@ -26,7 +32,13 @@ export class SettingsService {
                 sells: { sortBy: '', sortOrder: '' },
                 collection: { sortBy: '', sortOrder: '' },
                 ingredients: { sortBy: '', sortOrder: '' },
-                terminals: { sortBy: '', sortOrder: '' }
+                terminals: { sortBy: '', sortOrder: '' },
+                events: {
+                    operational: { sortBy: 'Name', sortOrder: 'asc' },
+                    system: { sortBy: 'Name', sortOrder: 'asc' },
+                    uncertain: { sortBy: 'Name', sortOrder: 'asc' },
+                    additional: { sortBy: 'Name', sortOrder: 'asc' },
+                }
             };
         }
     }

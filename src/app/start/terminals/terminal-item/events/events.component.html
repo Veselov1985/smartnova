@@ -1,4 +1,4 @@
-<app-events-configurator [courentEventPk] = "courentEventPk"></app-events-configurator>
+<app-events-configurator [courentEventPk] = "currentEventPk"></app-events-configurator>
 <app-events-multifilter (eventsMultiFilter)="applyMultiFilter($event)" [activeEventType]="tab"></app-events-multifilter>
 
 <div class="container">
@@ -32,7 +32,9 @@
       <div class="col-sm-12 col-xs-12">
         <div class="tables-wrap">
           <div class="table-item" *ngSwitchCase="1">
-            <table class="table table-striped">
+            <table class="table table-striped" [mfData]="events?.Operational | multiFilterEvents : multiFilter" #operational="mfDataTable" [mfRowsOnPage]="50"
+            [(mfSortBy)]="sort.operational.sortBy" [(mfSortOrder)]="sort.operational.sortOrder"
+            (mfSortByChange)="onChangeSort($event, 'operational')" (mfSortOrderChange)="onChangeSortOrder($event, 'operational')">
               <thead>
                 <tr>
                   <th colspan=6>
@@ -48,16 +50,26 @@
                   </th>
                 </tr>
                 <tr>
-                  <th class="text-left">Наименование</th>
-                  <th>Количество</th>
-                  <th>Длительность</th>
-                  <th>Дата/Время</th>
-                  <th>Квитировать</th>
+                  <th class="text-left">
+                    <mfDefaultSorter by="Name">Наименование</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="TotalNumber">Количество</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Duration">Длительность</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="DateTime">Дата/Время</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Viewed">Квитировать</mfDefaultSorter>
+                  </th>
                   <th>Динамика</th>
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Operational')">
-                <tr *ngFor="let item of events?.Operational | multiFilterEvents : multiFilter">
+                <tr *ngFor="let item of operational.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
@@ -69,7 +81,9 @@
             </table>
           </div>
           <div class="table-item" *ngSwitchCase="2">
-            <table class="table table-striped">
+            <table class="table table-striped" [mfData]="events?.System | multiFilterEvents : multiFilter" #system="mfDataTable"
+              [mfRowsOnPage]="50" [(mfSortBy)]="sort.system.sortBy" [(mfSortOrder)]="sort.system.sortOrder"
+              (mfSortByChange)="onChangeSort($event, 'system')" (mfSortOrderChange)="onChangeSortOrder($event, 'system')">
               <thead>
                 <tr>
                   <th colspan=6>
@@ -78,23 +92,33 @@
                         <ul class="icon-multifilter">
                           <li class="tooltip-wrap"><a class="fltr" (click)="MultifilterState($event)" [ngClass]="{filtered: filtered}"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
                           <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
-                          <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
+                          <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['/start/terminal-item/events/report']" (click)="setData()" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                         </ul>
                       </div>
                     </div>
                   </th>
                 </tr>
                 <tr>
-                  <th class="text-left">Наименование</th>
-                  <th>Количество</th>
-                  <th>Длительность</th>
-                  <th>Дата/Время</th>
-                  <th>Квитировать</th>
+                  <th class="text-left">
+                    <mfDefaultSorter by="Name">Наименование</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="TotalNumber">Количество</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Duration">Длительность</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="DateTime">Дата/Время</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Viewed">Квитировать</mfDefaultSorter>
+                  </th>
                   <th>Динамика</th>
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('System')">
-                <tr *ngFor="let item of events?.System | multiFilterEvents : multiFilter">
+                <tr *ngFor="let item of system.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
@@ -106,7 +130,9 @@
             </table>
           </div>
           <div class="table-item" *ngSwitchCase="3">
-            <table class="table table-striped">
+            <table class="table table-striped" [mfData]="events?.Uncertain | multiFilterEvents : multiFilter" #uncertain="mfDataTable"
+              [mfRowsOnPage]="50" [(mfSortBy)]="sort.uncertain.sortBy" [(mfSortOrder)]="sort.uncertain.sortOrder"
+              (mfSortByChange)="onChangeSort($event, 'uncertain')" (mfSortOrderChange)="onChangeSortOrder($event, 'uncertain')">
               <thead>
                 <tr>
                   <th colspan=6>
@@ -115,23 +141,33 @@
                         <ul class="icon-multifilter">
                           <li class="tooltip-wrap"><a class="fltr" (click)="MultifilterState($event)" [ngClass]="{filtered: filtered}"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
                           <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
-                          <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
+                          <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['/start/terminal-item/events/report']" (click)="setData()" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                         </ul>
                       </div>
                     </div>
                   </th>
                 </tr>
                 <tr>
-                  <th class="text-left">Наименование</th>
-                  <th>Количество</th>
-                  <th>Длительность</th>
-                  <th>Дата/Время</th>
-                  <th>Квитировать</th>
+                  <th class="text-left">
+                    <mfDefaultSorter by="Name">Наименование</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="TotalNumber">Количество</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Duration">Длительность</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="DateTime">Дата/Время</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Viewed">Квитировать</mfDefaultSorter>
+                  </th>
                   <th>Динамика</th>
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Uncertain')">
-                <tr *ngFor="let item of events?.Uncertain | multiFilterEvents : multiFilter">
+                <tr *ngFor="let item of uncertain.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
@@ -143,7 +179,9 @@
             </table>
           </div>
           <div class="table-item" *ngSwitchCase="4">
-            <table class="table table-striped">
+            <table class="table table-striped" [mfData]="events?.Additional | multiFilterEvents : multiFilter" #additional="mfDataTable"
+              [mfRowsOnPage]="50" [(mfSortBy)]="sort.additional.sortBy" [(mfSortOrder)]="sort.additional.sortOrder"
+              (mfSortByChange)="onChangeSort($event, 'additional')" (mfSortOrderChange)="onChangeSortOrder($event, 'additional')">
               <thead>
                 <tr>
                   <th colspan=6>
@@ -152,29 +190,38 @@
                         <ul class="icon-multifilter">
                           <li class="tooltip-wrap"><a class="fltr" (click)="MultifilterState($event)" [ngClass]="{filtered: filtered}"> </a> <span class="tooltiptext">Открыть панель мультифильтра</span></li>
                           <li class="tooltip-wrap"><a class="clrfltr" (click)="clearMultiFilter()"> </a> <span class="tooltiptext">Сбросить настройки мультифильтра</span></li>
-                          <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['report']" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
+                          <li class="tooltip-wrap"><a href="#PrintReport" class="report" [routerLink]="['/start/terminal-item/events/report']" (click)="setData()" target="_blank"></a> <span class="tooltiptext">Открыть отчет в новом окне</span></li>
                         </ul>
                       </div>
                     </div>
                   </th>
                 </tr>
                 <tr>
-                  <th class="text-left">Наименование</th>
-                  <th>Количество</th>
-                  <th>Длительность</th>
-                  <th>Дата/Время</th>
-                  <th>Квитировать</th>
+                  <th class="text-left">
+                    <mfDefaultSorter by="Name">Наименование</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="TotalNumber">Количество</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Duration">Длительность</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="DateTime">Дата/Время</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="Viewed">Квитировать</mfDefaultSorter>
+                  </th>
                   <th>Динамика</th>
                   <th *ngIf="stateConfigMode == 'active'">Конфигурирование</th>
                 </tr>
               </thead>
               <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Additional')">
-                <tr *ngFor="let item of events?.Additional">
-                  <!-- <td>{{item.Name}}</td> -->
-                  <td>Срабатывание сигнализации</td>
-                  <td class="text-center">1</td>
-                  <td class="text-center">00:11:03</td>
-                  <td class="text-center">12 сент. 2016 г., 09:31:11</td>
+                <tr *ngFor="let item of additional.data">
+                  <td>{{item.Name}}</td>
+                  <td class="text-center">{{item.TotalNumber}}</td>
+                  <td class="text-center">{{item.Duration}}</td>
+                  <td class="text-center">{{item.DateTime | dateTime: 'date'}},&nbsp;{{item.DateTime | dateTime: 'hh:mm:ss'}}</td>
                   <td><a *ngIf="item.Viewed!=null" (click)="item.Viewed=true" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
                   <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type, item.Pk )"></a></td>
                   <td class="text-center" *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)="ConfigState($event, item.Pk)"></a></td>

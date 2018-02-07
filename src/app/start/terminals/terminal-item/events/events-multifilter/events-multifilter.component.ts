@@ -29,8 +29,10 @@ export class EventsMultifilterComponent implements OnInit {
   public state = 'inactive';
   public moment: Date = new Date();
 
-  public dateSearchFrom = this.moment;
-  public dateSearchTo: Date = new Date();
+  searchDates = {
+    DateTimeFrom: this.moment,
+    DateTimeTo: new Date()
+  };
 
   eventFields = [
     {eventType: 'Operational', eventDescr: 'Операционные', isChecked: false},
@@ -39,6 +41,18 @@ export class EventsMultifilterComponent implements OnInit {
     {eventType: 'Additional', eventDescr: 'Дополнительные', isChecked: false},
   ];
   viewed = null;
+
+  filterForm = [
+    {id: 'DateTime', name: 'Дата', type: 'date'},
+    {id: 'Name', name: 'Наименование', type: 'single'},
+    {id: 'TotalNumber', name: 'Количество', type: 'multi'},
+    {id: 'Duration', name: 'Длительность, мин', type: 'multi'},
+    {id: 'Viewed', name: 'Квитирование', type: 'checkbox'},
+  ];
+
+  checkboxes = {
+    Viewed: null
+  };
 
   constructor(private StateMultifilter: StateMultifilterService) {
     StateMultifilter.stateChange$.subscribe(
@@ -64,6 +78,12 @@ export class EventsMultifilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const sort = JSON.parse(sessionStorage.getItem('eventsSortOrder'));
+    if (sort) {
+      this.filterForm.sort((a, b) => {
+        return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
+      });
+    }
   }
 
   checkFilter(form: NgForm) {
@@ -83,6 +103,10 @@ export class EventsMultifilterComponent implements OnInit {
 
   changeCheckbox(index: number) {
     this.eventFields[index].isChecked = !this.eventFields[index].isChecked;
+  }
+
+  onSort() {
+    sessionStorage.setItem('eventsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
   }
 }
 
