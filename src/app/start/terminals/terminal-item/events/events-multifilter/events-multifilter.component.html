@@ -4,18 +4,20 @@
     <div class="filter-holder">
       <h2>Мультифильтр</h2>
       <form class="form-horizontal" #form="ngForm">
-        <!-- Form Name -->
-        <legend>События</legend>
+        <fieldset>
+          <!-- Form Name -->
+          <legend>События</legend>
 
-        <!-- Multiple Checkboxes -->
-        <div class="form-group">
-          <div class="col-sm-6" *ngFor="let event of eventFields; let i = index">
-            <div class="checkbox">
-              <input type="checkbox" name="eventTypes" id="eventType-{{i}}" [value]="event.eventType" (change)="changeCheckbox(i)" [checked]="event.isChecked">
-              <label class="checkbox-inline" for="eventType-{{i}}"><span class="fa fa-check"></span>{{event.eventDescr}}</label>
+          <!-- Multiple Checkboxes -->
+          <div class="form-group" style="margin-top: 0; margin-bottom: 20px;">
+            <div class="col-sm-6" *ngFor="let event of eventFields; let i = index">
+              <div class="checkbox">
+                <input type="checkbox" name="eventTypes" id="eventType-{{i}}" [value]="event.eventType" (change)="changeCheckbox(i)" [checked]="event.isChecked">
+                <label class="checkbox-inline" for="eventType-{{i}}"><span class="fa fa-check"></span>{{event.eventDescr}}</label>
+              </div>
             </div>
           </div>
-        </div>
+        </fieldset>
 
         <fieldset dnd-sortable-container [sortableData]="filterForm">
           <div *ngFor="let item of filterForm; let i = index;" class="form-group" dnd-sortable [sortableIndex]="i" (onDragSuccess)="onSort()">
