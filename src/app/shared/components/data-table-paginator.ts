@@ -1,6 +1,7 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {DataTable} from 'angular2-datatable';
+import { Component, Input, AfterViewInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
+import { DataTable } from 'angular2-datatable';
 import * as _ from 'lodash';
+import { Paginator } from 'angular2-datatable';
 
 @Component({
     selector: 'app-data-table-paginator',
@@ -49,11 +50,19 @@ import * as _ from 'lodash';
     </mfPaginator>
     `
 })
-export class DataTablePaginatorComponent implements OnChanges {
+export class DataTablePaginatorComponent implements AfterViewInit, OnChanges {
     @Input('rowsOnPageSet') rowsOnPageSet = [];
     @Input('mfTable') mfTable: DataTable;
+    @Input('page') page: number;
+    @ViewChild('p') paginator: Paginator;
 
     minRowsOnPage = 0;
+
+    ngAfterViewInit() {
+        if (this.page && this.paginator) {
+            this.paginator.setPage(this.page);
+        }
+    }
 
     ngOnChanges(changes: any): any {
         if (changes.rowsOnPageSet) {
