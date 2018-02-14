@@ -22,95 +22,16 @@
             <div *ngIf="item.type === 'multi'" class="col-sm-6">
               <div class="row">
                 <div class="col-sm-5">
-                  <input id="{{item.id}}From" name="{{item.id}}From" type="number" class="form-control input-sm" ngModel>
+                  <input id="{{item.id}}From" name="{{item.id}}From" type="number" class="form-control input-sm" ngModel min="0" appForbidNegativeNumbers>
                 </div>
                 <label class="col-sm-2 text-right" for="salesSumTo">до</label>
                 <div class="col-sm-5">
-                  <input id="{{item.id}}To" name="{{item.id}}To" type="number" class="form-control input-sm" ngModel>
+                  <input id="{{item.id}}To" name="{{item.id}}To" type="number" class="form-control input-sm" ngModel min="0" appForbidNegativeNumbers>
                 </div>
               </div>
             </div>
           </div>
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="textinput">ID</label>
-            <div class="col-sm-6">
-              <input id="textinput" name="id" type="text" class="form-control input-sm" ngModel maxlength="6" pattern="^[A-Za-z0-9]+$">
-            </div>
-          </div> -->
 
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="textinput">Наименование</label>
-            <div class="col-sm-6">
-              <input id="textinput" name="name" type="text" class="form-control input-sm" ngModel>
-            </div>
-          </div> -->
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label" for="textinput">Базовая цена</label>
-            <label class="col-sm-1 control-label" for="textinput">от</label>
-            <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <input id="textinput" name="basePriceFrom" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                  <label class="col-sm-2 text-right" for="textinput">до</label>
-                  <div class="col-sm-5">
-                    <input id="textinput" name="basePriceTo" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                </div>
-              </div>
-          </div> -->
-
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label" for="textinput">Количество проданных</label>
-            <label class="col-sm-1 control-label" for="textinput">от</label>
-            <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <input id="textinput" name="soldNumberFrom" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                  <label class="col-sm-2 text-right" for="textinput">до</label>
-                  <div class="col-sm-5">
-                    <input id="textinput" name="soldNumberTo" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                </div>
-              </div>
-          </div> -->
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label" for="textinput">Сумма проданных</label>
-            <label class="col-sm-1 control-label" for="textinput">от</label>
-            <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <input id="textinput" name="soldSumFrom" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                  <label class="col-sm-2 text-right" for="textinput">до</label>
-                  <div class="col-sm-5">
-                    <input id="textinput" name="soldSumTo" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                </div>
-              </div>
-          </div> -->
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="textinput">Состав ингредиентов</label>
-            <div class="col-sm-6">
-              <select id="selectbasic" name="selectbasic" class="form-control">
-                  <option value="1">Option one</option>
-                  <option value="2">Option two</option>
-              </select>
-            </div>
-          </div> -->
           <!-- Button (Double) -->
           <div class="form-group">
             <div class="col-sm-12">

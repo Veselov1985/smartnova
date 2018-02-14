@@ -34,6 +34,7 @@ export class AuthService {
           sessionStorage.setItem('TnPk', res.TnPk);
           this.loggedIn = true;
           this.isLoggedIn.next(true);
+          this.removeMultiflters();
         }
         return res;
       });
@@ -52,6 +53,7 @@ export class AuthService {
           this.loggedIn = false;
           this.isLoggedIn.next(false);
           this.router.navigate(['/']);
+          this.removeMultiflters();
         }
         return res;
       });
@@ -60,6 +62,14 @@ export class AuthService {
   // isLoggedIn() {
   //   return this.loggedIn;
   // }
+  removeMultiflters() {
+    sessionStorage.removeItem('terminalsMultiFilter');
+    sessionStorage.removeItem('collectMultiFilter');
+    sessionStorage.removeItem('ingrMultiFilter');
+    sessionStorage.removeItem('productMultiFilter');
+    sessionStorage.removeItem('sellsMultiFilter');
+    sessionStorage.removeItem('eventsMultiFilter');
+  }
 
   singin() {
     const options = new RequestOptions({

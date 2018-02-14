@@ -21,33 +21,33 @@
       <div class="row">
         <div class='col-sm-10 col-sm-offset-1'>
           <div class='row'>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 print-style'>
               <div class='row'>
                 <div class='col-sm-5'>EID</div>
-                <div class='col-sm-7'>{{multiFilter?.eid}}</div>
+                <div class='col-sm-7'>{{multiFilter?.Id}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Наименование</div>
-                <div class='col-sm-7'>{{multiFilter?.name}}</div>
+                <div class='col-sm-7'>{{multiFilter?.Name}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Связь</div>
-                <div class='col-sm-7'>{{multiFilter?.connection | radioValueTransform}}</div>
+                <div class='col-sm-7'>{{multiFilter?.Connection | radioValueTransform}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Адрес</div>
-                <div class='col-sm-7'>{{multiFilter?.address}}</div>
+                <div class='col-sm-7'>{{multiFilter?.Address}}</div>
               </div>
             </div>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 print-style'>
               <div class='row'>
                 <div class='col-sm-5'>Сумма продаж</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{multiFilter?.salesSumFrom}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.SalesSumFrom}}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{multiFilter?.salesSumTo}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.SalesSumTo}}</div>
                   </div>
                 </div>
               </div>
@@ -56,19 +56,19 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{multiFilter?.collectSumFrom}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.CollectSumFrom}}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{multiFilter?.collectSumTo}}</div>
+                    <div class='col-sm-3'>{{multiFilter?.CollectSumTo}}</div>
                   </div>
                 </div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Обслуживание</div>
-                <div class='col-sm-7'>{{multiFilter?.service | radioValueTransform}}</div>
+                <div class='col-sm-7'>{{multiFilter?.Service | radioValueTransform}}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Аварии</div>
-                <div class='col-sm-7'>{{multiFilter?.failure | radioValueTransform}}</div>
+                <div class='col-sm-7'>{{multiFilter?.Failure | radioValueTransform}}</div>
               </div>
             </div>
           </div>

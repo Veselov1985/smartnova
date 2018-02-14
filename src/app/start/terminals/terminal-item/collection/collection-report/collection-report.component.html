@@ -20,24 +20,24 @@
       </div>
       <div class="row">
         <div class='col-sm-10 col-sm-offset-1'>
-          <div class='row'>
+          <div class='row text-center'>
             <div class='col-sm-6 col-sm-offset-3'>
               <div class='row'>
-                <div class='col-sm-6'>с {{ multiFilter?.dateSearchFrom | date:'medium'}}</div>
-                <div class='col-sm-6'>по {{ multiFilter?.dateSearchTo | date:'medium'}}</div>
+                <div class='col-sm-6'>с {{ multiFilter?.DateTimeFrom | date:'medium'}}</div>
+                <div class='col-sm-6'>по {{ multiFilter?.DateTimeTo | date:'medium'}}</div>
               </div>
             </div>
           </div>
           <div class='row'>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 print-style'>
               <div class='row'>
                 <div class='col-sm-5'>Инкассировано</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{ multiFilter?.collectionFrom }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.CollectionFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{ multiFilter?.collectionTo }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.CollectionTo }}</div>
                   </div>
                 </div>
               </div>
@@ -46,29 +46,29 @@
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{ multiFilter?.givenChangeFrom }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.GivenChangeFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{ multiFilter?.givenChangeTo }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.GivenChangeTo }}</div>
                   </div>
                 </div>
               </div>
 
             </div>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 print-style'>
               <div class='row'>
                 <div class='col-sm-5'>Фонд сдачи</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{ multiFilter?.fundChangeFrom }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.FundChangeFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{ multiFilter?.fundChangeTo }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.FundChangeTo }}</div>
                   </div>
                 </div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>ФИО сервисмена</div>
-                <div class='col-sm-7'>{{ multiFilter?.serviceman }}</div>
+                <div class='col-sm-7'>{{ multiFilter?.ServiceMan }}</div>
               </div>
             </div>
           </div>

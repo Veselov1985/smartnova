@@ -22,6 +22,7 @@ import {
   styleUrls: ['./sells-multifilter.component.less']
 })
 export class SellsMultifilterComponent implements OnInit {
+  @ViewChild('form') form: NgForm;
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @Output() sellsMultiFilter = new EventEmitter();
 
@@ -70,6 +71,12 @@ export class SellsMultifilterComponent implements OnInit {
         return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
       });
     }
+    setTimeout(() => {
+      const mf = JSON.parse(sessionStorage.getItem('sellsMultiFilter'));
+      if (mf) {
+        this.form.setValue(mf);
+      }
+    }, 100);
   }
 
   checkFilter(form: NgForm) {

@@ -23,6 +23,7 @@ import {
 })
 
 export class EventsMultifilterComponent implements OnInit {
+  @ViewChild('form') form: NgForm;
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @Input() activeEventType: number;
   @Output() eventsMultiFilter = new EventEmitter();
@@ -84,6 +85,13 @@ export class EventsMultifilterComponent implements OnInit {
         return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
       });
     }
+    setTimeout(() => {
+      const mf = JSON.parse(sessionStorage.getItem('eventsMultiFilter'));
+      if (mf) {
+        delete mf.eventTypes;
+        this.form.setValue(mf);
+      }
+    }, 100);
   }
 
   checkFilter(form: NgForm) {

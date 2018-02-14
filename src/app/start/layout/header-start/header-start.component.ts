@@ -86,6 +86,7 @@ export class HeaderStartComponent implements OnInit {
       this.authService.logout().subscribe(() => console.log('logout'));
     } else {
       this.router.navigate(['/']);
+      this.authService.removeMultiflters();
     }
   }
 }

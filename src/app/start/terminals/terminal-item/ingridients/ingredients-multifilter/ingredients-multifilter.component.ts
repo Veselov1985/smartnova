@@ -22,6 +22,7 @@ import {
   styleUrls: ['./ingredients-multifilter.component.less']
 })
 export class IngredientsMultifilterComponent implements OnInit {
+  @ViewChild('form') form: NgForm;
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @Output() ingrMultiFilter = new EventEmitter();
   public state = 'inactive';
@@ -53,6 +54,12 @@ export class IngredientsMultifilterComponent implements OnInit {
     if (sort) {
       this.filterForm.sort((a, b) => sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item));
     }
+    setTimeout(() => {
+      const mf = JSON.parse(sessionStorage.getItem('ingrMultiFilter'));
+      if (mf) {
+        this.form.setValue(mf);
+      }
+    }, 100);
   }
 
   checkFilter(form: NgForm) {

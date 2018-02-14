@@ -20,47 +20,47 @@
       </div>
       <div class="row">
         <div class='col-sm-10 col-sm-offset-1'>
-          <div class='row'>
+          <div class='row text-center'>
             <div class='col-sm-6 col-sm-offset-3'>
               <div class='row'>
-                <div class='col-sm-6'>с {{ multiFilter?.dateSearchFrom | date:'medium'}}</div>
-                <div class='col-sm-6'>по {{ multiFilter?.dateSearchTo | date:'medium'}}</div>
+                <div class='col-sm-6'>с {{ multiFilter?.DateTimeFrom | date:'medium'}}</div>
+                <div class='col-sm-6'>по {{ multiFilter?.DateTimeTo | date:'medium'}}</div>
               </div>
             </div>
           </div>
           <div class='row'>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 print-style'>
               <div class='row'>
                 <div class='col-sm-5'>Наименование</div>
-                <div class='col-sm-7'>{{ multiFilter?.name }}</div>
+                <div class='col-sm-7'>{{ multiFilter?.Name }}</div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Количество</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{ multiFilter?.totalNumberFrom }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.TotalNumberFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{ multiFilter?.totalNumberTo }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.TotalNumberTo }}</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 print-style'>
               <div class='row'>
                 <div class='col-sm-5'>Длительность, мин</div>
                 <div class='col-sm-7'>
                   <div class='row'>
                     <div class='col-sm-2'>от</div>
-                    <div class='col-sm-3'>{{ multiFilter?.durationFrom }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.DurationFrom }}</div>
                     <div class='col-sm-2'>до</div>
-                    <div class='col-sm-3'>{{ multiFilter?.durationTo }}</div>
+                    <div class='col-sm-3'>{{ multiFilter?.DurationTo }}</div>
                   </div>
                 </div>
               </div>
               <div class='row'>
                 <div class='col-sm-5'>Квитирование</div>
-                <div class='col-sm-7'>{{multiFilter?.viewed | radioValueTransform}}</div>
+                <div class='col-sm-7'>{{multiFilter?.Viewed | radioValueTransform}}</div>
               </div>
             </div>
           </div>

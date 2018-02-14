@@ -20,101 +20,15 @@
             <div *ngIf="item.type === 'multi'" class="col-sm-6">
               <div class="row">
                 <div class="col-sm-5">
-                  <input id="{{item.id}}From" name="{{item.id}}From" type="number" class="form-control input-sm" ngModel>
+                  <input id="{{item.id}}From" name="{{item.id}}From" type="number" class="form-control input-sm" ngModel min="0" appForbidNegativeNumbers>
                 </div>
                 <label class="col-sm-2 text-right" for="salesSumTo">до</label>
                 <div class="col-sm-5">
-                  <input id="{{item.id}}To" name="{{item.id}}To" type="number" class="form-control input-sm" ngModel>
+                  <input id="{{item.id}}To" name="{{item.id}}To" type="number" class="form-control input-sm" ngModel min="0" appForbidNegativeNumbers>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="id">ID</label>
-            <div class="col-sm-6">
-              <input id="id" name="id" type="text" class="form-control input-sm" ngModel>
-            </div>
-          </div> -->
-
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-5 control-label" for="name">Наименование</label>
-            <div class="col-sm-6">
-              <input id="name" name="name" type="text" class="form-control input-sm" ngModel>
-            </div>
-          </div> -->
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label">Объём выдачи</label>
-            <label class="col-sm-1 control-label" for="issuanceVolFrom">от</label>
-            <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <input id="issuanceVolFrom" name="issuanceVolFrom" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                  <label class="col-sm-2 text-right" for="issuanceVolTo">до</label>
-                  <div class="col-sm-5">
-                    <input id="issuanceVolTo" name="issuanceVolTo" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                </div>
-              </div>
-          </div> -->
-
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label">Объём загрузки</label>
-            <label class="col-sm-1 control-label" for="downloadVolFrom">от</label>
-            <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <input id="downloadVolFrom" name="downloadVolFrom" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                  <label class="col-sm-2 text-right" for="downloadVolTo">до</label>
-                  <div class="col-sm-5">
-                    <input id="downloadVolTo" name="downloadVolTo" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                </div>
-              </div>
-          </div> -->
-          <!-- Text input-->
-          <!-- <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label">Текущий объём</label>
-            <label class="col-sm-1 control-label" for="currentVolFrom">от</label>
-            <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <input id="currentVolFrom" name="currentVolFrom" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                  <label class="col-sm-2 text-right" for="currentVolTo">до</label>
-                  <div class="col-sm-5">
-                    <input id="currentVolTo" name="currentVolTo" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <div class="form-group">
-            <div class='col-sm-1 drag'></div>
-            <label class="col-sm-4 control-label">Порог</label>
-            <label class="col-sm-1 control-label" for="thresholdFrom">от</label>
-            <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <input id="thresholdFrom" name="thresholdFrom" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                  <label class="col-sm-2 text-right" for="thresholdTo">до</label>
-                  <div class="col-sm-5">
-                    <input id="thresholdTo" name="thresholdTo" type="number" class="form-control input-sm" ngModel>
-                  </div>
-                </div>
-              </div>
-          </div> -->
 
           <!-- Button (Double) -->
           <div class="form-group">

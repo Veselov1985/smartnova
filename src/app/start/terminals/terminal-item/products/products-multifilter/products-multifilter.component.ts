@@ -23,6 +23,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class ProductsMultifilterComponent implements OnInit {
+  @ViewChild('form') form: NgForm;
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @Output() productsMultiFilter = new EventEmitter();
   id: string;
@@ -64,6 +65,12 @@ export class ProductsMultifilterComponent implements OnInit {
         return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
       });
     }
+    setTimeout(() => {
+      const mf = JSON.parse(sessionStorage.getItem('productMultiFilter'));
+      if (mf) {
+        this.form.setValue(mf);
+      }
+    }, 100);
   }
 
   checkFilter(form: NgForm) {

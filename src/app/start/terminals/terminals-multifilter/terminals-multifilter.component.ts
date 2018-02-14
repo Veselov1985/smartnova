@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { DateTimePickerModule } from 'ng-pick-datetime';
 
@@ -19,7 +19,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class TerminalsMultifilterComponent implements OnInit {
-
+  @ViewChild('form') form: NgForm;
   @Output() terminalsMultiFilter = new EventEmitter();
   public state = 'inactive';
 
@@ -58,6 +58,12 @@ export class TerminalsMultifilterComponent implements OnInit {
         return sort.findIndex(item => a.id === item) - sort.findIndex(item => b.id === item);
       });
     }
+    setTimeout(() => {
+      const mf = JSON.parse(sessionStorage.getItem('terminalsMultiFilter'));
+      if (mf) {
+        this.form.setValue(mf);
+      }
+    }, 100);
   }
 
   checkFilter(form: NgForm) {
