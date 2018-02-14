@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MultiFilterEventsPipe implements PipeTransform {
 
-  transform(items: any[], multifilter: any): any {
-    if (!items || !multifilter) {
+  transform(items: any[], multifilter: any, type?: string): any {
+    if (!items || !multifilter || !multifilter.eventTypes.includes(type)) {
       return items;
     }
     const regName = new RegExp(multifilter.Name, 'i');

@@ -13,16 +13,16 @@
     <div class="row">
       <div class="col-sm-12 col-xs-12 checkboxes-wrap">
         <ul class="checkbox-nesting">
-          <li [ngClass]="{'active': tab === 1 }" (click)="tab = 1" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Operational')">
+          <li [ngClass]="{'active': tab === 1 }" (click)="tab = 1">
             Операционные
           </li>
-          <li [ngClass]="{'active': tab === 2 }" (click)="tab = 2" *ngIf="!multiFilter || multiFilter.eventTypes.includes('System')">
+          <li [ngClass]="{'active': tab === 2 }" (click)="tab = 2">
             Системные/аварии
           </li>
-          <li [ngClass]="{'active': tab === 3 }" (click)="tab = 3" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Uncertain')">
+          <li [ngClass]="{'active': tab === 3 }" (click)="tab = 3">
             Неопределенные
           </li>
-          <li [ngClass]="{'active': tab === 4 }" (click)="tab = 4" *ngIf="!multiFilter || multiFilter.eventTypes.includes('Additional')">
+          <li [ngClass]="{'active': tab === 4 }" (click)="tab = 4">
             Дополнительные
           </li>
         </ul>
@@ -32,7 +32,7 @@
       <div class="col-sm-12 col-xs-12">
         <div class="tables-wrap">
           <div class="table-item" *ngSwitchCase="1">
-            <table class="table table-striped" [mfData]="events?.Operational | multiFilterEvents : multiFilter" #operational="mfDataTable" [mfRowsOnPage]="50"
+            <table class="table table-striped" [mfData]="events?.Operational | multiFilterEvents : multiFilter : 'Operational'" #operational="mfDataTable" [mfRowsOnPage]="50"
             [(mfSortBy)]="sort.operational.sortBy" [(mfSortOrder)]="sort.operational.sortOrder"
             (mfSortByChange)="onChangeSort($event, 'operational')" (mfSortOrderChange)="onChangeSortOrder($event, 'operational')">
               <thead>
@@ -68,7 +68,7 @@
                   <th>Динамика</th>
                 </tr>
               </thead>
-              <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Operational')">
+              <tbody>
                 <tr *ngFor="let item of operational.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
@@ -81,7 +81,7 @@
             </table>
           </div>
           <div class="table-item" *ngSwitchCase="2">
-            <table class="table table-striped" [mfData]="events?.System | multiFilterEvents : multiFilter" #system="mfDataTable"
+            <table class="table table-striped" [mfData]="events?.System | multiFilterEvents : multiFilter : 'System'" #system="mfDataTable"
               [mfRowsOnPage]="50" [(mfSortBy)]="sort.system.sortBy" [(mfSortOrder)]="sort.system.sortOrder"
               (mfSortByChange)="onChangeSort($event, 'system')" (mfSortOrderChange)="onChangeSortOrder($event, 'system')">
               <thead>
@@ -117,7 +117,7 @@
                   <th>Динамика</th>
                 </tr>
               </thead>
-              <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('System')">
+              <tbody>
                 <tr *ngFor="let item of system.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
@@ -130,7 +130,7 @@
             </table>
           </div>
           <div class="table-item" *ngSwitchCase="3">
-            <table class="table table-striped" [mfData]="events?.Uncertain | multiFilterEvents : multiFilter" #uncertain="mfDataTable"
+            <table class="table table-striped" [mfData]="events?.Uncertain | multiFilterEvents : multiFilter : 'Uncertain'" #uncertain="mfDataTable"
               [mfRowsOnPage]="50" [(mfSortBy)]="sort.uncertain.sortBy" [(mfSortOrder)]="sort.uncertain.sortOrder"
               (mfSortByChange)="onChangeSort($event, 'uncertain')" (mfSortOrderChange)="onChangeSortOrder($event, 'uncertain')">
               <thead>
@@ -166,7 +166,7 @@
                   <th>Динамика</th>
                 </tr>
               </thead>
-              <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Uncertain')">
+              <tbody>
                 <tr *ngFor="let item of uncertain.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
@@ -179,7 +179,7 @@
             </table>
           </div>
           <div class="table-item" *ngSwitchCase="4">
-            <table class="table table-striped" [mfData]="events?.Additional | multiFilterEvents : multiFilter" #additional="mfDataTable"
+            <table class="table table-striped" [mfData]="events?.Additional | multiFilterEvents : multiFilter : 'Additional'" #additional="mfDataTable"
               [mfRowsOnPage]="50" [(mfSortBy)]="sort.additional.sortBy" [(mfSortOrder)]="sort.additional.sortOrder"
               (mfSortByChange)="onChangeSort($event, 'additional')" (mfSortOrderChange)="onChangeSortOrder($event, 'additional')">
               <thead>
@@ -216,7 +216,7 @@
                   <th *ngIf="stateConfigMode == 'active'">Конфигурирование</th>
                 </tr>
               </thead>
-              <tbody *ngIf="!multiFilter || multiFilter.eventTypes.includes('Additional')">
+              <tbody>
                 <tr *ngFor="let item of additional.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>

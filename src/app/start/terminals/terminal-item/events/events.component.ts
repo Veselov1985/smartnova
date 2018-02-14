@@ -129,7 +129,6 @@ export class EventsComponent implements OnInit, OnDestroy {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
-
     this.countNotViewedEvents();
     Object.keys(this.sort).forEach(item => {
       this.sort[item].sortBy = JSON.parse(sessionStorage.getItem('eventsSortOrder'));
@@ -166,13 +165,11 @@ export class EventsComponent implements OnInit, OnDestroy {
     if (this.events) {
       this.notViewed = 0;
       for (const key of Object.keys(this.events)) {
-        if (!this.multiFilter || this.multiFilter.eventTypes.indexOf(key) !== -1) {
-          this.filterPipe.transform(this.events[key], this.multiFilter).forEach((item: any) => {
-            if (item.Viewed === false) {
-              this.notViewed += 1;
-            }
-          });
-        }
+        this.filterPipe.transform(this.events[key], this.multiFilter, key).forEach((item: any) => {
+          if (item.Viewed === false) {
+            this.notViewed += 1;
+          }
+        });
       }
     }
   }

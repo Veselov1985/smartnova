@@ -60,8 +60,18 @@ export class EventsMultifilterComponent implements OnInit {
       stateConfig => {
         this.state = stateConfig;
         if (stateConfig === 'active') {
-          this.eventFields.forEach(item => item.isChecked = false);
-          this.eventFields[this.activeEventType - 1].isChecked = true;
+          const mf = JSON.parse(sessionStorage.getItem('eventsMultiFilter'));
+          if (!mf) {
+            this.eventFields[this.activeEventType - 1].isChecked = true;
+          } else {
+            if (mf.eventTypes) {
+              mf.eventTypes.forEach(type => this.eventFields.forEach(item => {
+                if (type === item.eventType) {
+                  item.isChecked = true;
+                }
+              }));
+            }
+          }
           setTimeout(() => {
             this.cancelBtn.nativeElement.focus();
           }, 100);
