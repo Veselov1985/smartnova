@@ -150,9 +150,18 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   setData() {
-    sessionStorage.setItem('operationalEvents', JSON.stringify(this.filterPipe.transform(this.events.Operational, this.multiFilter)));
-    sessionStorage.setItem('systemEvents', JSON.stringify(this.filterPipe.transform(this.events.System, this.multiFilter)));
-    sessionStorage.setItem('uncertainEvents', JSON.stringify(this.filterPipe.transform(this.events.Uncertain, this.multiFilter)));
+    sessionStorage.setItem(
+      'operationalEvents',
+      JSON.stringify(this.filterPipe.transform(this.events.Operational, this.multiFilter, 'Operational'))
+    );
+    sessionStorage.setItem(
+      'systemEvents',
+      JSON.stringify(this.filterPipe.transform(this.events.System, this.multiFilter, 'System'))
+    );
+    sessionStorage.setItem(
+      'uncertainEvents',
+      JSON.stringify(this.filterPipe.transform(this.events.Uncertain, this.multiFilter, 'Uncertain'))
+    );
   }
 
   ngOnDestroy() {
