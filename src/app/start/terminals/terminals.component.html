@@ -83,7 +83,7 @@
                 <tr>
                   <td colspan="8">
                     <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
-                    <app-data-table-paginator [page]="1"></app-data-table-paginator>
+                    <app-data-table-paginator [page]="page" [section]="'terminals'"></app-data-table-paginator>
                     <ul class="pagination">
                       <li class="page-item"> <span class="no-border">Всего:</span> </li>
                       <li class="page-item"> <span>{{ (data | multiFilterTerminals : multiFilter | dataFilter : filterQuery)?.length }}</span></li>

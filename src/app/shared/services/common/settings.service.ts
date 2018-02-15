@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export interface SortSettings {
     sortBy: string;
     sortOrder: string;
+    page?: number;
 }
 
 export interface Settings {
@@ -23,23 +24,12 @@ export interface Settings {
 export class SettingsService {
 
     _settings: Settings;
+
     constructor() {
         if (sessionStorage.getItem('settings')) {
             this._settings = JSON.parse(sessionStorage.getItem('settings'));
         } else {
-            this._settings = {
-                products: { sortBy: '', sortOrder: '' },
-                sells: { sortBy: '', sortOrder: '' },
-                collection: { sortBy: '', sortOrder: '' },
-                ingredients: { sortBy: '', sortOrder: '' },
-                terminals: { sortBy: '', sortOrder: '' },
-                events: {
-                    operational: { sortBy: 'Name', sortOrder: 'asc' },
-                    system: { sortBy: 'Name', sortOrder: 'asc' },
-                    uncertain: { sortBy: 'Name', sortOrder: 'asc' },
-                    additional: { sortBy: 'Name', sortOrder: 'asc' },
-                }
-            };
+            this.setDefaultSettings();
         }
     }
 
@@ -49,6 +39,22 @@ export class SettingsService {
 
     set settings(settings: Settings) {
         this._settings = settings;
+    }
+
+    setDefaultSettings() {
+        this._settings = {
+            products: { sortBy: '', sortOrder: '', page: 1 },
+            sells: { sortBy: '', sortOrder: '', page: 1 },
+            collection: { sortBy: '', sortOrder: '', page: 1 },
+            ingredients: { sortBy: '', sortOrder: '', page: 1 },
+            terminals: { sortBy: '', sortOrder: '', page: 1 },
+            events: {
+                operational: { sortBy: 'Name', sortOrder: 'asc' },
+                system: { sortBy: 'Name', sortOrder: 'asc' },
+                uncertain: { sortBy: 'Name', sortOrder: 'asc' },
+                additional: { sortBy: 'Name', sortOrder: 'asc' },
+            }
+        };
     }
 
 }

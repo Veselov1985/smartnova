@@ -6,6 +6,7 @@ import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../shared';
 
 import { GetBarDataService, StorageBarData, StateUserpanelService, } from '../../../shared';
+import { SettingsService } from '../../../shared/services/common/settings.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -29,6 +30,7 @@ export class HeaderStartComponent implements OnInit {
     private getBarDataServise: GetBarDataService,
     private router: Router,
     private StateUserpanel: StateUserpanelService,
+    private settingsService: SettingsService
   ) {}
 
   ngOnInit() {
@@ -87,6 +89,14 @@ export class HeaderStartComponent implements OnInit {
     } else {
       this.router.navigate(['/']);
       this.authService.removeMultiflters();
+      this.settingsService.setDefaultSettings();
     }
+  }
+
+  resetPages() {
+    this.settingsService.settings.sells.page = 1;
+    this.settingsService.settings.products.page = 1;
+    this.settingsService.settings.collection.page = 1;
+    this.settingsService.settings.ingredients.page = 1;
   }
 }

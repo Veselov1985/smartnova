@@ -3,7 +3,7 @@
     <a (click)="logOut($event)" class="main-logo">
             <img src="/assets/img/smartnova_logo.png" alt="Smartnova Group Logo">
         </a>
-    <a routerLink="./" class="home-link tooltip-wrap">
+    <a routerLink="./" class="home-link tooltip-wrap" (click)="resetPages()">
             <span class="tooltiptext">На главную</span>
         </a>
     <!-- <a (click)="downloadEvents($event)" class="reload-btn tooltip-wrap">

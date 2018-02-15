@@ -31,6 +31,7 @@ export class CollectionComponent implements OnInit {
 
   multiFilter: any;
   filtered: boolean;
+  page: number;
 
   sumCollection: number;
   sumGivenChange: number;
@@ -64,6 +65,8 @@ export class CollectionComponent implements OnInit {
       this.sortBy = this.settingsService.settings.collection.sortBy || 'DateTime';
       this.sortOrder = this.settingsService.settings.collection.sortOrder || 'desc';
     }
+
+    this.page = this.settingsService.settings.collection.page;
   }
 
   MultifilterState(event: any) {

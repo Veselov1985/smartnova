@@ -29,6 +29,7 @@ export class SellsComponent implements OnInit {
   multiFilter: any;
   filtered: boolean;
   totalSum: number;
+  page: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +72,8 @@ export class SellsComponent implements OnInit {
       this.sortBy = this.settingsService.settings.sells.sortBy || 'DateTime';
       this.sortOrder = this.settingsService.settings.sells.sortOrder || 'desc';
     }
+
+    this.page = this.settingsService.settings.sells.page;
   }
 
   toInt(num: string) {

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { urlApi } from '../../url.api';
+import { SettingsService } from '../common/settings.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -16,7 +17,7 @@ export class AuthService {
   private baseUrl: string;
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router, private settingsService: SettingsService) {
     if (!!sessionStorage.getItem('auth_token')) {
       this.isLoggedIn.next(true);
     }
@@ -35,6 +36,7 @@ export class AuthService {
           this.loggedIn = true;
           this.isLoggedIn.next(true);
           this.removeMultiflters();
+          this.settingsService.setDefaultSettings();
         }
         return res;
       });
@@ -54,6 +56,7 @@ export class AuthService {
           this.isLoggedIn.next(false);
           this.router.navigate(['/']);
           this.removeMultiflters();
+          this.settingsService.setDefaultSettings();
         }
         return res;
       });

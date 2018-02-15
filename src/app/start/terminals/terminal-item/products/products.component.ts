@@ -42,6 +42,7 @@ export class ProductsComponent implements OnInit {
   multiFilter: any;
   filtered: boolean;
   productsNumber: number;
+  page: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -93,6 +94,8 @@ export class ProductsComponent implements OnInit {
       this.sortBy = this.settingsService.settings.products.sortBy || 'Id';
       this.sortOrder = this.settingsService.settings.products.sortOrder || 'asc';
     }
+
+    this.page = this.settingsService.settings.products.page;
   }
 
   MultifilterState(event: any) {

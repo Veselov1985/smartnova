@@ -34,6 +34,7 @@ export class IngridientsComponent implements OnInit {
 
   multiFilter: any;
   filtered: boolean;
+  page: number;
 
   ingrNumber: number;
 
@@ -74,6 +75,8 @@ export class IngridientsComponent implements OnInit {
       this.sortBy = this.settingsService.settings.ingredients.sortBy || 'Pid';
       this.sortOrder = this.settingsService.settings.ingredients.sortOrder || 'asc';
     }
+
+    this.page = this.settingsService.settings.ingredients.page;
   }
 
   MultifilterState(event: any) {

@@ -29,6 +29,7 @@ export class TerminalsComponent implements OnInit {
 
   multiFilter: any;
   filtered: boolean;
+  page: number;
 
   constructor(
     private router: Router,
@@ -58,6 +59,8 @@ export class TerminalsComponent implements OnInit {
       this.sortBy = this.settingsService.settings.terminals.sortBy || 'Id';
       this.sortOrder = this.settingsService.settings.terminals.sortOrder || 'asc';
     }
+
+    this.page = this.settingsService.settings.terminals.page;
   }
 
   MultifilterState(event: any) {

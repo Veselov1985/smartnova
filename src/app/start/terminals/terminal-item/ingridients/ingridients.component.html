@@ -78,7 +78,7 @@
         <tr>
           <td colspan="7">
             <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
-            <app-data-table-paginator></app-data-table-paginator>
+            <app-data-table-paginator [page]="page" [section]="'ingredients'"></app-data-table-paginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
               <li class="page-item"> <span>{{(data | multiFilterIngr : multiFilter | dataFilter : filterQuery)?.length}}</span></li>
