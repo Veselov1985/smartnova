@@ -4,6 +4,7 @@ import { RadioLabelsPipe } from './pipes/radio-labels.pipe';
 import { BurgerService } from './services/common/burger.service';
 import { AuthService } from './services/auth/auth.service';
 import { ClientDataService } from './services/auth/client-data.service';
+import { SignalRService } from './services/auth/signalr.service';
 
 
 import {
@@ -61,7 +62,8 @@ const SHARED_PROVIDE: any[] = [
   TerminalProductsConfiguratorService,
   TerminalIngredientsConfiguratorService,
   TerminalEventsConfiguratorService,
-  ShareDataService
+  ShareDataService,
+  SignalRService
 ];
 
 const SHARED_DERECTIVE: any[] = [

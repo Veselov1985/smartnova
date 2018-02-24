@@ -64,7 +64,7 @@ import { urlApi } from './shared/url.api';
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
   c.hubName = 'NotificationHub';
-  // c.qs = { userGuid: null, groupTid: null };
+  // c.qs = { userGuid: 'Z100', groupTid: 'T100' };
   c.url = urlApi.rootPath;
   c.logging = true;
   // c.executeEventsInZone = true; // optional, default is true
