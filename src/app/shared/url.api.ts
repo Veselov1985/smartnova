@@ -5,13 +5,15 @@ if (environment.production) {
   urlapi = {
     server: '/restapi/Manage/',
     serverdemo: '/restapi/Demo/',
-    serveraccount: '/restapi/Account/'
+    serveraccount: '/restapi/Account/',
+    rootPath: ''
   };
 } else {
   urlapi = {
-    server: 'http://api.sevenbi.com/restapi/Manage/',
-    serverdemo: 'http://api.sevenbi.com/restapi/Demo/',
-    serveraccount: 'http://api.sevenbi.com/restapi/Account/'
+    server: 'http://telemetry.smartnovagroup.com/restapi/Manage/',
+    serverdemo: 'http://telemetry.smartnovagroup.com/restapi/Demo/',
+    serveraccount: 'http://telemetry.smartnovagroup.com/restapi/Account/',
+    rootPath: 'http://telemetry.smartnovagroup.com/'
   };
 }
 

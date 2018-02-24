@@ -9,6 +9,7 @@ import { GetBarDataService, StorageBarData, StateUserpanelService, } from '../..
 import { SettingsService } from '../../../shared/services/common/settings.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { SignalRService } from '../../../shared/services/auth/signalr.service';
 
 @Component({
   selector: 'app-header-start',
@@ -21,7 +22,7 @@ export class HeaderStartComponent implements OnInit {
   dropdownSubscription: Subscription;
   isAuth: string;
   bardata: StorageBarData;
-  signalReload = false;
+  signalReload: boolean;
   public state = 'inactive';
 
   constructor(
@@ -30,7 +31,8 @@ export class HeaderStartComponent implements OnInit {
     private getBarDataServise: GetBarDataService,
     private router: Router,
     private StateUserpanel: StateUserpanelService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private signalRService: SignalRService
   ) {}
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class HeaderStartComponent implements OnInit {
         this.bardata = data;
       }
     });
+    this.signalReload = JSON.parse(localStorage.getItem('signalR'));
   }
 
   downloadEvents(ev: Event) {
@@ -64,11 +67,10 @@ export class HeaderStartComponent implements OnInit {
       }
     }
   }
-  signalReloadToggle(ev: Event) {
-    if (ev) {
-      ev.preventDefault();
-    }
+  signalReloadToggle() {
     this.signalReload = !this.signalReload;
+    this.signalRService.changeSignalRStatus(this.signalReload);
+    localStorage.setItem('signalR', JSON.stringify(this.signalReload));
   }
 
   openCloseSidebar(ev: Event) {

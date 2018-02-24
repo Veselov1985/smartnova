@@ -19,7 +19,7 @@
         <span class="number" *ngIf='bardata'>{{bardata.BarData.Incaso}}</span>
       </li>
     </ul>
-    <a (click)="signalReloadToggle($event)" [ngSwitch]="signalReload" [ngClass]="{'connect': signalReload === true }" class="reload-data-link tooltip-wrap">
+    <a (click)="signalReloadToggle()" [ngSwitch]="signalReload" [ngClass]="{'connect': signalReload === true }" class="reload-data-link tooltip-wrap">
           <span *ngSwitchCase="true"> <span class="tooltiptext">Выключить обновление данных в реальном времени</span> </span>
           <span *ngSwitchCase="false"> <span class="tooltiptext">Включить обновление данных в реальном времени</span> </span>
       </a>

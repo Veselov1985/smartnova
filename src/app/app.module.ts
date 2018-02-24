@@ -57,6 +57,22 @@ import {
   // MatStepperModule,
 } from '@angular/material';
 
+import { SignalRModule } from 'ng2-signalr';
+import { SignalRConfiguration } from 'ng2-signalr';
+import { urlApi } from './shared/url.api';
+
+export function createConfig(): SignalRConfiguration {
+  const c = new SignalRConfiguration();
+  c.hubName = 'NotificationHub';
+  // c.qs = { userGuid: 'Z100', groupTid: 'T100' };
+  c.url = urlApi.rootPath;
+  c.logging = true;
+  // c.executeEventsInZone = true; // optional, default is true
+  // c.executeErrorsInZone = false; // optional, default is false
+  // c.executeStatusChangeInZone = true; // optional, default is true
+  return c;
+}
+
 @NgModule({
   exports: [
 
@@ -108,7 +124,7 @@ export class MaterialModule {}
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,
-
+    SignalRModule.forRoot(createConfig),
     ChartModule,
     MaterialModule,
   ],

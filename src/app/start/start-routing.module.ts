@@ -33,11 +33,15 @@ import { EventsResolver } from '../shared/resolvers/events.resolver';
 import { EventsStatsResolver } from '../shared/resolvers/events-stats.resolver';
 import { CollectionResolver } from '../shared/resolvers/collection.resolver';
 import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
+import { SignalRResolver } from '../shared/resolvers/signalR.resolver';
 
 const startRoutes: Routes = [
     {
       path: 'start',
       component: StartComponent,
+      resolve: {
+        connection: SignalRResolver
+      },
       children: [
         {
           path: '',
