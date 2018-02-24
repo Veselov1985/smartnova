@@ -20,7 +20,7 @@ export class ChartMainService {
   });
 
   constructor(public http: Http, private auth: AuthService) {
-    this.Pk = sessionStorage.getItem('productPk');
+    this.Pk = sessionStorage.getItem('TnPk');
     this.auth.isLoggedIn.subscribe(isLoggedIn => {
       this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
     });
