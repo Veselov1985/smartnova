@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -17,6 +17,8 @@ import {
 import { ProdictIngredientsComponent } from './prodict-ingredients/prodict-ingredients.component';
 import { MultiFilterProductsPipe } from '../../../../shared/shared';
 import { SettingsService } from './../../../../shared/services/common/settings.service';
+import { Subscription } from 'rxjs/Subscription';
+import { SignalRService } from '../../../../shared/services/auth/signalr.service';
 
 
 @Component({
@@ -25,7 +27,7 @@ import { SettingsService } from './../../../../shared/services/common/settings.s
   styleUrls: ['./products.component.less']
 })
 
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   public data: TItemProducts[] = [];
   public filterQuery = '';
   public rowsOnPage = 10;
@@ -44,6 +46,8 @@ export class ProductsComponent implements OnInit {
   productsNumber: number;
   page: number;
 
+  private saleSubscritption: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -53,7 +57,8 @@ export class ProductsComponent implements OnInit {
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
     private filterPipe: MultiFilterProductsPipe,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private signalRService: SignalRService
   ) {
     this.stateConfigMode = this.stateConfigModeService.getStateConfigMode();
     stateConfigModeService.changeConfigMode$.subscribe(
@@ -96,6 +101,17 @@ export class ProductsComponent implements OnInit {
     }
 
     this.page = this.settingsService.settings.products.page;
+    
+    this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
+      this.serviceProd.getTerminalProducts(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
+        if (product.IsSuccess) {
+          this.data = product.TerminalGoods;
+        } else {
+          this.data = [];
+        }
+        this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
+      }, err => console.log(err));
+    });
   }
 
   MultifilterState(event: any) {
@@ -160,4 +176,9 @@ export class ProductsComponent implements OnInit {
     this.settingsService.settings.products.sortOrder = sortOrder;
   }
 
+  ngOnDestroy(): void {
+    if (this.saleSubscritption) {
+      this.saleSubscritption.unsubscribe();
+    }
+  }
 }

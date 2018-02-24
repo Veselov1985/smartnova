@@ -17,7 +17,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="text-center" width="15%">
+            <th class="text-center" width="20%">
               Время
             </th>
             <th class="text-center" width="20%">
@@ -29,40 +29,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center">12 окт. 2016 г., 10:37</td>
-            <td class="text-center">Торговая сеть CPB1028970</td>
-            <td>Неудачная попытка входа в кабинет</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 окт. 2016 г., 10:37</td>
-            <td class="text-center">Торговая сеть UZL9725299</td>
-            <td>Неопознанный товар idFF3 Кофе</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 окт. 2016 г., 10:37</td>
-            <td class="text-center">Торговая сеть PTT4749482</td>
-            <td>Неопознанный товар idFF3 Кофе</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 окт. 2016 г., 10:37</td>
-            <td class="text-center">Торговая сеть LUI9044053</td>
-            <td>Неопознанный товар idFF3 Кофе</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 окт. 2016 г., 10:37</td>
-            <td class="text-center">Торговая сеть JFV5361767</td>
-            <td>Неопознанный ингредиент idSF4 Капуста</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 окт. 2016 г., 10:37</td>
-            <td class="text-center">Торговая сеть HFB6534363</td>
-            <td>Неопознанный товар idFF3 Кофе</td>
-          </tr>
-          <tr>
-            <td class="text-center">12 окт. 2016 г., 10:37</td>
-            <td class="text-center">Торговая сеть PAS2372320</td>
-            <td>Неопознанный автомат EID:CPB1028970</td>
+          <tr *ngFor="let log of logs">
+            <td class="text-center">{{log.DateTime | date:'medium'}}</td>
+            <td class="text-center">{{log.LogType}}</td>
+            <td>{{log.LogMessage}}</td>
           </tr>
         </tbody>
       </table>

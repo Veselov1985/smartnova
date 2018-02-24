@@ -17,6 +17,8 @@ import 'rxjs/add/operator/publishLast';
 
 import { MultiFilterEventsPipe } from './../../../../shared/pipes/multi-filter-events.pipe';
 import { SettingsService, SortSettings } from '../../../../shared/services/common/settings.service';
+import { Subscription } from 'rxjs/Subscription';
+import { SignalRService } from '../../../../shared/services/auth/signalr.service';
 
 
 @Component({
@@ -49,6 +51,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     'Content-Type': 'application/json'
   });
 
+  private eventSubscritption: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -59,7 +63,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
     private filterPipe: MultiFilterEventsPipe,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private signalRService: SignalRService
   ) {
     stateConfigModeService.changeConfigMode$.subscribe(stateConfigMode => this.stateConfigMode = stateConfigMode);
   }
@@ -84,6 +89,13 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.sort[item].sortOrder = 'asc';
       });
     }
+
+    this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
+      this.serviceProd.getEvents(JSON.parse(<string>resp).TerminalPk).subscribe(response => {
+        this.events = response.IsSuccess ? response.TerminalEvents : null;
+        this.countNotViewedEvents();
+      });
+    });
   }
 
   MultifilterState(event: any): void {
@@ -168,6 +180,9 @@ export class EventsComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem('operationalEvents');
     sessionStorage.removeItem('systemEvents');
     sessionStorage.removeItem('uncertainEvents');
+    if (this.eventSubscritption) {
+      this.eventSubscritption.unsubscribe();
+    }
   }
 
   countNotViewedEvents() {

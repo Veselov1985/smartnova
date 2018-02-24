@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SHARED_PIPE } from '../../shared/shared';
@@ -9,6 +9,8 @@ import {
   StateMultifilterService,
 } from '../../shared';
 import { SettingsService } from '../../shared/services/common/settings.service';
+import { Subscription } from 'rxjs/Subscription';
+import { SignalRService } from '../../shared/services/auth/signalr.service';
 
 @Component({
   selector: 'app-terminals',
@@ -16,7 +18,7 @@ import { SettingsService } from '../../shared/services/common/settings.service';
   styleUrls: ['./terminals.component.less'],
 })
 
-export class TerminalsComponent implements OnInit {
+export class TerminalsComponent implements OnInit, OnDestroy {
 
   // @Input() data: any;
   public filterQuery = '';
@@ -31,11 +33,15 @@ export class TerminalsComponent implements OnInit {
   filtered: boolean;
   page: number;
 
+  private saleSubscritption: Subscription;
+  private eventSubscritption: Subscription;
+
   constructor(
     private router: Router,
     private getTerminalsService: GetTerminalsService,
     private StateMultifilter: StateMultifilterService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private signalRService: SignalRService
   ) { }
 
 
@@ -61,6 +67,21 @@ export class TerminalsComponent implements OnInit {
     }
 
     this.page = this.settingsService.settings.terminals.page;
+
+    this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
+      this.getTerminalsService.getTerminals().subscribe((data) => {
+        if (data.IsSuccess) {
+          this.data = data.Terminals;
+        }
+      });
+    });
+    this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
+      this.getTerminalsService.getTerminals().subscribe((data) => {
+        if (data.IsSuccess) {
+          this.data = data.Terminals;
+        }
+      });
+    });
   }
 
   MultifilterState(event: any) {
@@ -103,6 +124,15 @@ export class TerminalsComponent implements OnInit {
 
   onChangeSortOrder(sortOrder: string) {
     this.settingsService.settings.terminals.sortOrder = sortOrder;
+  }
+
+  ngOnDestroy(): void {
+    if (this.saleSubscritption) {
+      this.saleSubscritption.unsubscribe();
+    }
+    if (this.eventSubscritption) {
+      this.eventSubscritption.unsubscribe();
+    }
   }
 }
 

@@ -8,6 +8,7 @@ import { ISignalRConnection, ConnectionStatus } from 'ng2-signalr';
 
 import { SignalRService } from '../shared/services/auth/signalr.service';
 import { Subscription } from 'rxjs/Subscription';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-start',
@@ -19,21 +20,27 @@ import { Subscription } from 'rxjs/Subscription';
 export class StartComponent implements OnInit, OnDestroy {
   private connection: ISignalRConnection;
   private signalrSubscritption: Subscription;
+  private saleSubscritption: Subscription;
+  private eventSubscritption: Subscription;
   userId: string;
   groupId: string;
   @HostBinding('@routeAnimation') routeAnimation = true;
 
-  constructor(private route: ActivatedRoute, private signalRService: SignalRService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private signalRService: SignalRService,
+    public snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     this.connection = this.route.snapshot.data['connection'];
-    const onMessageSent$  = this.connection.listenFor('salemessage');
-    const onMessageEventSent$  = this.connection.listenFor('eventmessage');
-    onMessageSent$.subscribe(resp => {
-      console.log('Sale!', resp);
+    this.signalRService.onSaleSent$ = this.connection.listenFor('salemessage');
+    this.signalRService.onEventSent$ = this.connection.listenFor('eventmessage');
+    this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
+      this.snackBarShow(JSON.parse(<string>resp).Notification);
     });
-    onMessageEventSent$.subscribe(resp => {
-      console.log('Event', resp);
+    this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
+      this.snackBarShow(JSON.parse(<string>resp).Notification);
     });
 
     this.userId = sessionStorage.getItem('UserPk');
@@ -41,11 +48,10 @@ export class StartComponent implements OnInit, OnDestroy {
     if (!this.userId) {
         this.userId = this.signalRService.getUserDemoId();
         this.groupId = this.signalRService.getGroupDemoId();
-        this.signalRService.setDemoMode();
     }
 
-    const isSignalROn = JSON.parse(localStorage.getItem('signalR'));
-    if (isSignalROn) {
+    const isSignalROn = JSON.parse(sessionStorage.getItem('signalR'));
+    if (isSignalROn || isSignalROn === null) {
       this.connect(this.userId, this.groupId, true);
     }
 
@@ -55,6 +61,9 @@ export class StartComponent implements OnInit, OnDestroy {
   }
 
   connect(userId: string, groupId: string, status: boolean) {
+    if (!sessionStorage.getItem('UserPk')) {
+      this.signalRService.setDemoMode();
+    }
     if (status) {
       this.connection.invoke('connect', userId, groupId).then((data) => {
         if (this.signalRService.isDemoMode) {
@@ -65,7 +74,6 @@ export class StartComponent implements OnInit, OnDestroy {
       }).catch(err => console.log(err));
     } else {
       this.connection.invoke('Disconnect', userId).then(data => {
-        console.log(this.signalRService.isDemoMode);
         if (this.signalRService.isDemoMode) {
           this.signalRService.stopDemo(userId).subscribe(resp => {
             console.log(resp);
@@ -76,9 +84,22 @@ export class StartComponent implements OnInit, OnDestroy {
     }
   }
 
+  snackBarShow(message) {
+    return this.snackBar.open(message, 'Закрыть', {
+      duration: 5000,
+      horizontalPosition: 'right'
+    });
+  }
+
   ngOnDestroy() {
     if (this.signalrSubscritption) {
       this.signalrSubscritption.unsubscribe();
+    }
+    if (this.saleSubscritption) {
+      this.saleSubscritption.unsubscribe();
+    }
+    if (this.eventSubscritption) {
+      this.eventSubscritption.unsubscribe();
     }
     this.connect(this.userId, this.groupId, false);
   }

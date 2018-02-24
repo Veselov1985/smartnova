@@ -14,6 +14,9 @@ export class SignalRService {
 
     private signalRToggleSource = new Subject<boolean>();
     signalRToggle$ = this.signalRToggleSource.asObservable();
+
+    onSaleSent$: Observable<any>;
+    onEventSent$: Observable<any>;
     constructor(private http: Http) {}
 
     startDemo(userId: string): Observable<any> {

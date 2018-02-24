@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import { urlApi } from '../../url.api';
 import { SettingsService } from '../common/settings.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SignalRService } from './signalr.service';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
   private baseUrl: string;
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: Http, private router: Router, private settingsService: SettingsService) {
+  constructor(private http: Http, private router: Router, private settingsService: SettingsService, private signalRService: SignalRService) {
     if (!!sessionStorage.getItem('auth_token')) {
       this.isLoggedIn.next(true);
     }
@@ -57,6 +58,7 @@ export class AuthService {
           this.router.navigate(['/']);
           this.removeMultiflters();
           this.settingsService.setDefaultSettings();
+          // this.signalRService.disableDemoMode();
         }
         return res;
       });

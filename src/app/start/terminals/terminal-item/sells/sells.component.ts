@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,6 +9,8 @@ import {
 } from '../../../../shared';
 import { MultiFilterSellsPipe } from '../../../../shared/shared';
 import { SettingsService } from '../../../../shared/services/common/settings.service';
+import { Subscription } from 'rxjs/Subscription';
+import { SignalRService } from '../../../../shared/services/auth/signalr.service';
 
 @Component({
   selector: 'app-sells',
@@ -16,7 +18,7 @@ import { SettingsService } from '../../../../shared/services/common/settings.ser
   styleUrls: ['./sells.component.less']
 })
 
-export class SellsComponent implements OnInit {
+export class SellsComponent implements OnInit, OnDestroy {
 
   public data: TItemSells[];
   productPk: string;
@@ -30,6 +32,8 @@ export class SellsComponent implements OnInit {
   filtered: boolean;
   totalSum: number;
   page: number;
+  
+  private saleSubscritption: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +41,8 @@ export class SellsComponent implements OnInit {
     private serviceProd: GetTerminalSellsService,
     private StateMultifilter: StateMultifilterService,
     private filterPipe: MultiFilterSellsPipe,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private signalRService: SignalRService
   ) { }
 
   ngOnInit() {
@@ -74,6 +79,16 @@ export class SellsComponent implements OnInit {
     }
 
     this.page = this.settingsService.settings.sells.page;
+
+    this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
+      this.serviceProd.getSell(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
+        this.data = product.TerminalSales;
+        this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+          return sum + current.SoldSum;
+        }, 0);
+        return product;
+      }, err => console.log(err));
+    });
   }
 
   toInt(num: string) {
@@ -117,5 +132,11 @@ export class SellsComponent implements OnInit {
 
   onChangeSortOrder(sortOrder: string) {
     this.settingsService.settings.sells.sortOrder = sortOrder;
+  }
+
+  ngOnDestroy(): void {
+    if (this.saleSubscritption) {
+      this.saleSubscritption.unsubscribe();
+    }
   }
 }

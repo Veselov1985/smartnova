@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../app.component';
@@ -16,7 +16,7 @@ import { SignalRService } from '../../../shared/services/auth/signalr.service';
   templateUrl: './header-start.component.html',
   styleUrls: ['./header-start.component.less']
 })
-export class HeaderStartComponent implements OnInit {
+export class HeaderStartComponent implements OnInit, OnDestroy {
   @ViewChild('dropdownList') dropdownList: ElementRef;
   dropdownToggle = false;
   dropdownSubscription: Subscription;
@@ -24,6 +24,9 @@ export class HeaderStartComponent implements OnInit {
   bardata: StorageBarData;
   signalReload: boolean;
   public state = 'inactive';
+
+  private saleSubscritption: Subscription;
+  private eventSubscritption: Subscription;
 
   constructor(
  //   private rootComp: AppComponent,
@@ -42,7 +45,23 @@ export class HeaderStartComponent implements OnInit {
         this.bardata = data;
       }
     });
-    this.signalReload = JSON.parse(localStorage.getItem('signalR'));
+    const isSignalR = JSON.parse(sessionStorage.getItem('signalR'));
+    this.signalReload = isSignalR === null ? true : isSignalR;
+
+    this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
+      this.getBarDataServise.getBarData().subscribe((data) => {
+        if (data.IsSuccess) {
+          this.bardata = data;
+        }
+      });
+    });
+    this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
+      this.getBarDataServise.getBarData().subscribe((data) => {
+        if (data.IsSuccess) {
+          this.bardata = data;
+        }
+      });
+    });
   }
 
   downloadEvents(ev: Event) {
@@ -70,7 +89,7 @@ export class HeaderStartComponent implements OnInit {
   signalReloadToggle() {
     this.signalReload = !this.signalReload;
     this.signalRService.changeSignalRStatus(this.signalReload);
-    localStorage.setItem('signalR', JSON.stringify(this.signalReload));
+    sessionStorage.setItem('signalR', JSON.stringify(this.signalReload));
   }
 
   openCloseSidebar(ev: Event) {
@@ -100,5 +119,14 @@ export class HeaderStartComponent implements OnInit {
     this.settingsService.settings.products.page = 1;
     this.settingsService.settings.collection.page = 1;
     this.settingsService.settings.ingredients.page = 1;
+  }
+
+  ngOnDestroy(): void {
+    if (this.saleSubscritption) {
+      this.saleSubscritption.unsubscribe();
+    }
+    if (this.eventSubscritption) {
+      this.eventSubscritption.unsubscribe();
+    }
   }
 }

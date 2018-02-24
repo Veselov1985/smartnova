@@ -64,6 +64,11 @@ export class TerminalsMultifilterComponent implements OnInit {
         this.form.setValue(mf);
       }
     }, 100);
+    // this.StateMultifilter.stateChange$.subscribe(state => {
+    //   if (state === 'active' && !sessionStorage.getItem('terminalsMultiFilter')) {
+    //     console.log(this.form.controls);
+    //   }
+    // })
   }
 
   checkFilter(form: NgForm) {
