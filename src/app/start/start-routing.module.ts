@@ -34,6 +34,7 @@ import { EventsStatsResolver } from '../shared/resolvers/events-stats.resolver';
 import { CollectionResolver } from '../shared/resolvers/collection.resolver';
 import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
 import { SignalRResolver } from '../shared/resolvers/signalR.resolver';
+import { ReportLoggingResolver } from '../shared/resolvers/report-logging.resolver';
 
 const startRoutes: Routes = [
     {
@@ -131,6 +132,9 @@ const startRoutes: Routes = [
     {
       path: 'start/logging',
       component: ReportLoggingComponent,
+      resolve: {
+        logs: ReportLoggingResolver
+      }
     },
 ];
 

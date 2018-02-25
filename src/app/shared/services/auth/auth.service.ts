@@ -18,7 +18,12 @@ export class AuthService {
   private baseUrl: string;
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: Http, private router: Router, private settingsService: SettingsService, private signalRService: SignalRService) {
+  constructor(
+    private http: Http,
+    private router: Router,
+    private settingsService: SettingsService,
+    private signalRService: SignalRService
+  ) {
     if (!!sessionStorage.getItem('auth_token')) {
       this.isLoggedIn.next(true);
     }

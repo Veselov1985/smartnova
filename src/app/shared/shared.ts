@@ -28,6 +28,7 @@ import { MultiFilterSellsPipe } from './pipes/multi-filter-sells.pipe';
 import { MultiFilterCollectPipe } from './pipes/multi-filter-collect.pipe';
 import { MultiFilterIngredientsPipe } from './pipes/multi-filter-ingredients.pipe';
 import { MultiFilterEventsPipe } from './pipes/multi-filter-events.pipe';
+import { ReportLoggingService } from './services/common/report-logging.service';
 
 // import { FocusLeavDirective } from './directives/focus-leav.directive';
 // import { HidefoneDirective } from './directives/hidefone.directive';
@@ -54,6 +55,7 @@ const SHARED_PIPE: any[] = [
 const SHARED_PROVIDE: any[] = [
   BurgerService,
   AuthService,
+  ReportLoggingService,
   ClientDataService,
   StateConfiguratorService,
   StateConfigModeService,
@@ -73,6 +75,7 @@ export {
 
   BurgerService,
   AuthService,
+  ReportLoggingService,
   ClientDataService,
   SHARED_PROVIDE,
 
