@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { DateTimePickerModule } from 'ng-pick-datetime';
 
@@ -18,8 +18,9 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./terminals-multifilter.component.less']
 })
 
-export class TerminalsMultifilterComponent implements OnInit {
+export class TerminalsMultifilterComponent implements OnInit, OnChanges {
   @ViewChild('form') form: NgForm;
+  @Input() filtered: boolean;
   @Output() terminalsMultiFilter = new EventEmitter();
   public state = 'inactive';
 
@@ -64,11 +65,6 @@ export class TerminalsMultifilterComponent implements OnInit {
         this.form.setValue(mf);
       }
     }, 100);
-    // this.StateMultifilter.stateChange$.subscribe(state => {
-    //   if (state === 'active' && !sessionStorage.getItem('terminalsMultiFilter')) {
-    //     console.log(this.form.controls);
-    //   }
-    // })
   }
 
   checkFilter(form: NgForm) {
@@ -86,6 +82,21 @@ export class TerminalsMultifilterComponent implements OnInit {
 
   onSort() {
     sessionStorage.setItem('terminalsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.filtered.firstChange && !changes.filtered.currentValue) {
+      this.filterForm.forEach(item => {
+        if (item.type === 'single') {
+          this.form.controls[item.id].setValue('');
+        } else if (item.type === 'multi') {
+          this.form.controls[`${item.id}From`].setValue('');
+          this.form.controls[`${item.id}To`].setValue('');
+        } else {
+          this.form.controls[item.id].setValue(null);
+        }
+      });
+    }
   }
 }
 

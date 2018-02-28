@@ -1,4 +1,15 @@
-import { Component, OnInit, ViewChild, Output, ElementRef, EventEmitter, HostListener, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Output,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  SimpleChanges,
+  OnChanges
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import {
@@ -22,10 +33,11 @@ import {
   styleUrls: ['./events-multifilter.component.less']
 })
 
-export class EventsMultifilterComponent implements OnInit {
+export class EventsMultifilterComponent implements OnInit, OnChanges {
   @ViewChild('form') form: NgForm;
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @Input() activeEventType: number;
+  @Input() filtered: boolean;
   @Output() eventsMultiFilter = new EventEmitter();
   public state = 'inactive';
   public moment: Date = new Date();
@@ -125,6 +137,24 @@ export class EventsMultifilterComponent implements OnInit {
 
   onSort() {
     sessionStorage.setItem('eventsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.filtered && !changes.filtered.firstChange && !changes.filtered.currentValue) {
+      this.filterForm.forEach(item => {
+        if (item.type === 'single') {
+          this.form.controls[item.id].setValue('');
+        } else if (item.type === 'multi') {
+          this.form.controls[`${item.id}From`].setValue('');
+          this.form.controls[`${item.id}To`].setValue('');
+        } else if (item.type === 'date') {
+          this.form.controls[`${item.id}From`].setValue(this.moment);
+          this.form.controls[`${item.id}To`].setValue(new Date());
+        } else {
+          this.form.controls[item.id].setValue(null);
+        }
+      });
+    }
   }
 }
 

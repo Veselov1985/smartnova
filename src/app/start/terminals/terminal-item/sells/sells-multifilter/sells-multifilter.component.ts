@@ -1,4 +1,15 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  SimpleChanges,
+  OnChanges,
+  Input
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import {
@@ -21,9 +32,10 @@ import {
   animations: [triggerMultifilterState, triggerPanelState],
   styleUrls: ['./sells-multifilter.component.less']
 })
-export class SellsMultifilterComponent implements OnInit {
+export class SellsMultifilterComponent implements OnInit, OnChanges {
   @ViewChild('form') form: NgForm;
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
+  @Input() filtered: boolean;
   @Output() sellsMultiFilter = new EventEmitter();
 
   public state = 'inactive';
@@ -94,5 +106,21 @@ export class SellsMultifilterComponent implements OnInit {
 
   onSort() {
     sessionStorage.setItem('sellsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.filtered.firstChange && !changes.filtered.currentValue) {
+      this.filterForm.forEach(item => {
+        if (item.type === 'single') {
+          this.form.controls[item.id].setValue('');
+        } else if (item.type === 'multi') {
+          this.form.controls[`${item.id}From`].setValue('');
+          this.form.controls[`${item.id}To`].setValue('');
+        } else if (item.type === 'date') {
+          this.form.controls[`${item.id}From`].setValue(this.moment);
+          this.form.controls[`${item.id}To`].setValue(new Date());
+        }
+      });
+    }
   }
 }

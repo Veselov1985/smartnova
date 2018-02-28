@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, ElementRef, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, ElementRef, EventEmitter, SimpleChanges, OnChanges, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import {
@@ -21,9 +21,10 @@ import {
   animations: [triggerMultifilterState, triggerPanelState],
   styleUrls: ['./ingredients-multifilter.component.less']
 })
-export class IngredientsMultifilterComponent implements OnInit {
+export class IngredientsMultifilterComponent implements OnInit, OnChanges {
   @ViewChild('form') form: NgForm;
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
+  @Input() filtered: boolean;
   @Output() ingrMultiFilter = new EventEmitter();
   public state = 'inactive';
 
@@ -77,5 +78,20 @@ export class IngredientsMultifilterComponent implements OnInit {
 
   onSort() {
     sessionStorage.setItem('ingredientsSortOrder', JSON.stringify(this.filterForm.map(item => item.id)));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.filtered.firstChange && !changes.filtered.currentValue) {
+      this.filterForm.forEach(item => {
+        if (item.type === 'single') {
+          this.form.controls[item.id].setValue('');
+        } else if (item.type === 'multi') {
+          this.form.controls[`${item.id}From`].setValue('');
+          this.form.controls[`${item.id}To`].setValue('');
+        } else {
+          this.form.controls[item.id].setValue(null);
+        }
+      });
+    }
   }
 }

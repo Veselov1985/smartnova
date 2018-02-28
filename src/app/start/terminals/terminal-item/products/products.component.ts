@@ -101,7 +101,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
 
     this.page = this.settingsService.settings.products.page;
-    
+
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.serviceProd.getTerminalProducts(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
         if (product.IsSuccess) {

@@ -1,5 +1,5 @@
 <app-products-configurator [currentProduct] = "courentProduct"></app-products-configurator>
-<app-products-multifilter (productsMultiFilter)="applyMultiFilter($event)"></app-products-multifilter>
+<app-products-multifilter (productsMultiFilter)="applyMultiFilter($event)" [filtered]="filtered"></app-products-multifilter>
 <div class="col-sm-12">
   <div class="top-panel-min">
     Количество товаров: {{productsNumber}}

@@ -12,7 +12,6 @@ import { AuthService } from '../../services/auth/auth.service';
 export class ChartMainService {
 
   productStore: Array<any>;
-  Pk: string;
   loggedIn: boolean;
   baseUrl: string;
   private headers = new Headers({
@@ -20,7 +19,6 @@ export class ChartMainService {
   });
 
   constructor(public http: Http, private auth: AuthService) {
-    this.Pk = sessionStorage.getItem('TnPk');
     this.auth.isLoggedIn.subscribe(isLoggedIn => {
       this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
     });
@@ -28,8 +26,9 @@ export class ChartMainService {
 
   // rename GetTerminalIncaso to getTerminalCollection
   getChartMain(): Observable<any> {
+    const Pk = sessionStorage.getItem('TnPk');
     const serviseUrl = this.baseUrl + 'GetChartLine';
-    return this.http.post(serviseUrl, JSON.stringify({ Pk: this.Pk }), { headers: this.headers })
+    return this.http.post(serviseUrl, JSON.stringify({ Pk: Pk }), { headers: this.headers })
       .map(response => response.json());
   }
 

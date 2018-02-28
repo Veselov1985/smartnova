@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SHARED_PIPE } from '../../shared/shared';
@@ -20,7 +20,6 @@ import { SignalRService } from '../../shared/services/auth/signalr.service';
 
 export class TerminalsComponent implements OnInit, OnDestroy {
 
-  // @Input() data: any;
   public filterQuery = '';
   public rowsOnPage = 10;
   public sortBy: string;
