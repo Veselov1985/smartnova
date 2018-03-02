@@ -1,4 +1,15 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild, ElementRef, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  Input,
+  SimpleChanges,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 
 import {
@@ -29,7 +40,7 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @ViewChild('form') private form: NgForm;
   @Input() currentProduct: TItemProducts;
-
+  @Output() configSent = new EventEmitter();
 
   public stateConfig = 'inactive';
   public productConfig: string;
@@ -104,6 +115,10 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
       this.productsConfiguratorService.setCurrentProduct(setData).subscribe(resp => {
         this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
         this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
+        this.configSent.emit({
+          action: 'setConfig',
+          product: this.currentProduct
+        });
         this.snackBarShow('Конфигурация отправлена');
       }, error => {
         this.snackBarShow('Произошла ошибка');
@@ -119,6 +134,10 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
       TerminalPk: sessionStorage.getItem('productPk')
     };
     this.productsConfiguratorService.applyProductConfig(setData).subscribe(resp => {
+      this.configSent.emit({
+        action: 'applyConfig',
+        product: this.currentProduct
+      });
       this.snackBarShow('Конфигурация отправлена');
     }, error => {
       this.snackBarShow('Произошла ошибка');

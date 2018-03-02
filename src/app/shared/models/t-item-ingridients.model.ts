@@ -1,4 +1,4 @@
-class TItemIngridient {
+export class TItemIngridient {
   BelongsToTerminal: string;
   CurrentVol: string;
   DownloadVol: string;
@@ -7,6 +7,7 @@ class TItemIngridient {
   Pid: string;
   Pk: string;
   Threshold: string;
+  configStatus?: string;
 }
 export class TItemIngridients {
   IsSuccess?: boolean;

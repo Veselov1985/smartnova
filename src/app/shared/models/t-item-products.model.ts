@@ -5,4 +5,5 @@ export interface TItemProducts {
     SoldNumber: number;
     SoldSum: number;
     Pk: string;
+    configStatus?: string;
 }

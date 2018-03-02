@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import {
   GetTerminalIngridientsService,
-  TItemIngridients,
+  TItemIngridient,
   StateMultifilterService,
   StateConfiguratorService,
   StateConfigModeService
@@ -21,7 +21,7 @@ import { SettingsService } from '../../../../shared/services/common/settings.ser
 export class IngridientsComponent implements OnInit {
   @Input('configMode') configMode: boolean;
 
-  public data: TItemIngridients[];
+  public data: TItemIngridient[];
   public productPk: string;
   public filterQuery = '';
   public rowsOnPage = 10;
@@ -123,5 +123,18 @@ export class IngridientsComponent implements OnInit {
 
   onChangeSortOrder(sortOrder: string) {
     this.settingsService.settings.ingredients.sortOrder = sortOrder;
+  }
+
+  onConfigSent(event) {
+    console.log(event);
+    if (event) {
+      const ingredient = this.data.find(item => item.Pk === event.ingredient.Pk);
+      ingredient.configStatus = 'inProgress';
+      if (!sessionStorage.getItem('TnPk')) {
+        setTimeout(() => {
+          ingredient.configStatus = Math.floor(Math.random() * 2) ? 'set' : 'error';
+        }, 3000);
+      }
+    }
   }
 }

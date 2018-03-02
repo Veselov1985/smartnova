@@ -1,4 +1,15 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges, HostListener, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  Input,
+  SimpleChanges,
+  HostListener,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import {
@@ -28,6 +39,7 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   @ViewChild('form') private form: NgForm;
   @Input() currentIngredient: any;
+  @Output() configSent = new EventEmitter();
 
   public stateConfig = 'inactive';
   public ingredientConfig: string;
@@ -112,6 +124,10 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
       this.terminalIngredientsConfiguratorService.setCurrentIngredientConfig(setData).subscribe(resp => {
         this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
         this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
+        this.configSent.emit({
+          action: 'setConfig',
+          ingredient: this.currentIngredient
+        });
         this.snackBarShow('Конфигурация отправлена');
       }, error => {
         this.snackBarShow('Произошла ошибка');
@@ -129,6 +145,10 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
     };
     this.terminalIngredientsConfiguratorService.applyIngredientConfig(setData).subscribe(resp => {
       this.snackBarShow('Конфигурация отправлена');
+      this.configSent.emit({
+        action: 'applyConfig',
+        ingredient: this.currentIngredient
+      });
     }, error => {
       this.snackBarShow('Произошла ошибка');
     });

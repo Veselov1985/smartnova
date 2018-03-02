@@ -1,4 +1,4 @@
-<app-ingredients-configurator [currentIngredient] = "currentIngredient"></app-ingredients-configurator>
+<app-ingredients-configurator [currentIngredient] = "currentIngredient" (configSent)="onConfigSent($event)"></app-ingredients-configurator>
 <app-ingredients-multifilter (ingrMultiFilter)="applyMultiFilter($event)" [filtered]="filtered"></app-ingredients-multifilter>
 
 <div class="col-sm-12">
@@ -71,7 +71,9 @@
           <td class="text-center">{{item.DownloadVol}}</td>
           <td class="text-center">{{item.CurrentVol}}</td>
           <td class="text-center">{{item.Threshold}}</td>
-          <td class="text-center" *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)="ConfigState(item)"></a></td>
+          <td class="text-center" *ngIf="stateConfigMode == 'active'">
+            <a class="icon-config" [ngClass]="{'in-progress': item.configStatus === 'inProgress', 'error': item.configStatus === 'error'}" (click)="ConfigState(item)"></a>
+          </td>
         </tr>
       </tbody>
       <tfoot>

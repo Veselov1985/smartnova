@@ -176,6 +176,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.settingsService.settings.products.sortOrder = sortOrder;
   }
 
+  onConfigSent(event) {
+    if (event) {
+      const product = this.data.find(item => item.Pk === event.product.Pk);
+      product.configStatus = 'inProgress';
+      if (!sessionStorage.getItem('TnPk')) {
+        setTimeout(() => {
+          product.configStatus = Math.floor(Math.random() * 2) ? 'set' : 'error';
+        }, 3000);
+      }
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.saleSubscritption) {
       this.saleSubscritption.unsubscribe();
