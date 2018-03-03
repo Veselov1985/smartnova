@@ -119,22 +119,18 @@ export class EventsComponent implements OnInit, OnDestroy {
   setEventViewed(item: TItemEvent, group: string) {
     if (!item.Viewed) {
       if (!!sessionStorage.getItem('auth_token')) {
-        this.serviceProd
-          .setEventAsViewed(item.Pk)
-          .subscribe(res => {
+        this.serviceProd.setEventAsViewed(item.Pk).subscribe(res => {
             if (res.IsSuccess) {
               item.Viewed = true;
+              this.notViewed -= 1;
             } else {
               console.log(res);
             }
-          },
-          err => {
-            console.log(err);
-          });
+          }, err => console.log(err));
       } else {
         item.Viewed = true;
+        this.notViewed -= 1;
       }
-      this.notViewed -= 1;
     }
   }
 

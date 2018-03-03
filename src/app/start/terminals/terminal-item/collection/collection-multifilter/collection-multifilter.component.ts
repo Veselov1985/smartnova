@@ -108,7 +108,7 @@ export class CollectionMultifilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!changes.filtered.firstChange && !changes.filtered.currentValue) {
+    if (changes.filtered && !changes.filtered.firstChange && !changes.filtered.currentValue) {
       this.filterForm.forEach(item => {
         if (item.type === 'single') {
           this.form.controls[item.id].setValue('');
