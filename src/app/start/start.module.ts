@@ -50,6 +50,7 @@ import { IngredientsResolver } from '../shared/resolvers/ingredients.resolver';
 import { SettingsService } from './../shared/services/common/settings.service';
 import { SignalRResolver } from '../shared/resolvers/signalR.resolver';
 import { ReportLoggingResolver } from './../shared/resolvers/report-logging.resolver';
+import { GetProductIngredientsService } from '../shared/services/terminals/get-product-ingredients.service';
 
 @NgModule({
   imports: [
@@ -98,7 +99,8 @@ import { ReportLoggingResolver } from './../shared/resolvers/report-logging.reso
     IngredientsResolver,
     SettingsService,
     SignalRResolver,
-    ReportLoggingResolver
+    ReportLoggingResolver,
+    GetProductIngredientsService
   ],
   exports: [DataTableModule, START_COMPONENT, ProdictIngredientsComponent, ReportLoggingComponent],
   entryComponents: [ProdictIngredientsComponent],

@@ -142,9 +142,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
     // this.router.navigate(['start/products']);
   }
 
-  openIngredients(event: any): void {
+  openIngredients(event: any, Pk: string): void {
     event.stopPropagation();
     const dialogRef = this.dialog.open(ProdictIngredientsComponent, {
+      data: { Pk: Pk },
       width: '550px',
     });
 

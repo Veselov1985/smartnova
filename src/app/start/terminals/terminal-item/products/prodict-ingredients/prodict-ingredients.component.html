@@ -24,7 +24,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let ingredient of ingredients">
+        <td class="text-center">{{ingredient.Pid}}</td>
+        <td class="text-center">{{ingredient.Name}}</td>
+        <td class="text-center">{{ingredient.IssuanceVol}}</td>
+        <td class="text-center">{{ingredient.DownloadVol}}</td>
+        <td class="text-center">{{ingredient.CurrentVol}}</td>
+        <td class="text-center">{{ingredient.Threshold}}</td>
+      </tr>
+      <!-- <tr>
         <td class="text-center">GUA2</td>
         <td class="text-center">Трубочка</td>
         <td class="text-center">3 шт</td>
@@ -103,7 +111,7 @@
         <td class="text-center">100 шт</td>
         <td class="text-center">18 шт</td>
         <td class="text-center">3 шт</td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
 

@@ -3,4 +3,5 @@ export * from './state-configurator.service';
 export * from './state-multifilter.service';
 export * from './state-userpanel.service';
 export * from './state-config-mode.service';
+export * from './global-error.handler';
 

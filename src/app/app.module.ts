@@ -1,4 +1,4 @@
-import {enableProdMode} from '@angular/core';
+import {enableProdMode, ErrorHandler} from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -60,6 +60,7 @@ import {
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { urlApi } from './shared/url.api';
+import { GlobalErrorHandler, LoggerService } from './shared';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -132,7 +133,7 @@ export class MaterialModule {}
     AppComponent,
     PageNotFoundComponent,
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'ru' }, SHARED_PROVIDE],
+  providers: [{ provide: LOCALE_ID, useValue: 'ru' }, SHARED_PROVIDE, LoggerService, {provide: ErrorHandler, useClass: GlobalErrorHandler}],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

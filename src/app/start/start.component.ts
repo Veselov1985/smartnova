@@ -86,6 +86,7 @@ export class StartComponent implements OnInit, OnDestroy {
 
   snackBarShow(message) {
     return this.snackBar.open(message, 'Закрыть', {
+      extraClasses: ['snack-bar-notification'],
       duration: 5000,
       horizontalPosition: 'right'
     });

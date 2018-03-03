@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { GetProductIngredientsService } from '../../../../../shared/services/terminals/get-product-ingredients.service';
+import { TItemIngridient } from '../../../../../shared';
 
 @Component({
   selector: 'app-prodict-ingredients',
@@ -10,13 +12,19 @@ export class ProdictIngredientsComponent {
 
   public title: string;
   public message: string;
+  ingredients: TItemIngridient[];
 
-  constructor(public dialogRef: MatDialogRef<ProdictIngredientsComponent>) {
+  constructor(
+    public dialogRef: MatDialogRef<ProdictIngredientsComponent>,
+    private ingrService: GetProductIngredientsService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
 
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
+  ngOnInit() {
+    this.ingrService.getIngredients(this.data.Pk).subscribe(resp => {
+        this.ingredients = resp.IsSuccess ? resp.GoodsIngredients : [];
+    }, error => console.log(error));
+  }
 
 }

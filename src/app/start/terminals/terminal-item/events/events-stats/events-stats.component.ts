@@ -73,48 +73,52 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngAfterViewInit() {
 
-    const opts: any = {
+    if (this.data) {
+      const opts: any = {
 
-      chart: {
-        alignTicks: false
-      },
-
-      rangeSelector: {
-        selected: 1
-      },
-
-      title: {
-        text: this.eventData.Name
-      },
-
-      series: [{
-        type: 'column',
-        name: `Статистика события: ${this.eventData.Name}`,
-        data: this.chartData,
-        pointInterval: 24 * 36e5,
-        dataGrouping: {
-          units: [[
-            'week', // unit name
-            [1] // allowed multiples
-          ], [
-            'month',
-            [1, 2, 3, 4, 6]
-          ]]
-        }
-      }]
-    };
-    if (this.chartEl && this.chartEl.nativeElement) {
-      opts.chart = {
-        type: 'area',
-        renderTo: this.chartEl.nativeElement
+        chart: {
+          alignTicks: false
+        },
+  
+        rangeSelector: {
+          selected: 1
+        },
+  
+        title: {
+          text: this.eventData.Name
+        },
+  
+        series: [{
+          type: 'column',
+          name: `Статистика события: ${this.eventData.Name}`,
+          data: this.chartData,
+          pointInterval: 24 * 36e5,
+          dataGrouping: {
+            units: [[
+              'week', // unit name
+              [1] // allowed multiples
+            ], [
+              'month',
+              [1, 2, 3, 4, 6]
+            ]]
+          }
+        }]
       };
-
-      this._chart = new Highcharts.stockChart(opts);
+      if (this.chartEl && this.chartEl.nativeElement) {
+        opts.chart = {
+          type: 'area',
+          renderTo: this.chartEl.nativeElement
+        };
+  
+        this._chart = new Highcharts.stockChart(opts);
+      }
     }
 
   }
 
   public ngOnDestroy() {
-    this._chart.destroy();
+    if (this._chart) {
+      this._chart.destroy();
+    }
   }
 }
