@@ -32,7 +32,7 @@ export class SellsComponent implements OnInit, OnDestroy {
   filtered: boolean;
   totalSum: number;
   page: number;
-  
+
   private saleSubscritption: Subscription;
 
   constructor(

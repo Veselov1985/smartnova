@@ -124,7 +124,7 @@
                   <td class="text-center">{{item.Duration}}</td>
                   <td class="text-center">{{item.DateTime | dateTime: 'date'}},&nbsp;{{item.DateTime | date: 'hh:mm:ss'}}</td>
                   <td><a *ngIf="item.Viewed!=null" (click)="setEventViewed(item, 'System')" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
-                  <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type, item.Pk )"></a></td>
+                  <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type)"></a></td>
                 </tr>
               </tbody>
             </table>

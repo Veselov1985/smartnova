@@ -10,7 +10,7 @@ export class EventsStatsResolver implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot) {
         return this.statsService.getTerminalEventsStats(route.queryParams).map(response => {
-            return response.IsSuccess ? response.AllTerminalEventsByType : null;
+            return response.IsSuccess ? response.AllTerminalEventsByType || response.TerminalEvents : null;
         });
     }
 }

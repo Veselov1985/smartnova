@@ -5,6 +5,7 @@ class BarData {
   Events: number;
   Incaso: number;
   Sales: number;
+  LogMessageCounter: number;
 }
 export class StorageBarData {
   IsSuccess?: boolean;

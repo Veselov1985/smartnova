@@ -24,6 +24,7 @@ import 'rxjs/add/operator/publishLast';
 const Highcharts = require('highcharts/highstock.src');
 
 import 'highcharts/adapters/standalone-framework.src';
+import { SettingsService } from './../../../../../shared/services/common/settings.service';
 
 
 
@@ -41,6 +42,7 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
   public rowsOnPage = 10;
   public sortBy = 'Id';
   public sortOrder = 'asc';
+  page: number;
 
   typeMultifilter: string;
   data: TItemEventsStats[];
@@ -57,7 +59,8 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private getEventsStatsService: GetEventsStatsService,
-    public http: Http
+    public http: Http,
+    private settingsService: SettingsService
   ) {}
 
   ngOnInit() {
@@ -69,6 +72,8 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.eventData = this.data[0];
     }
+
+    this.page = this.settingsService.settings.eventStats.page;
   }
 
   public ngAfterViewInit() {
@@ -79,15 +84,15 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
         chart: {
           alignTicks: false
         },
-  
+
         rangeSelector: {
           selected: 1
         },
-  
+
         title: {
           text: this.eventData.Name
         },
-  
+
         series: [{
           type: 'column',
           name: `Статистика события: ${this.eventData.Name}`,
@@ -109,7 +114,7 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
           type: 'area',
           renderTo: this.chartEl.nativeElement
         };
-  
+
         this._chart = new Highcharts.stockChart(opts);
       }
     }

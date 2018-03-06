@@ -35,8 +35,7 @@
       <tfoot>
         <tr>
           <td colspan="4">
-            <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
-            <app-data-table-paginator></app-data-table-paginator>
+            <app-data-table-paginator [page]="page" [section]="'eventStats'"></app-data-table-paginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
               <li class="page-item"> <span>{{data?.length}}</span></li>

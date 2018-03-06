@@ -111,9 +111,15 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
   }
 
-  goToEventStatistic(ev: any, type: any, pk: any): any {
+  goToEventStatistic(ev: any, type: any): any {
     ev.preventDefault();
-    this.router.navigate(['stats'], {relativeTo: this.route, queryParams: { type: type, pk: pk }});
+    this.router.navigate(['stats'], {
+      relativeTo: this.route,
+      queryParams: {
+        type: type,
+        pk: this.route.snapshot.parent.params['terminalPk']
+      }
+    });
   }
 
   setEventViewed(item: TItemEvent, group: string) {

@@ -34,7 +34,7 @@ export class SidebarStartComponent implements OnInit {
   passwordForm: FormGroup;
   errorFromServer: string;
 
-  public state: string = 'inactive';
+  public state = 'inactive';
 
   constructor(
     private rootComp: AppComponent,
@@ -45,13 +45,7 @@ export class SidebarStartComponent implements OnInit {
     private StateUserpanel: StateUserpanelService,
     private clientDataService: ClientDataService,
   ) {
-
-    StateUserpanel.stateChange$.subscribe(
-      state => {
-        this.state = state;
-      }
-    );
-
+    StateUserpanel.stateChange$.subscribe(stateConfig => this.state = stateConfig);
   }
 
   ngOnInit() {
@@ -128,6 +122,7 @@ export class SidebarStartComponent implements OnInit {
     event.stopPropagation();
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateUserpanel.setStateUserpanel(this.state);
+    this.setTab(1, ev);
     return false;
   }
 

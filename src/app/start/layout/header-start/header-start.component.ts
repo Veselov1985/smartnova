@@ -114,6 +114,10 @@ export class HeaderStartComponent implements OnInit, OnDestroy {
     }
   }
 
+  openLoggingPage() {
+    this.dropdownToggle = false;
+  }
+
   resetPages() {
     this.settingsService.settings.sells.page = 1;
     this.settingsService.settings.products.page = 1;

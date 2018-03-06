@@ -79,6 +79,8 @@ export class DataTablePaginatorComponent implements AfterViewInit, OnChanges {
 
     setPage(page: number) {
         this.paginator.setPage(page);
-        this.settingsService.settings[this.section].page = page;
+        if (this.section !== 'eventStats') {
+            this.settingsService.settings[this.section].page = page;
+        }
     }
 }

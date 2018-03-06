@@ -102,6 +102,15 @@ export class StartComponent implements OnInit, OnDestroy {
     if (this.eventSubscritption) {
       this.eventSubscritption.unsubscribe();
     }
-    this.connect(this.userId, this.groupId, false);
+    // this.connect(this.userId, this.groupId, false);
+    this.connection.invoke('Disconnect', this.userId).then(data => {
+      if (this.signalRService.isDemoMode) {
+        this.signalRService.stopDemo(this.userId).subscribe(resp => {
+          console.log(resp);
+        });
+        this.signalRService.disableDemoMode();
+      }
+      this.connection.stop();
+    }).catch(err => console.log(err));
   }
 }
