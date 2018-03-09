@@ -47,6 +47,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   page: number;
 
   private saleSubscritption: Subscription;
+  private configSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -103,14 +104,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.page = this.settingsService.settings.products.page;
 
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
-      this.serviceProd.getTerminalProducts(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
-        if (product.IsSuccess) {
-          this.data = product.TerminalGoods;
-        } else {
-          this.data = [];
-        }
-        this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
-      }, err => console.log(err));
+      this.getProducts(resp);
+    });
+    this.configSubscription = this.signalRService.onConfigSent$.subscribe(resp => {
+      this.getProducts(resp);
     });
   }
 
@@ -189,9 +186,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
+  getProducts(resp) {
+    this.serviceProd.getTerminalProducts(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
+      if (product.IsSuccess) {
+        this.data = product.TerminalGoods;
+      } else {
+        this.data = [];
+      }
+      this.productsNumber = this.filterPipe.transform(this.data, this.multiFilter).length;
+    }, err => console.log(err));
+  }
+
   ngOnDestroy(): void {
     if (this.saleSubscritption) {
       this.saleSubscritption.unsubscribe();
+    }
+    if (this.configSubscription) {
+      this.configSubscription.unsubscribe();
     }
   }
 }

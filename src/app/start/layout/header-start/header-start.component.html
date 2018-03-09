@@ -39,7 +39,11 @@
     <div class="btn-group dropdown user-list" appFocusLeav (onclose)="openCloseSidebar($event)" [ngClass]="{'open' : dropdownToggle}">
       <ul class="dropdown-menu animated fadeInLeft" role="menu" #dropdownList>
         <li><a (click)="openCloseSidebar($event)">Личные данные</a></li>
-        <li><a [routerLink]="['logging']" (click)="openLoggingPage()" target="_blank"><span>Всего событий </span> <span> {{bardata?.BarData.LogMessageCounter}}</span></a></li>
+        <li>
+          <a [routerLink]="['logging']" (click)="openLoggingPage()" target="_blank">
+            <span>Всего событий </span> <span *ngIf="bardata?.BarData.LogMessageCounter"> {{bardata?.BarData.LogMessageCounter}}</span>
+          </a>
+        </li>
         <li><a (click)="logOut($event)">Выход</a></li>
       </ul>
     </div>

@@ -14,7 +14,7 @@ export class ClientDataService {
 
   constructor(public http: Http, private auth: AuthService) {
     this.auth.isLoggedIn.subscribe(isLoggedIn => {
-      this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
+      this.baseUrl = isLoggedIn ? urlApi.serveraccount : urlApi.serverdemo;
     });
    }
 

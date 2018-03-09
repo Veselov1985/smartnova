@@ -22,6 +22,7 @@ export class StartComponent implements OnInit, OnDestroy {
   private signalrSubscritption: Subscription;
   private saleSubscritption: Subscription;
   private eventSubscritption: Subscription;
+  private configSubscritption: Subscription;
   userId: string;
   groupId: string;
   @HostBinding('@routeAnimation') routeAnimation = true;
@@ -36,10 +37,14 @@ export class StartComponent implements OnInit, OnDestroy {
     this.connection = this.route.snapshot.data['connection'];
     this.signalRService.onSaleSent$ = this.connection.listenFor('salemessage');
     this.signalRService.onEventSent$ = this.connection.listenFor('eventmessage');
+    this.signalRService.onConfigSent$ = this.connection.listenFor('configmessage');
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
     });
     this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
+      this.snackBarShow(JSON.parse(<string>resp).Notification);
+    });
+    this.configSubscritption = this.signalRService.onConfigSent$.subscribe(resp => {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
     });
 
@@ -102,6 +107,9 @@ export class StartComponent implements OnInit, OnDestroy {
     if (this.eventSubscritption) {
       this.eventSubscritption.unsubscribe();
     }
+    if (this.configSubscritption) {
+      this.configSubscritption.unsubscribe();
+    }
     // this.connect(this.userId, this.groupId, false);
     this.connection.invoke('Disconnect', this.userId).then(data => {
       if (this.signalRService.isDemoMode) {
@@ -110,7 +118,7 @@ export class StartComponent implements OnInit, OnDestroy {
         });
         this.signalRService.disableDemoMode();
       }
-      this.connection.stop();
+      // this.connection.stop();
     }).catch(err => console.log(err));
   }
 }

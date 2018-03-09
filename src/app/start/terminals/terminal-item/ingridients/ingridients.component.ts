@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import {
   GetTerminalIngridientsService,
   TItemIngridient,
@@ -11,6 +12,7 @@ import {
 } from '../../../../shared';
 import { MultiFilterIngredientsPipe } from '../../../../shared/shared';
 import { SettingsService } from '../../../../shared/services/common/settings.service';
+import { SignalRService } from '../../../../shared/services/auth/signalr.service';
 
 @Component({
   selector: 'app-ingridients',
@@ -18,7 +20,7 @@ import { SettingsService } from '../../../../shared/services/common/settings.ser
   styleUrls: ['./ingridients.component.less']
 })
 
-export class IngridientsComponent implements OnInit {
+export class IngridientsComponent implements OnInit, OnDestroy {
   @Input('configMode') configMode: boolean;
 
   public data: TItemIngridient[];
@@ -37,6 +39,7 @@ export class IngridientsComponent implements OnInit {
   page: number;
 
   ingrNumber: number;
+  private configSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +49,8 @@ export class IngridientsComponent implements OnInit {
     private stateConfiguratorService: StateConfiguratorService,
     private stateConfigModeService: StateConfigModeService,
     private filterPipe: MultiFilterIngredientsPipe,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private signalRService: SignalRService
   ) {
     stateConfigModeService.changeConfigMode$.subscribe(
       stateConfigMode => {
@@ -77,6 +81,12 @@ export class IngridientsComponent implements OnInit {
     }
 
     this.page = this.settingsService.settings.ingredients.page;
+
+    this.configSubscription = this.signalRService.onConfigSent$.subscribe(resp => {
+      this.serviceProd.getIngredients(JSON.parse(<string>resp).TerminalPk).subscribe(response => {
+        this.data = response.IsSuccess ? response.TerminalIngredients : null;
+      });
+    });
   }
 
   MultifilterState(event: any) {
@@ -135,6 +145,12 @@ export class IngridientsComponent implements OnInit {
           ingredient.configStatus = Math.floor(Math.random() * 2) ? 'set' : 'error';
         }, 3000);
       }
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.configSubscription) {
+      this.configSubscription.unsubscribe();
     }
   }
 }

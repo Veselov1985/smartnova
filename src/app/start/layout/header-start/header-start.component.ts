@@ -27,6 +27,7 @@ export class HeaderStartComponent implements OnInit, OnDestroy {
 
   private saleSubscritption: Subscription;
   private eventSubscritption: Subscription;
+  private eventViewedSubscritption: Subscription;
 
   constructor(
  //   private rootComp: AppComponent,
@@ -49,18 +50,22 @@ export class HeaderStartComponent implements OnInit, OnDestroy {
     this.signalReload = isSignalR === null ? true : isSignalR;
 
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
-      this.getBarDataServise.getBarData().subscribe((data) => {
-        if (data.IsSuccess) {
-          this.bardata = data;
-        }
-      });
+      this.getBarData();
     });
     this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
-      this.getBarDataServise.getBarData().subscribe((data) => {
-        if (data.IsSuccess) {
-          this.bardata = data;
-        }
-      });
+      this.getBarData();
+    });
+    this.eventViewedSubscritption = this.signalRService.eventViewed$.subscribe(resp => {
+      this.getBarData();
+    });
+
+  }
+
+  getBarData() {
+    this.getBarDataServise.getBarData().subscribe((data) => {
+      if (data.IsSuccess) {
+        this.bardata = data;
+      }
     });
   }
 
@@ -116,6 +121,7 @@ export class HeaderStartComponent implements OnInit, OnDestroy {
 
   openLoggingPage() {
     this.dropdownToggle = false;
+    this.bardata.BarData.LogMessageCounter = 0;
   }
 
   resetPages() {
@@ -131,6 +137,9 @@ export class HeaderStartComponent implements OnInit, OnDestroy {
     }
     if (this.eventSubscritption) {
       this.eventSubscritption.unsubscribe();
+    }
+    if (this.eventViewedSubscritption) {
+      this.eventViewedSubscritption.unsubscribe();
     }
   }
 }

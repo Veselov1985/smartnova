@@ -128,7 +128,9 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.serviceProd.setEventAsViewed(item.Pk).subscribe(res => {
             if (res.IsSuccess) {
               item.Viewed = true;
+              item.TotalNumber = 0;
               this.notViewed -= 1;
+              this.signalRService.eventWasViewed();
             } else {
               console.log(res);
             }

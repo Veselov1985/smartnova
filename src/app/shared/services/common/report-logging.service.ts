@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { AuthService } from '..';
 import { urlApi } from '../..';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ReportLoggingService {
@@ -23,4 +24,11 @@ export class ReportLoggingService {
         return this.http.post(serviseUrl, JSON.stringify({ Pk: Pk }), { headers: this.headers })
             .map(response => response.json().Logs);
     }
+
+    setLogsViewed(): Observable<any> {
+        const serviseUrl = this.baseUrl + 'SetSystemLogsViewed';
+        const Pk = sessionStorage.getItem('TnPk');
+        return this.http.post(serviseUrl, JSON.stringify({ Pk: Pk }), { headers: this.headers });
+    }
+
 }

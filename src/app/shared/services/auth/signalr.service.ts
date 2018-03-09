@@ -15,8 +15,12 @@ export class SignalRService {
     private signalRToggleSource = new Subject<boolean>();
     signalRToggle$ = this.signalRToggleSource.asObservable();
 
+    private eventViewedSource = new Subject<boolean>();
+    eventViewed$ = this.eventViewedSource.asObservable();
+
     onSaleSent$: Observable<any>;
     onEventSent$: Observable<any>;
+    onConfigSent$: Observable<any>;
     constructor(private http: Http) {}
 
     startDemo(userId: string): Observable<any> {
@@ -45,5 +49,9 @@ export class SignalRService {
 
     changeSignalRStatus(state: boolean) {
         this.signalRToggleSource.next(state);
+    }
+
+    eventWasViewed() {
+        this.eventViewedSource.next();
     }
 }

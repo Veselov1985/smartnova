@@ -5,6 +5,7 @@ export class TItemEvent {
   Pk: string;
   Type: string;
   Viewed: true;
+  TotalNumber: number;
 }
 
  class TItemEvents {
