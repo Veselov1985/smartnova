@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GetProductIngredientsService } from '../../../../../shared/services/terminals/get-product-ingredients.service';
 import { TItemIngridient } from '../../../../../shared';
@@ -8,7 +8,7 @@ import { TItemIngridient } from '../../../../../shared';
   templateUrl: './prodict-ingredients.component.html',
   styleUrls: ['./prodict-ingredients.component.less']
 })
-export class ProdictIngredientsComponent {
+export class ProdictIngredientsComponent implements OnInit {
 
   public title: string;
   public message: string;

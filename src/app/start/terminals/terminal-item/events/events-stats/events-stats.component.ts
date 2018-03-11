@@ -65,8 +65,19 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.data = this.route.snapshot.data['stats'];
+    const tempData = {};
+    this.data.forEach(item => {
+      const date = this.dateCreate(item.DateTime);
+      tempData[date] = (tempData[date] || 0) + 1;
+    });
     if (this.data) {
-      this.chartData = this.data.map(item => [new Date(item.DateTime).getTime(), item.TotalNumber]);
+      // this.chartData = this.data.map(item => [new Date(item.DateTime).getTime(), item.TotalNumber]);
+      this.chartData = [];
+      for (const key in tempData) {
+        if (tempData.hasOwnProperty(key)) {
+          this.chartData.push([+key, tempData[key]]);
+        }
+      }
       this.chartData.sort((a, b) => {
         return a[0] - b[0];
       });
@@ -121,9 +132,14 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
     if (this._chart) {
       this._chart.destroy();
     }
+  }
+
+  dateCreate(dateString) {
+    const date = new Date(dateString);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate()).setUTCHours(24, 0 , 0, 0);
   }
 }
