@@ -108,7 +108,7 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
           type: 'column',
           name: `Статистика события: ${this.eventData.Name}`,
           data: this.chartData,
-          pointInterval: 24 * 36e5,
+          pointInterval: 24 * 3600 * 1000,
           dataGrouping: {
             units: [[
               'week', // unit name
@@ -140,6 +140,6 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   dateCreate(dateString) {
     const date = new Date(dateString);
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate()).setUTCHours(24, 0 , 0, 0);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), -(date.getTimezoneOffset() / 60), 0).getTime();
   }
 }
