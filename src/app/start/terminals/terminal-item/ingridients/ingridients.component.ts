@@ -136,13 +136,12 @@ export class IngridientsComponent implements OnInit, OnDestroy {
   }
 
   onConfigSent(event) {
-    console.log(event);
     if (event) {
       const ingredient = this.data.find(item => item.Pk === event.ingredient.Pk);
-      ingredient.configStatus = 'inProgress';
+      ingredient.UpdateState = 'Awaiting';
       if (!sessionStorage.getItem('TnPk')) {
         setTimeout(() => {
-          ingredient.configStatus = Math.floor(Math.random() * 2) ? 'set' : 'error';
+          ingredient.UpdateState = Math.floor(Math.random() * 2) ? 'Applied' : 'Conflict';
         }, 3000);
       }
     }

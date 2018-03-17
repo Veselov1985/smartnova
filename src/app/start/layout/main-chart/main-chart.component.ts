@@ -42,7 +42,7 @@ export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
       lang: {
         weekdays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
         months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-        shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+        shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
       }
     });
   }
@@ -79,6 +79,23 @@ export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
             text: 'Динамика продаж всех автоматов по месяцам'
           },
 
+          xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: {
+              minTickInterval: 24 * 3600 * 1000,
+              millisecond: '%b %e'
+            },
+          },
+
+          tooltip: {
+            dateTimeLabelFormats: {
+              minTickInterval: 24 * 3600 * 1000,
+              // millisecond: '%b %e'
+              millisecond:"%A, %b %e, %H:%M",
+              second:"%A, %b %e, %H:%M",
+            },
+          },
+
           rangeSelector: {
             selected: 0,
             enabled: true
@@ -107,6 +124,9 @@ export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
             weekdays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
             months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
             shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+          },
+          credits: {
+            text: ''
           },
           responsive: {
             rules: [{

@@ -177,10 +177,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   onConfigSent(event) {
     if (event) {
       const product = this.data.find(item => item.Pk === event.product.Pk);
-      product.configStatus = 'inProgress';
+      product.UpdateState = 'Awaiting';
       if (!sessionStorage.getItem('TnPk')) {
         setTimeout(() => {
-          product.configStatus = Math.floor(Math.random() * 2) ? 'set' : 'error';
+          product.UpdateState = Math.floor(Math.random() * 2) ? 'Applied' : 'Conflict';
         }, 3000);
       }
     }

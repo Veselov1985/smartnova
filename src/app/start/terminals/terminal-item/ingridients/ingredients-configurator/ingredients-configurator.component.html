@@ -6,7 +6,7 @@
       <fieldset>
         <legend>Ингредиенты</legend>
         <h3 class="text-center">{{currentIngredient?.Name}}</h3>
-        <p class="alert alert-danger" *ngIf="currentIngredient?.configStatus === 'error'">Несовпадение данных конфигурирования</p>
+        <p class="alert alert-danger" *ngIf="currentIngredient?.UpdateState === 'error'">Несовпадение данных конфигурирования</p>
         <!-- Multiple Checkboxes (inline) -->
         <div class="form-group">
           <label class="col-sm-4 control-label price-label">Объём выдачи</label>

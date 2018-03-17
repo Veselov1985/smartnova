@@ -7,7 +7,7 @@
         <legend>Товары</legend>
         <!-- <h3>{{productConfig}}</h3> -->
         <h3 class="text-center">{{currentProduct?.Name}}</h3>
-        <p class="alert alert-danger" *ngIf="currentProduct?.configStatus === 'error'">Несовпадение данных конфигурирования</p>
+        <p class="alert alert-danger" *ngIf="currentProduct?.UpdateState === 'Conflict'">Несовпадение данных конфигурирования</p>
         <!-- Multiple Checkboxes (inline) -->
         <div class="form-group">
           <label class="col-xs-4 control-label" for="checkboxes">Продажа разрешена</label>

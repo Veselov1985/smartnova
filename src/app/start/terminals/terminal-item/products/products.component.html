@@ -68,7 +68,7 @@
           <td class="text-center">{{item.SoldSum}}</td>
           <td class="text-center"><a class="icon-ingridients" (click)="openIngredients($event, item.Pk)"> </a></td>
           <td class="text-center"*ngIf="stateConfigMode == 'active'">
-            <a class="icon-config" [ngClass]="{'in-progress': item.configStatus === 'inProgress', 'error': item.configStatus === 'error'}" (click)='ConfigState(item)'></a>
+            <a class="icon-config" [ngClass]="{'in-progress': item.UpdateState === 'Awaiting', 'error': item.UpdateState === 'Conflict'}" (click)='ConfigState(item)'></a>
           </td>
         </tr>
       </tbody>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../../app.component';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../shared';
 
 @Component({
   selector: 'app-header-home',
@@ -10,7 +12,7 @@ export class HeaderHomeComponent implements OnInit {
 
   public state = 'inactive';
 
-  constructor() { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,5 +20,13 @@ export class HeaderHomeComponent implements OnInit {
   openCloseSidebar(ev: any) {
     ev.preventDefault();
     this.state = this.state === 'active' ? 'inactive' : 'active';
+  }
+
+  startDemo() {
+    if (this.auth.isLoggedIn.getValue()) {
+      this.auth.logout().subscribe(resp => this.router.navigate(['/start']));
+    } else {
+      this.router.navigate(['/start']);
+    }
   }
 }

@@ -7,7 +7,7 @@ export class TItemIngridient {
   Pid: string;
   Pk: string;
   Threshold: string;
-  configStatus?: string;
+  UpdateState?: string;
 }
 export class TItemIngridients {
   IsSuccess?: boolean;

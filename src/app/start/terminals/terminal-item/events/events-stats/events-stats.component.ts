@@ -104,6 +104,10 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
           text: this.eventData.Name
         },
 
+        credits: {
+          text: ''
+        },
+
         series: [{
           type: 'column',
           name: `Статистика события: ${this.eventData.Name}`,
