@@ -61,7 +61,18 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
     private getEventsStatsService: GetEventsStatsService,
     public http: Http,
     private settingsService: SettingsService
-  ) {}
+  ) {
+    Highcharts.setOptions({
+      lang: {
+        weekdays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+        months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+        rangeSelectorZoom: '',
+        rangeSelectorFrom: 'С',
+        rangeSelectorTo: 'по'
+      }
+    });
+  }
 
   ngOnInit() {
     this.data = this.route.snapshot.data['stats'];
@@ -97,7 +108,42 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
         },
 
         rangeSelector: {
-          selected: 1
+          inputDateFormat: '%e %b, %Y',
+          selected: 1,
+          buttons: [
+            {
+              type: 'month',
+              count: 1,
+              text: '1 мес'
+            },
+            {
+              type: 'month',
+              count: 3,
+              text: '3 мес'
+            },
+            {
+              type: 'month',
+              count: 6,
+              text: '6 мес'
+            },
+            {
+              type: 'ytd',
+              text: 'С 1 янв'
+            },
+            {
+              type: 'year',
+              count: 1,
+              text: '1 год'
+            },
+            {
+              type: 'all',
+              text: 'Все'
+            }
+          ],
+          buttonSpacing: 4,
+          buttonTheme: {
+            width: 50
+          }
         },
 
         title: {
@@ -106,6 +152,12 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
 
         credits: {
           text: ''
+        },
+
+        lang: {
+          weekdays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+          months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+          shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
         },
 
         series: [{
