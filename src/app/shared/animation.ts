@@ -1,7 +1,8 @@
-import { animate, AnimationEntryMetadata, state, style, transition, trigger } from '@angular/core';
+import { animate, state, style, trigger } from '@angular/animations';
+import { query, animateChild, transition } from '@angular/animations';
 
 // Component transition animations
-export const slideInDownAnimation: AnimationEntryMetadata =
+export const slideInDownAnimation =
   trigger('routeAnimation', [
     state('*',
       style({
@@ -24,7 +25,11 @@ export const slideInDownAnimation: AnimationEntryMetadata =
     ])
   ]);
 
-  export const triggerPanelState: AnimationEntryMetadata =
+  export const nestedPanelState = transition('* => *', [
+    query('@*', animateChild(), {optional: true})
+  ]);
+
+  export const triggerPanelState =
   trigger('panelState', [
     state('inactive', style({
       display: 'none',
@@ -37,7 +42,7 @@ export const slideInDownAnimation: AnimationEntryMetadata =
     transition('active => inactive', animate('150ms ease-out'))
   ]);
 
-  export const triggerMultifilterState: AnimationEntryMetadata =
+  export const triggerMultifilterState =
   trigger('multifilterState', [
     state('inactive', style({
       transform: 'translateX(110%)'
@@ -49,7 +54,7 @@ export const slideInDownAnimation: AnimationEntryMetadata =
     transition('active => inactive', animate('150ms ease-out'))
   ]);
 
-  export const triggerConfigState: AnimationEntryMetadata =
+  export const triggerConfigState =
   trigger('configState', [
     state('inactive', style({
       transform: 'translateX(-110%)'
@@ -61,7 +66,7 @@ export const slideInDownAnimation: AnimationEntryMetadata =
     transition('active => inactive', animate('250ms ease-out'))
   ]);
 
-  export const triggerUserPanelState: AnimationEntryMetadata =
+  export const triggerUserPanelState =
   trigger('userPanelAnimation', [
     state('inactive', style({
       transform: 'translateX(0)'

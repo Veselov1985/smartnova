@@ -6,14 +6,14 @@ import { trigger, state, style, animate, transition, } from '@angular/animations
 import { AppComponent } from '../../app.component';
 import { User, AuthService, emailMatcher, } from '../../shared/shared';
 
-import { triggerUserPanelState, triggerPanelState } from '../../shared';
+import { triggerUserPanelState, triggerPanelState, nestedPanelState } from '../../shared';
 
 
 @Component({
   selector: 'app-side-bar-home',
   templateUrl: './side-bar-home.component.html',
   styleUrls: ['./side-bar-home.component.less'],
-  animations: [triggerPanelState, triggerUserPanelState],
+  animations: [triggerPanelState, triggerUserPanelState, nestedPanelState],
 })
 export class SideBarHomeComponent implements OnInit, OnDestroy {
 

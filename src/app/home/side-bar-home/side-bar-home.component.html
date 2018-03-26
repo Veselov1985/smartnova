@@ -1,4 +1,4 @@
-<div class="user-holder" [@panelState]="userPanelState">
+<div class="user-holder" [@nestedPanelState]="userPanelState">
   <div class="user-bg" [@panelState]="userPanelState" (click)="openCloseSidebar($event)"></div>
   <aside class="aside-right" [@userPanelAnimation]="userPanelState">
     <div class="authentication" [ngSwitch]="tab">

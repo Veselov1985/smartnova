@@ -23,6 +23,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu, 'ru');
+
 import {
   // MatAutocompleteModule,
   // MatButtonModule,
@@ -133,7 +138,7 @@ export class MaterialModule {}
     AppComponent,
     PageNotFoundComponent,
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'ru' }, SHARED_PROVIDE, LoggerService, {provide: ErrorHandler, useClass: GlobalErrorHandler}],
+  providers: [SHARED_PROVIDE, LoggerService, {provide: ErrorHandler, useClass: GlobalErrorHandler}],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
