@@ -8,7 +8,9 @@ export class DateTimePipe implements PipeTransform {
 
   transform(value: string, format: string) {
     const indexCharT = value.indexOf('T');
-      if (value && format === 'time') {
+      if (value && format === 'fullTime') {
+        return value.substring(indexCharT + 1);
+      } else if (value && format === 'time') {
         const indexChar = indexCharT + 1;
         const lastIndexChar = value.lastIndexOf(':');
         return value.substring(indexChar, lastIndexChar);
