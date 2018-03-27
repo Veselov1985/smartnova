@@ -1,3 +1,4 @@
+import { DatexPipe } from './pipes/datex.pipe';
 import { ShareDataService } from './services/common/share-data.service';
 import { RadioLabelsPipe } from './pipes/radio-labels.pipe';
 
@@ -51,6 +52,7 @@ const SHARED_PIPE: any[] = [
   MultiFilterTerminalsPipe,
   RadioLabelsPipe,
   DateTimePipe,
+  DatexPipe
 ];
 const SHARED_PROVIDE: any[] = [
   BurgerService,
@@ -89,6 +91,7 @@ export {
   MultiFilterTerminalsPipe,
   RadioLabelsPipe,
   DateTimePipe,
+  DatexPipe,
   SHARED_PIPE,
 
   SHARED_INTARFACE,
