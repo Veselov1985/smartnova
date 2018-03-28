@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../../shared/shared.module';
 
@@ -12,7 +11,6 @@ import { TerminalTabsRoutingModule } from './terminal-tabs-routing.module';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule,
     TerminalTabsRoutingModule,
   ],
   declarations: [TerminalTabsComponent],

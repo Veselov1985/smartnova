@@ -11,9 +11,6 @@ import { TerminalItemModule } from './terminal-item/terminal-item.module';
 import { TerminalsRoutingModule } from './terminals-routing.module';
 import { TerminalsReportComponent } from './terminals-report/terminals-report.component';
 
-
-
-
 @NgModule({
   imports: [
     CommonModule,

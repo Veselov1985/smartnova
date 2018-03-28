@@ -4,7 +4,6 @@ import { Routes, RouterModule, RouterLinkActive } from '@angular/router';
 
  import {
     HeaderStartComponent,
-    PieChartComponent,
     TerminalIndicatorComponent,
  } from '../layout';
 
@@ -23,12 +22,10 @@ import { MainChartModule } from './main-chart/main-chart.module';
   ],
   declarations: [
     HeaderStartComponent,
-    PieChartComponent,
     TerminalIndicatorComponent,
   ],
   exports: [
     HeaderStartComponent,
-    PieChartComponent,
     TerminalIndicatorComponent,
     TerminalTabsModule,
     SidebarStartModule,

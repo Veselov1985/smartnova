@@ -2,7 +2,6 @@ import { DatexPipe } from './pipes/datex.pipe';
 import { ShareDataService } from './services/common/share-data.service';
 import { RadioLabelsPipe } from './pipes/radio-labels.pipe';
 
-import { BurgerService } from './services/common/burger.service';
 import { AuthService } from './services/auth/auth.service';
 import { ClientDataService } from './services/auth/client-data.service';
 import { SignalRService } from './services/auth/signalr.service';
@@ -31,17 +30,6 @@ import { MultiFilterIngredientsPipe } from './pipes/multi-filter-ingredients.pip
 import { MultiFilterEventsPipe } from './pipes/multi-filter-events.pipe';
 import { ReportLoggingService } from './services/common/report-logging.service';
 
-// import { FocusLeavDirective } from './directives/focus-leav.directive';
-// import { HidefoneDirective } from './directives/hidefone.directive';
-
-
-const SHARED_INTARFACE: any[] = [
-  User,
-  emailMatcher,
-  // HidefoneDirective,
-
-];
-
 const SHARED_PIPE: any[] = [
   DataFilterPipe,
   MultiFilterProductsPipe,
@@ -55,7 +43,6 @@ const SHARED_PIPE: any[] = [
   DatexPipe
 ];
 const SHARED_PROVIDE: any[] = [
-  BurgerService,
   AuthService,
   ReportLoggingService,
   ClientDataService,
@@ -70,17 +57,12 @@ const SHARED_PROVIDE: any[] = [
   SignalRService
 ];
 
-const SHARED_DERECTIVE: any[] = [
-  // FocusLeavDirective
-];
 export {
 
-  BurgerService,
   AuthService,
   ReportLoggingService,
   ClientDataService,
   SHARED_PROVIDE,
-
 
   DataFilterPipe,
   MultiFilterProductsPipe,
@@ -94,11 +76,6 @@ export {
   DatexPipe,
   SHARED_PIPE,
 
-  SHARED_INTARFACE,
   User,
-  emailMatcher,
-  // HidefoneDirective,
-
-  SHARED_DERECTIVE,
-  // FocusLeavDirective,
+  emailMatcher
 };
