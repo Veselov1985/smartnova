@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';
 
-import { StartRoutingModule, StartComponent } from './start';
+import { StartRoutingModule } from './start';
 
 // import { START_LAYOUT_COMPONENT } from './layout/layout';
 import { START_COMPONENT } from './start';

@@ -6,9 +6,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-// Import HttpClientModule from @angular/common/http
 
 import { ChartModule } from 'angular-highcharts';
 
@@ -24,37 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
-  // MatAutocompleteModule,
-  // MatButtonModule,
-  // MatButtonToggleModule,
-  // MatCardModule,
-  // MatCheckboxModule,
-  // MatChipsModule,
-  // MatDatepickerModule,
   MatDialogModule,
-  // MatExpansionModule,
-  // MatGridListModule,
-  // MatIconModule,
-  // MatInputModule,
-  // MatListModule,
-  // MatMenuModule,
-  // MatNativeDateModule,
-  // MatPaginatorModule,
-  // MatProgressBarModule,
-  // MatProgressSpinnerModule,
-  // MatRadioModule,
-  // MatRippleModule,
-  // MatSelectModule,
-  // MatSidenavModule,
-  // MatSliderModule,
-  // MatSlideToggleModule,
-  MatSnackBarModule,
-  // MatSortModule,
-  // MatTableModule,
-  // MatTabsModule,
-  // MatToolbarModule,
-  // MatTooltipModule,
-  // MatStepperModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { SignalRModule } from 'ng2-signalr';
@@ -65,7 +34,6 @@ import { GlobalErrorHandler, LoggerService } from './shared';
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
   c.hubName = 'NotificationHub';
-  // c.qs = { userGuid: 'Z100', groupTid: 'T100' };
   c.url = urlApi.rootPath;
   c.logging = true;
   // c.executeEventsInZone = true; // optional, default is true
@@ -76,39 +44,8 @@ export function createConfig(): SignalRConfiguration {
 
 @NgModule({
   exports: [
-
-    // Material
-    // MatAutocompleteModule,
-    // MatButtonModule,
-    // MatButtonToggleModule,
-    // MatCardModule,
-    // MatCheckboxModule,
-    // MatChipsModule,
-    // MatDatepickerModule,
     MatDialogModule,
-    // MatExpansionModule,
-    // MatGridListModule,
-    // MatIconModule,
-    // MatInputModule,
-    // MatListModule,
-    // MatMenuModule,
-    // MatNativeDateModule,
-    // MatPaginatorModule,
-    // MatProgressBarModule,
-    // MatProgressSpinnerModule,
-    // MatRadioModule,
-    // MatRippleModule,
-    // MatSelectModule,
-    // MatSidenavModule,
-    // MatSliderModule,
-    // MatSlideToggleModule,
-    MatSnackBarModule,
-    // MatSortModule,
-    // MatTableModule,
-    // MatTabsModule,
-    // MatToolbarModule,
-    // MatTooltipModule,
-    // MatStepperModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule {}
@@ -118,7 +55,6 @@ export class MaterialModule {}
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule,
     HomeModule,
     SharedModule,
     StartModule,

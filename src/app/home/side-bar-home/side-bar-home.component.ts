@@ -108,7 +108,6 @@ export class SideBarHomeComponent implements OnInit, OnDestroy {
 
   onSubmitRegister({ value, valid }: { value: User, valid: boolean }) {
     this.authService.register(value).subscribe((res) => {
-      console.log(res);
       if (res.IsSuccess) {
         this.setTab(3, null);
       } else {
