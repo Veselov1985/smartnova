@@ -32,6 +32,13 @@ export class CollectionComponent implements OnInit {
   multiFilter: any;
   filtered: boolean;
   page: number;
+  searchFields = [
+    'DateTime',
+    'Collection',
+    'GivenChange',
+    'FundChange',
+    'ServiceMan'
+  ];
 
   sumCollection: number;
   sumGivenChange: number;

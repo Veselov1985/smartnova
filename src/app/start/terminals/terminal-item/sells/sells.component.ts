@@ -32,6 +32,13 @@ export class SellsComponent implements OnInit, OnDestroy {
   filtered: boolean;
   totalSum: number;
   page: number;
+  searchFields = [
+    'DateTime',
+    'Name',
+    'Summ',
+    'SoldNumber',
+    'SoldSum'
+  ];
 
   private saleSubscritption: Subscription;
 

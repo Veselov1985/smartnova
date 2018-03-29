@@ -6,7 +6,7 @@
 </div>
 <div class="col-xs-12 col-sm-12">
   <div class="panel panel-default">
-    <table class="table table-striped" [mfData]="data | multiFilterSells : multiFilter | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+    <table class="table table-striped" [mfData]="data | multiFilterSells : multiFilter | dataFilter : filterQuery:searchFields" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
       [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" (mfSortByChange)="onChangeSort($event)" (mfSortOrderChange)="onChangeSortOrder($event)">
       <thead>
         <tr>
@@ -72,7 +72,7 @@
             <app-data-table-paginator [page]="page" [section]="'sells'"></app-data-table-paginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
-              <li class="page-item"> <span>{{(data | multiFilterSells : multiFilter | dataFilter : filterQuery)?.length}}</span></li>
+              <li class="page-item"> <span>{{(data | multiFilterSells : multiFilter | dataFilter : filterQuery:searchFields)?.length}}</span></li>
             </ul>
           </td>
         </tr>

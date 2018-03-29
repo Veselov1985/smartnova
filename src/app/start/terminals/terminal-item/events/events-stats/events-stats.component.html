@@ -6,7 +6,7 @@
 <br>
 <div class="col-xs-12 col-md-12">
   <div class="panel panel-default">
-    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+    <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
       [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
       <thead>
         <tr>
@@ -43,10 +43,10 @@
             <div class="show-county pagination pull-right">
               <h5>Показать</h5>
               <select class="input-sm" [(ngModel)]="rowsOnPage">
-                    <option [ngValue]="10">10</option>
-                    <option [ngValue]="50">50</option>
-                    <option [ngValue]="100">100</option>
-                  </select>
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select>
             </div>
           </td>
         </tr>

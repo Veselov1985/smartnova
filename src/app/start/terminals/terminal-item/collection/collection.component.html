@@ -6,7 +6,7 @@
 </div>
 <div class="col-xs-12 col-sm-12">
   <div class="panel panel-default">
-    <table class="table table-striped" [mfData]="data | multiFilterCollect : multiFilter | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+    <table class="table table-striped" [mfData]="data | multiFilterCollect : multiFilter | dataFilter : filterQuery:searchFields" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
       [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" (mfSortByChange)="onChangeSort($event)" (mfSortOrderChange)="onChangeSortOrder($event)">
       <thead>
         <tr>
@@ -15,10 +15,10 @@
               <div class="show-county col-xs-4">
                 <h5>Показать</h5>
                 <select class="input-sm" [(ngModel)]="rowsOnPage">
-                          <option [ngValue]="10">10</option>
-                          <option [ngValue]="50">50</option>
-                          <option [ngValue]="100">100</option>
-                        </select>
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select>
               </div>
               <div class="col-xs-4">
                 <ul class="icon-multifilter">
@@ -45,12 +45,10 @@
             <mfDefaultSorter by="Collection">Инкассировано</mfDefaultSorter>
           </th>
           <th class="text-center">
-            <mfDefaultSorter by="GivenChange">Выдано <br> сдачи
-            </mfDefaultSorter>
+            <mfDefaultSorter by="GivenChange">Выдано <br> сдачи</mfDefaultSorter>
           </th>
           <th class="text-center">
-            <mfDefaultSorter by="FundChange">Фонд <br> сдачи
-            </mfDefaultSorter>
+            <mfDefaultSorter by="FundChange">Фонд <br> сдачи</mfDefaultSorter>
           </th>
           <th class="text-center">
             <mfDefaultSorter by="ServiceMan">ФИО <br> сервисмена</mfDefaultSorter>
@@ -70,11 +68,10 @@
       <tfoot>
         <tr>
           <td colspan="6">
-            <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
             <app-data-table-paginator [page]="page" [section]="'collection'"></app-data-table-paginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
-              <li class="page-item"> <span>{{(data | multiFilterCollect : multiFilter | dataFilter : filterQuery)?.length}}</span></li>
+              <li class="page-item"> <span>{{(data | multiFilterCollect : multiFilter | dataFilter : filterQuery:searchFields)?.length}}</span></li>
             </ul>
           </td>
         </tr>

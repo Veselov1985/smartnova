@@ -5,22 +5,21 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DataFilterPipe implements PipeTransform {
 
-  transform(array: any[], query: string): any {
+  transform(array: any[], query: string, fields: string[]): any {
     query = query.toUpperCase();
     if (query) {
       return array.filter(item => {
-        let returnTrue = false;
-        Object.keys(item).forEach((element, index) => {
-          if (item[element] === true || item[element] === false) {
-            return;
-          }
-          let val: string = '' + item[element];
-          val = val.toUpperCase();
+        let match = false;
+        if (fields) {
+          fields.forEach((element, index) => {
+            let val: string = '' + item[element];
+            val = val.toUpperCase();
             if (val.indexOf(query) > -1) {
-              returnTrue = true;
+              match = true;
             }
-        });
-        return returnTrue;
+          });
+        }
+        return match;
       });
     }
     return array;

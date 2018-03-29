@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-12">
           <div class="panel panel-default">
-            <table class="table table-striped table-hover table-active-tr" [mfData]="data | multiFilterTerminals : multiFilter | dataFilter : filterQuery" #mf="mfDataTable"
+            <table class="table table-striped table-hover table-active-tr" [mfData]="data | multiFilterTerminals : multiFilter | dataFilter : filterQuery:searchFields" #mf="mfDataTable"
               [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" (mfSortByChange)="onChangeSort($event)" (mfSortOrderChange)="onChangeSortOrder($event)">
               <thead>
                 <tr>
@@ -52,12 +52,10 @@
                     <mfDefaultSorter by="Address">Адрес</mfDefaultSorter>
                   </th>
                   <th class="text-center">
-                    <mfDefaultSorter by="SalesSum">Сумма <br> продаж
-                    </mfDefaultSorter>
+                    <mfDefaultSorter by="SalesSum">Сумма <br> продаж</mfDefaultSorter>
                   </th>
                   <th class="text-center">
-                    <mfDefaultSorter by="CollectSum">Сумма <br> инкассации
-                    </mfDefaultSorter>
+                    <mfDefaultSorter by="CollectSum">Сумма <br> инкассации</mfDefaultSorter>
                   </th>
                   <th class="text-center">
                     <mfDefaultSorter by="Service">Обслуживание</mfDefaultSorter>
@@ -86,7 +84,7 @@
                     <app-data-table-paginator [page]="page" [section]="'terminals'"></app-data-table-paginator>
                     <ul class="pagination">
                       <li class="page-item"> <span class="no-border">Всего:</span> </li>
-                      <li class="page-item"> <span>{{ (data | multiFilterTerminals : multiFilter | dataFilter : filterQuery)?.length }}</span></li>
+                      <li class="page-item"> <span>{{ (data | multiFilterTerminals : multiFilter | dataFilter : filterQuery:searchFields)?.length }}</span></li>
                     </ul>
                   </td>
                 </tr>

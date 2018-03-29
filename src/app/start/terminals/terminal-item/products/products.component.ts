@@ -45,6 +45,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   filtered: boolean;
   productsNumber: number;
   page: number;
+  searchFields = [
+    'Id',
+    'Name',
+    'BaseSum',
+    'SoldNumber',
+    'SoldSum'
+  ];
 
   private saleSubscritption: Subscription;
   private configSubscription: Subscription;

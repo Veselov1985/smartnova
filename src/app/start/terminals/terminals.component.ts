@@ -31,6 +31,13 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   multiFilter: any;
   filtered: boolean;
   page: number;
+  searchFields = [
+    'Id',
+    'Name',
+    'Address',
+    'SalesSum',
+    'CollectSum'
+  ];
 
   private saleSubscritption: Subscription;
   private eventSubscritption: Subscription;

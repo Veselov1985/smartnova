@@ -37,6 +37,14 @@ export class IngridientsComponent implements OnInit, OnDestroy {
   multiFilter: any;
   filtered: boolean;
   page: number;
+  searchFields = [
+    'Pid',
+    'Name',
+    'IssuanceVol',
+    'DownloadVol',
+    'CurrentVol',
+    'Threshold'
+  ];
 
   ingrNumber: number;
   private configSubscription: Subscription;
