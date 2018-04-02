@@ -63,7 +63,7 @@ export class MaterialModule {}
     ReactiveFormsModule,
     SignalRModule.forRoot(createConfig),
     ChartModule,
-    MaterialModule,
+    MaterialModule
   ],
   declarations: [
     AppComponent,

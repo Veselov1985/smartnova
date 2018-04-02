@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isNumeric } from './isNumeric';
 
 @Pipe({
   name: 'multiFilterCollect'
@@ -23,22 +24,22 @@ export class MultiFilterCollectPipe implements PipeTransform {
       if (!regName.test(item.ServiceMan)) {
         return false;
       }
-      if (item.Collection < multifilter.CollectionFrom && multifilter.CollectionFrom) {
+      if (item.Collection < multifilter.CollectionFrom && isNumeric(multifilter.CollectionFrom)) {
         return false;
       }
-      if (item.Collection > multifilter.CollectionTo && multifilter.CollectionTo) {
+      if (item.Collection > multifilter.CollectionTo && isNumeric(multifilter.CollectionTo)) {
         return false;
       }
-      if (item.GivenChange < multifilter.GivenChangeFrom && multifilter.GivenChangeFrom) {
+      if (item.GivenChange < multifilter.GivenChangeFrom && isNumeric(multifilter.GivenChangeFrom)) {
         return false;
       }
-      if (item.GivenChange > multifilter.GivenChangeTo && multifilter.GivenChangeTo) {
+      if (item.GivenChange > multifilter.GivenChangeTo && isNumeric(multifilter.GivenChangeTo)) {
         return false;
       }
-      if (item.FundChange < multifilter.FundChangeFrom && multifilter.FundChangeFrom) {
+      if (item.FundChange < multifilter.FundChangeFrom && isNumeric(multifilter.FundChangeFrom)) {
         return false;
       }
-      if (item.FundChange > multifilter.FundChangeTo && multifilter.FundChangeTo) {
+      if (item.FundChange > multifilter.FundChangeTo && isNumeric(multifilter.FundChangeTo)) {
         return false;
       }
       return true;

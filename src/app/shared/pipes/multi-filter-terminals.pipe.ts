@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isNumeric } from './isNumeric';
 
 @Pipe({
   name: 'multiFilterTerminals'
@@ -31,16 +32,16 @@ export class MultiFilterTerminalsPipe implements PipeTransform {
       if (multifilter.Failure !== null && multifilter.Failure !== item.Failure) {
         return false;
       }
-      if (item.SalesSum < multifilter.SalesSumFrom && multifilter.SalesSumFrom) {
+      if (item.SalesSum < multifilter.SalesSumFrom && isNumeric(multifilter.SalesSumFrom)) {
         return false;
       }
-      if (item.SalesSum > multifilter.SalesSumTo && multifilter.SalesSumTo) {
+      if (item.SalesSum > multifilter.SalesSumTo && isNumeric(multifilter.SalesSumTo)) {
         return false;
       }
-      if (item.CollectSum < multifilter.CollectSumFrom && multifilter.CollectSumFrom) {
+      if (item.CollectSum < multifilter.CollectSumFrom && isNumeric(multifilter.CollectSumFrom)) {
         return false;
       }
-      if (item.CollectSum > multifilter.CollectSumTo && multifilter.CollectSumTo) {
+      if (item.CollectSum > multifilter.CollectSumTo && isNumeric(multifilter.CollectSumTo)) {
         return false;
       }
       return true;

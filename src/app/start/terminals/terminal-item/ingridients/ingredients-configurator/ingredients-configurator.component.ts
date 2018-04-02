@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import {
   Component,
   OnInit,
@@ -58,7 +59,8 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   constructor(
     private stateConfiguratorService: StateConfiguratorService,
     private terminalIngredientsConfiguratorService: TerminalIngredientsConfiguratorService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     stateConfiguratorService.stateChange$.subscribe(
       stateConfig => {
@@ -88,14 +90,9 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
     this.errorThreshold = '';
     if (changes.currentIngredient && !changes.currentIngredient.isFirstChange()) {
       this.ingredientConfig = this.terminalIngredientsConfiguratorService.getCourentIngredientConfig(this.currentIngredient);
-      this.terminalIngredientsConfiguratorService.getCurrentIngredientConfig(this.currentIngredient.Pk).subscribe(resp => {
+      const terminalPk = this.route.parent.snapshot.params['terminalPk'];
+      this.terminalIngredientsConfiguratorService.getCurrentIngredientConfig(this.currentIngredient.Pk, terminalPk).subscribe(resp => {
         this.ingredientUpdate = resp.IngredientUpdat;
-        // if (this.ingredientUpdate.PreviousIssuanceVol) {
-        //   this.ingredientUpdate.NewIssuanceVol = this.ingredientUpdate.PreviousIssuanceVol;
-        // }
-        // if (this.ingredientUpdate.PreviousThreshold) {
-        //   this.ingredientUpdate.NewThreshold = this.ingredientUpdate.PreviousThreshold;
-        // }
       });
     }
   }
@@ -112,14 +109,14 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   }
 
   submitConfig() {
-    const issuanceVol = this.form.value.NewIssuanceVol || this.ingredientUpdate.PreviousIssuanceVol;
-    const threshold = this.form.value.NewThreshold || this.ingredientUpdate.PreviousThreshold;
+    const issuanceVol = this.form.value.NewIssuanceVol;
+    const threshold = this.form.value.NewThreshold;
     if (issuanceVol && threshold) {
       const setData = {
         IssuanceVol: issuanceVol,
         Threshold: threshold,
         IngredientPk: this.currentIngredient.Pk,
-        TerminalPk: sessionStorage.getItem('productPk')
+        TerminalPk: this.route.parent.snapshot.params['terminalPk']
       };
       this.terminalIngredientsConfiguratorService.setCurrentIngredientConfig(setData).subscribe(resp => {
         this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
@@ -141,9 +138,11 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   applyConfig() {
     const setData = {
       IngredientPk: this.currentIngredient.Pk,
-      TerminalPk: sessionStorage.getItem('productPk')
+      TerminalPk: this.route.parent.snapshot.params['terminalPk']
     };
     this.terminalIngredientsConfiguratorService.applyIngredientConfig(setData).subscribe(resp => {
+      this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
+      this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
       this.snackBarShow('Конфигурация отправлена');
       this.configSent.emit({
         action: 'applyConfig',

@@ -19,6 +19,7 @@ import { MultiFilterProductsPipe } from '../../../../shared/shared';
 import { SettingsService } from './../../../../shared/services/common/settings.service';
 import { Subscription } from 'rxjs/Subscription';
 import { SignalRService } from '../../../../shared/services/auth/signalr.service';
+import { GetProductIngredientsService } from '../../../../shared/services/terminals/get-product-ingredients.service';
 
 
 @Component({
@@ -60,6 +61,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private serviceProd: GetTerminalProductsService,
+    private ingrService: GetProductIngredientsService,
     public dialog: MatDialog,
     private stateMultifilter: StateMultifilterService,
     private stateConfiguratorService: StateConfiguratorService,
@@ -127,35 +129,22 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ConfigState(product: TItemProducts): void {
-    this.courentProduct = product;
+    this.courentProduct = {...product};
     this.stateConfig = this.stateConfiguratorService.getStateConfigurator();
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
     // return false;
   }
 
-  toInt(num: string) {
-    return +num;
-  }
-
-  sortByWordLength = (a: any) => {
-    return a.city.length;
-  }
-  goToProduct(item: any) {
-    // this.router.navigate(['/hero', item.id]);
-    // this.router.navigate(['start/products']);
-  }
-
   openIngredients(event: any, Pk: string): void {
     event.stopPropagation();
-    const dialogRef = this.dialog.open(ProdictIngredientsComponent, {
-      data: { Pk: Pk },
-      width: '550px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    this.ingrService.getIngredients(Pk).subscribe(resp => {
+      const ingredients = resp.IsSuccess ? resp.GoodsIngredients : [];
+      const dialogRef = this.dialog.open(ProdictIngredientsComponent, {
+        data: { ingredients: ingredients },
+        width: '550px',
+      });
+    }, error => console.log(error));
   }
 
   applyMultiFilter(multifilter) {

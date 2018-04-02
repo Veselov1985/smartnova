@@ -138,6 +138,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       } else {
         item.Viewed = true;
         this.notViewed -= 1;
+        this.signalRService.eventWasViewed();
       }
     }
   }

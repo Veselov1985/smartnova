@@ -27,9 +27,8 @@ export class TerminalIngredientsConfiguratorService {
     console.log('Настройки ингредиента записаны в базу ' + params);
   }
 
-  getCurrentIngredientConfig(pk: string) {
+  getCurrentIngredientConfig(pk: string, terminalPk: string) {
     const serviseUrl = this.baseUrl + 'GetIngredientUpdate';
-    const terminalPk = sessionStorage.getItem('productPk');
     return this.http.post(serviseUrl, JSON.stringify({ TerminalPk: terminalPk, IngredientPk: pk }), { headers: this.headers })
       .map(response => response.json());
   }
