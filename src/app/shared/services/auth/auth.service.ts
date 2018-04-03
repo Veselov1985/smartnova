@@ -28,7 +28,7 @@ export class AuthService {
       this.isLoggedIn.next(true);
     }
   }
-
+  
   login(data: any) {
     const serviseUrl = urlApi.serveraccount + 'Login';
     return this.http

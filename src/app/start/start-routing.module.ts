@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -29,6 +30,9 @@ import {
 
 } from './terminals/terminal-item';
 
+
+import {AdminComponent} from './admin/admin.component';
+
 import { EventsResolver } from '../shared/resolvers/events.resolver';
 import { EventsStatsResolver } from '../shared/resolvers/events-stats.resolver';
 import { CollectionResolver } from '../shared/resolvers/collection.resolver';
@@ -51,6 +55,10 @@ const startRoutes: Routes = [
         {
           path: 'terminals',
           component: TerminalsComponent,
+        },
+        {
+          path:'admin',
+          component:AdminComponent,
         },
         {
           path: 'terminal-item/:terminalPk',

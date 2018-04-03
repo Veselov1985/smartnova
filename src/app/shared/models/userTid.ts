@@ -1,6 +1,6 @@
-export class User {
+export class UserTid {
     Name?: string;
-    Email: string;
+    Email?: string;
     Password?: string;
     Phone?: string;
     Tid?: number;

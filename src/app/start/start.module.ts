@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -52,6 +53,9 @@ import { SignalRResolver } from '../shared/resolvers/signalR.resolver';
 import { ReportLoggingResolver } from './../shared/resolvers/report-logging.resolver';
 import { GetProductIngredientsService } from '../shared/services/terminals/get-product-ingredients.service';
 
+
+import { AdminModule } from './admin/admin.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -69,13 +73,15 @@ import { GetProductIngredientsService } from '../shared/services/terminals/get-p
     // ChartModule.forRoot(Highcharts),
     DataTableModule,
     DateTimePickerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AdminModule
   ],
   declarations: [
     START_COMPONENT,
     ProdictIngredientsComponent,
-    ReportLoggingComponent
-  ],
+    ReportLoggingComponent,
+    
+],
   providers: [
     GetBarDataService,
     GetChartLineService,

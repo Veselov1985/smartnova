@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNumeric } from './isNumeric';
 
 @Pipe({
   name: 'multiFilterEvents'
@@ -24,16 +23,16 @@ export class MultiFilterEventsPipe implements PipeTransform {
       if (!regName.test(item.Name)) {
         return false;
       }
-      if (item.TotalNumber < multifilter.TotalNumberFrom && isNumeric(multifilter.TotalNumberFrom)) {
+      if (item.TotalNumber < multifilter.TotalNumberFrom && multifilter.TotalNumberFrom) {
         return false;
       }
-      if (item.TotalNumber > multifilter.TotalNumberTo && isNumeric(multifilter.TotalNumberTo)) {
+      if (item.TotalNumber > multifilter.TotalNumberTo && multifilter.TotalNumberTo) {
         return false;
       }
-      if (item.Duration < multifilter.DurationFrom && isNumeric(multifilter.DurationFrom)) {
+      if (item.Duration < multifilter.DurationFrom && multifilter.DurationFrom) {
         return false;
       }
-      if (item.Duration > multifilter.DurationTo && isNumeric(multifilter.DurationTo)) {
+      if (item.Duration > multifilter.DurationTo && multifilter.DurationTo) {
         return false;
       }
       if (multifilter.Viewed !== null && multifilter.Viewed !== item.Viewed) {

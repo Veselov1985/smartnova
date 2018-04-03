@@ -1,0 +1,53 @@
+
+<div class="container">
+  <div class="row">
+  <div class='col-sm-12'>
+    <div class="panel panel-default">
+      <div class='row'>
+        <h3 class='text-center'>Добавить в систему нового пользователя</h3>
+        <br>
+        <br>
+        <form [formGroup]="adminForm" novalidate  (ngSubmit)="CreateNewUser()">
+        <div class='col-sm-12'>
+          <div class="form-group">
+              <div class="col-sm-12 label-sm">
+                <div class="row text-center">
+                  <div class="col-sm-1">
+                    <label for="id"> ID</label>
+                    <input  name="id" type="number" class="form-control input-sm"  formControlName="Pk">
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="name">Ф.И.О</label>
+                    <input  name="name" type="text" class="form-control input-sm" formControlName="Name" >
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="role"> Роль</label>
+                    <select name="role" class="form-control input-sm"  placeholder="Выберите из списка" formControlName="Role">
+                        <option *ngFor="let op of options" [ngValue]="op">{{op.name}}</option>
+                      </select>
+
+                  </div>
+                  <div class="col-sm-2">
+                      <label for="login"> Логин</label>
+                      <input  name="login" type="text" class="form-control input-sm"  formControlName="Email">
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="password">Пароль</label>
+                        <input  name="password" type="text" class="form-control input-sm" formControlName="Password">
+                      </div>
+                      <div class="col-sm-3">
+                        <button  class="btn btn-primary" [disabled]="adminForm.invalid" style ="margin-top:25px;">Сохранить</button>
+                        </div>
+                    
+                </div>
+              </div>
+            </div>
+        </div>
+        </form>
+      </div>
+      <br>
+      <br>
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNumeric } from './isNumeric';
 
 @Pipe({
   name: 'multiFilterProducts'
@@ -19,22 +18,22 @@ export class MultiFilterProductsPipe implements PipeTransform {
       if (!regName.test(item.Name)) {
         return false;
       }
-      if (item.BaseSum < multifilter.BaseSumFrom && isNumeric(multifilter.BaseSumFrom)) {
+      if (item.BaseSum < multifilter.BaseSumFrom && multifilter.BaseSumFrom) {
         return false;
       }
-      if (item.BaseSum > multifilter.BaseSumTo && isNumeric(multifilter.BaseSumTo)) {
+      if (item.BaseSum > multifilter.BaseSumTo && multifilter.BaseSumTo) {
         return false;
       }
-      if (item.SoldNumber < multifilter.SoldNumberFrom && isNumeric(multifilter.SoldNumberFrom)) {
+      if (item.SoldNumber < multifilter.SoldNumberFrom && multifilter.SoldNumberFrom) {
         return false;
       }
-      if (item.SoldNumber > multifilter.SoldNumberTo && isNumeric(multifilter.SoldNumberTo)) {
+      if (item.SoldNumber > multifilter.SoldNumberTo && multifilter.SoldNumberTo) {
         return false;
       }
-      if (item.SoldSum < multifilter.SoldSumFrom && isNumeric(multifilter.SoldSumFrom)) {
+      if (item.SoldSum < multifilter.SoldSumFrom && multifilter.SoldSumFrom) {
         return false;
       }
-      if (item.SoldSum > multifilter.SoldSumTo && isNumeric(multifilter.SoldSumTo)) {
+      if (item.SoldSum > multifilter.SoldSumTo && multifilter.SoldSumTo) {
         return false;
       }
       return true;

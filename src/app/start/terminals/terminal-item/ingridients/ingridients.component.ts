@@ -106,7 +106,7 @@ export class IngridientsComponent implements OnInit, OnDestroy {
   }
 
   ConfigState(currentIngredient: any): void {
-    this.currentIngredient = {...currentIngredient};
+    this.currentIngredient = currentIngredient;
     this.stateConfig = this.stateConfiguratorService.getStateConfigurator();
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
     this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
