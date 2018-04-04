@@ -15,36 +15,30 @@ import { urlApi } from '../../url.api';
 @Injectable()
 export class AdminService {
 
-    private baseUrl:string;
+    private baseUrl: string;
 
     private headers = new Headers({
         'Content-Type': 'application/json'
       });
 
-     
-
-constructor( private http:Http,private auth:AuthService) {
+constructor( private http: Http, private auth: AuthService) {
     this.auth.isLoggedIn.subscribe(isLoggedIn => {
     this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
-  })
+  });
 
  }
 
 
- getListUser(data:any){
+ getListUser(data: any) {
     const serviseUrl = this.baseUrl + 'GetAllUsersForTn';
     console.log( serviseUrl);
-   return  this.http.post(serviseUrl,JSON.stringify({Pk:data}),{headers:this.headers})
-   .map(res=> res.json())
-   .map(res=>{
-      
-    if(res.IsSuccess){
-        console.log(res)
+   return  this.http.post(serviseUrl, JSON.stringify({Pk: data}), {headers: this.headers})
+   .map(res => res.json())
+   .map(res => {
+    if (res.IsSuccess) {
+        console.log(res);
         return res;
     }
-
-   })
-  
+   });
  }
-
 }

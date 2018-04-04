@@ -80,7 +80,6 @@ import { AdminModule } from './admin/admin.module';
     START_COMPONENT,
     ProdictIngredientsComponent,
     ReportLoggingComponent,
-    
 ],
   providers: [
     GetBarDataService,

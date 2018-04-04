@@ -1,15 +1,53 @@
-
 <div class="container">
-  <div class="row">
-      <div class="col-sm-12 col-xs-12">
-          <div class="panel panel-default">
-             <li *ngFor="let user of data.Users">{{user.Email}}</li>
-          </div>
+    <div class="row">
+
+        <div class="col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <table class="table table-striped table-hover table-bordered" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                <mfDefaultSorter by="Pk">Id</mfDefaultSorter>
+                            </th>
+                            <th class="text-center">
+                                <mfDefaultSorter by="Pk">Ф.И.О</mfDefaultSorter>
+                            </th>
+                            <th class="text-center">
+                                <mfDefaultSorter by="Pk">Роль</mfDefaultSorter>
+                            </th>
+                            <th class="text-center">
+                                <mfDefaultSorter by="Pk">Логин</mfDefaultSorter>
+                            </th>
+                            <th class="text-center">
+                                <mfDefaultSorter by="Pk">Пароль</mfDefaultSorter>
+                            </th>
+                            <th class="text-center">
+                                <mfDefaultSorter by="Pk">Действия</mfDefaultSorter>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let user of mf.data; let i = index;" (click)="EditUser(user)">
+                            <td class="text-center">{{user.Pk}}</td>
+                            <td class="text-center">{{user.Name}} {{user.SurName}} </td>
+                            <td class="text-center">{{user.Role.Name}}</td>
+                            <td class="text-center">{{user.Email}}</td>
+                            <td class="text-center">{{user.Password}}</td>
+                            <td class="text-center"><button>Edit</button><button (click)="RemoveItem(user)">Delete </button></td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
         </div>
-  </div>
+    </div>
 </div>
-
-   
-
-
-  

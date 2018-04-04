@@ -2,6 +2,7 @@
 
 
 export class AdminRole {
-    name:string;
- 
+    Name: string;
+    Pk?: string;
+
 }

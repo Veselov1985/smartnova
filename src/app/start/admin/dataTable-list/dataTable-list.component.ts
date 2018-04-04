@@ -1,18 +1,40 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DataTableModule  } from 'angular2-datatable';
+import { SharedModule } from '../../../shared/shared.module';
+import { UserTid } from '../../../shared';
+
+
+
+
+
+
+
 
 @Component({
-  selector: 'app-dataTable-list',
+  selector: 'app-datatable-list',
   templateUrl: './dataTable-list.component.html',
   styleUrls: ['./dataTable-list.component.less']
 })
 export class DataTableListComponent implements OnInit {
 
   @Input() data;
+  @Output() ChangeForm= new EventEmitter();
 
-  constructor() { }
+  constructor() {}
+
 
   ngOnInit() {
-    console.log(this.data)
+  }
+
+
+  EditUser(user: UserTid) {
+
+    this.ChangeForm.emit(user);
+
+  }
+
+  RemoveItem(item) {
+   this.data = this.data.filter( x => x !== item );
   }
 
 }

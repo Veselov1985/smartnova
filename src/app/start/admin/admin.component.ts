@@ -1,7 +1,7 @@
 import { AdminService } from './../../shared';
 import { Observable } from 'rxjs/Observable';
 
-import { User,UserTid} from './../../shared/models';
+import { User, UserTid} from './../../shared/models';
 import { DataTableListComponent } from './dataTable-list/dataTable-list.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { Component, OnInit } from '@angular/core';
@@ -15,32 +15,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.less']
 })
 export class AdminComponent implements OnInit {
-  users:UserTid[]=[];
-  user:UserTid={
-    Name:'',
-    Email:'',
-    Password:'',
-    Pk: '',
-    Role:'',
+    users: UserTid[]= [];
+    user: UserTid= {
+      Name: '',
+      Email: '',
+      Password: '',
+      Pk: '',
+      Role: {Pk: '', Name: ''},
+      SurName: ''
   };
 
-  constructor( private adminServ:AdminService ) { 
+    constructor( private adminServ: AdminService ) {
 
-    this.adminServ.getListUser(sessionStorage.getItem("TnPk")).subscribe(data=>this.users=data)
-  }
+      this.adminServ.getListUser(sessionStorage.getItem('TnPk')).subscribe(data => this.users = data.Users);
+    }
 
 
 
-  ngOnInit() {
-    console.log('gg')
-  }
+    ngOnInit() {
+    }
 
-  AddUserTab(user:any){
-   console.log( user.value)
-  console.log('app',user);
-   this.users.push(user);
-   console.log(this.users)
+    clearUser() {
+      this.user = {
+          Name: '',
+          Email: '',
+          Password: '',
+          Pk: '',
+          Role: {Pk: '', Name: ''},
+          SurName: ''
+      };
 
-  }
+    }
+
+    AddUserTab(user: any) {
+
+        this.users.push(user.value);
+        console.log(this.users);
+        this.clearUser();
+    }
+
+    SetUser(user: any) {
+      console.log('User in app', user);
+      this.user = user;
+    }
 
 }
