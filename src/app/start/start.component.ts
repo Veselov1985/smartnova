@@ -49,7 +49,7 @@ export class StartComponent implements OnInit, OnDestroy {
     });
 
     this.userId = sessionStorage.getItem('UserPk');
-    this.groupId = sessionStorage.getItem('TnPk');
+    this.groupId = sessionStorage.getItem('TnId');
     if (!this.userId) {
         this.userId = this.signalRService.getUserDemoId();
         this.groupId = this.signalRService.getGroupDemoId();
