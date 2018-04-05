@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,OnChanges ,SimpleChanges } from '@angular/core';
 import { DataTableModule  } from 'angular2-datatable';
 import { SharedModule } from '../../../shared/shared.module';
 import { UserTid } from '../../../shared';
@@ -32,6 +32,14 @@ export class DataTableListComponent implements OnInit {
     this.ChangeForm.emit(user);
 
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data']) {
+    
+      console.log(this.data);
+    }
+}
+
 
   RemoveItem(item) {
    this.data = this.data.filter( x => x !== item );

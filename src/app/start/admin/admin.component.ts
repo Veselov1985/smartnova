@@ -16,42 +16,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
     users: UserTid[]= [];
-    user: UserTid= {
-      Name: '',
-      Email: '',
-      Password: '',
-      Pk: '',
-      Role: {Pk: '', Name: ''},
-      SurName: ''
-  };
+    user: UserTid;
 
     constructor( private adminServ: AdminService ) {
-
+      this.user=this.adminServ.getZeroUser();
       this.adminServ.getListUser(sessionStorage.getItem('TnPk')).subscribe(data => this.users = data.Users);
+  
     }
 
 
 
     ngOnInit() {
+     
     }
 
-    clearUser() {
-      this.user = {
-          Name: '',
-          Email: '',
-          Password: '',
-          Pk: '',
-          Role: {Pk: '', Name: ''},
-          SurName: ''
-      };
+   
 
-    }
 
     AddUserTab(user: any) {
 
-        this.users.push(user.value);
-        console.log(this.users);
-        this.clearUser();
+        //this.users.push(user);
+
+        this.adminServ.AddOrEditUser(user).subscribe(data =>{ 
+            let res=this.adminServ.compareDataUser(this.users,data.UserPk);
+            this.users = this.adminServ.compareDataUser(this.users,data.UserPk)
+        })
+        console.log(this.user);
+        this.user=this.adminServ.getZeroUser();
     }
 
     SetUser(user: any) {

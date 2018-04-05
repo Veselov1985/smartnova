@@ -3,6 +3,9 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { AdminRole } from './../../../shared/models/admin-role';
 import { User, UserTid} from './../../../shared/models';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges , SimpleChanges } from '@angular/core';
+import { AdminService } from '../../../shared';
+import {Observable} from 'rxjs/Observable';
+
 
 
 
@@ -20,28 +23,25 @@ export class NewUserComponent implements OnInit , OnChanges {
 
   adminForm: FormGroup;
 
-    options: AdminRole[]  = [
-    {Name: 'Администратор', Pk: ''},
-    {Name: 'Оператор', Pk: ''},
-    {Name: 'Сервисный инженер', Pk: ''},
-    {Name: 'Бухгалтер', Pk: ''}
-  ];
+  options: Observable<any[]>;
 
 
 
 
-    constructor() {
+    constructor(private admServ: AdminService) {
       this.adminForm = new FormGroup({
         Pk: new FormControl('', [Validators.required]),
         Name: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
-        Role: new FormControl(this.options[0].Name),
+        Role: new FormControl('Выбрать из списка'),
         Email: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
         Password: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')])
       });
     }
 
     ngOnInit() {
-      this.setValueForm(this.user);
+      this.admServ.getListRole().subscribe( data => { this.options = data.Roles});
+     console.log( sessionStorage.getItem('TnPk'));
+      console.log(this.user)
     }
 
 
@@ -61,7 +61,7 @@ export class NewUserComponent implements OnInit , OnChanges {
           role = this.options[3];
             break;
         default:
-          role = this.options[0];
+          role = '';
       }
       this.adminForm.setValue({
         Pk: this.user.Pk,
@@ -75,7 +75,7 @@ export class NewUserComponent implements OnInit , OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
       if (changes['user']) {
-        this.setValueForm(this.user);
+       this.setValueForm(this.user);
         console.log(this.user);
       }
   }
@@ -83,8 +83,9 @@ export class NewUserComponent implements OnInit , OnChanges {
 
 
     CreateNewUser() {
-      console.log(this.adminForm.value);
-      this.AddUser.emit(this.adminForm);
+      let user;
+      user= this.admServ.setSettingsUser(this.adminForm.value);
+      this.AddUser.emit(user);
       this.adminForm.reset();
     }
 
