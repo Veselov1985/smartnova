@@ -39,6 +39,7 @@ export class AuthService {
           sessionStorage.setItem('auth_token', 'true');
           sessionStorage.setItem('UserPk', res.UserPk);
           sessionStorage.setItem('TnPk', res.TnPk);
+          sessionStorage.setItem('TnId', res.TnId);
           this.loggedIn = true;
           this.isLoggedIn.next(true);
           this.removeMultiflters();
@@ -58,6 +59,7 @@ export class AuthService {
           sessionStorage.removeItem('auth_token');
           sessionStorage.removeItem('UserPk');
           sessionStorage.removeItem('TnPk');
+          sessionStorage.setItem('TnId', res.TnId);
           this.loggedIn = false;
           this.isLoggedIn.next(false);
           this.router.navigate(['/']);
