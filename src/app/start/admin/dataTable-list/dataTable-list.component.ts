@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter,OnChanges ,SimpleChanges
 import { DataTableModule  } from 'angular2-datatable';
 import { SharedModule } from '../../../shared/shared.module';
 import { UserTid } from '../../../shared';
-
-
+import { SettingsService } from'../../../shared//services/common/settings.service'
 
 
 
@@ -19,11 +18,27 @@ export class DataTableListComponent implements OnInit {
 
   @Input() data;
   @Output() ChangeForm= new EventEmitter();
+  public rowsOnPage =5;
+  public page:number;
+  public sortBy:string;
+  public sortOrder:string;
 
-  constructor() {}
+
+  constructor(private  SettingsService: SettingsService) {
+
+  
+    
+  }
 
 
   ngOnInit() {
+    console.log(this.SettingsService.settings);
+    if (this.SettingsService.settings) {
+      this.sortBy = this.SettingsService.settings.admin.sortBy || 'DateTime';
+      this.sortOrder = this.SettingsService.settings.admin.sortOrder || 'desc';
+    }
+    console.log(this.SettingsService.settings.admin.page);
+    this.page=this.SettingsService.settings.admin.page; 
   }
 
 
@@ -37,6 +52,10 @@ export class DataTableListComponent implements OnInit {
     if (changes['data']) {
     
       console.log(this.data);
+    }
+
+    if(changes.rowsOnPage){
+      console.log(this.rowsOnPage)
     }
 }
 

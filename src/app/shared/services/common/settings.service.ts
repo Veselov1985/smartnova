@@ -19,6 +19,7 @@ export interface Settings {
         additional: SortSettings
     };
     eventStats: SortSettings;
+    admin: SortSettings
 }
 
 @Injectable()
@@ -55,7 +56,8 @@ export class SettingsService {
                 uncertain: { sortBy: 'Name', sortOrder: 'asc' },
                 additional: { sortBy: 'Name', sortOrder: 'asc' },
             },
-            eventStats: { sortBy: '', sortOrder: '', page: 1 }
+            eventStats: { sortBy: '', sortOrder: '', page: 1 },
+            admin: {sortBy: '', sortOrder: '', page: 1}
         };
     }
 

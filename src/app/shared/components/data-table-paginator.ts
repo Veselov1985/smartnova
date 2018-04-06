@@ -75,6 +75,8 @@ export class DataTablePaginatorComponent implements AfterViewInit, OnChanges {
         if (changes.rowsOnPageSet) {
             this.minRowsOnPage = _.min(this.rowsOnPageSet);
         }
+
+       
     }
 
     setPage(page: number) {

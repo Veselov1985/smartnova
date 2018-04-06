@@ -31,7 +31,6 @@ constructor( private http: Http, private auth: AuthService) {
     .map(res => res.json())
     .map(res => { 
         if (res.IsSuccess) {
-        console.log(res);
         return res;
     }});
 
@@ -44,7 +43,6 @@ constructor( private http: Http, private auth: AuthService) {
    .map(res => res.json())
    .map(res => {
       if (res.IsSuccess) {
-        console.log(res);
        return res;
     }});
 
@@ -57,7 +55,6 @@ constructor( private http: Http, private auth: AuthService) {
     .map(res => res.json())
     .map(res => { 
         if (res.IsSuccess) {
-        console.log(res);
         return res;
     }});
 
@@ -73,7 +70,6 @@ constructor( private http: Http, private auth: AuthService) {
    .map(res => res.json())
    .map(res => {
     if (res.IsSuccess) {
-        console.log(res);
         return res;
     }
    });
@@ -103,8 +99,14 @@ constructor( private http: Http, private auth: AuthService) {
         setSettingsUser(value){
             let setUser=this.getZeroUser();
             setUser.Pk=value.Pk;
-            setUser.Name=value.Name.split(' ')[0];
-            setUser.SurName=value.Name.split(' ')[1];
+            let split =value.Name.trim().split(' ');
+           if( split.length<2) {
+                setUser.Name=split[0];
+                setUser.SurName='';
+           }else {
+                setUser.Name=split[0];
+                setUser.SurName=split[1];
+           } 
             setUser.Role=value.Role;
             setUser.Password=value.Password;
             setUser.Email=value.Email;
@@ -113,9 +115,6 @@ constructor( private http: Http, private auth: AuthService) {
         }
 
         compareDataUser(listUser,user){
-            console.log(user);
-            console.log(listUser);
-
             let list,state;
             list = listUser.filter( (elem,i) => {
                 if (elem.Pk !== user.Pk){

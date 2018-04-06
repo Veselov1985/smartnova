@@ -5,34 +5,34 @@
             <div class="panel panel-default">
                 <br>
                 <hr>
-                <table class="table table-striped table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+                <table class="table table-striped table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage">
                     <thead>
                         <tr>
                             <th class="text-center">
                                 <mfDefaultSorter by="Pk">Id</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Pk">Ф.И.О</mfDefaultSorter>
+                                <mfDefaultSorter by="SurName">Ф.И.О</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Pk">Роль</mfDefaultSorter>
+                                <mfDefaultSorter by="Role.Name">Роль</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Pk">Логин</mfDefaultSorter>
+                                <mfDefaultSorter by="Email">Логин</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Pk">Пароль</mfDefaultSorter>
+                                <mfDefaultSorter by="Password">Пароль</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Pk">Действия</mfDefaultSorter>
+                                <mfDefaultSorter by="SurName">Действия</mfDefaultSorter>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <tr *ngFor="let user of mf.data; let i = index;">
-                            <td class="text-center">{{user.Pk}}</td>
-                            <td class="text-center">{{user.Name}} {{user.SurName}} </td>
+                            <td class="text-center">{{user.Pk | slice:0:4}}</td>
+                            <td class="text-center">{{user.SurName}} {{user.Name}}</td>
                             <td class="text-center">{{user.Role.Name}}</td>
                             <td class="text-center">{{user.Email}}</td>
                             <td class="text-center">{{user.Password}}</td>
@@ -48,7 +48,13 @@
                     <tfoot>
                         <tr>
                             <td colspan="6">
-                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                                      <app-data-table-paginator [page]="page"  [section]="'admin'"></app-data-table-paginator> 
+                           <!--  <mfBootstrapPaginator></mfBootstrapPaginator>  -->
+                           
+                           <ul class="pagination">
+                            <li class="page-item"> <span class="no-border">Всего:</span> </li>
+                            <li class="page-item"> <span>{{data.length}}</span></li>
+                          </ul>
                             </td>
                         </tr>
                     </tfoot>

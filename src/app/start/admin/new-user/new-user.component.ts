@@ -32,7 +32,7 @@ export class NewUserComponent implements OnInit , OnChanges {
       this.adminForm = new FormGroup({
         Pk: new FormControl('', [Validators.required]),
         Name: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
-        Role: new FormControl('Выбрать из списка'),
+        Role: new FormControl('Выбрать из списка', [Validators.required]),
         Email: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
         Password: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')])
       });
