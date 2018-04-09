@@ -172,16 +172,16 @@
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
                   <td class="text-center">{{item.DateTime | dateTime: 'date'}},&nbsp;{{item.DateTime | datex: 'HH:mm:ss'}}</td>
-                  <td><a *ngIf="item.Viewed!=null" (click)="item.Viewed=true" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
+                  <td><a *ngIf="item.Viewed!=null" (click)="setEventViewed(item, 'Uncertain')" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
                   <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type, item.Pk )"></a></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="table-item" *ngSwitchCase="4">
-            <table class="table table-striped" [mfData]="events?.Additional | multiFilterEvents : multiFilter : 'Additional'" #additional="mfDataTable"
-              [mfRowsOnPage]="50" [(mfSortBy)]="sort.additional.sortBy" [(mfSortOrder)]="sort.additional.sortOrder"
-              (mfSortByChange)="onChangeSort($event, 'additional')" (mfSortOrderChange)="onChangeSortOrder($event, 'additional')">
+            <table class="table table-striped" [mfData]="events?.Custom | multiFilterEvents : multiFilter : 'Custom'" #custom="mfDataTable"
+              [mfRowsOnPage]="50" [(mfSortBy)]="sort.custom.sortBy" [(mfSortOrder)]="sort.custom.sortOrder"
+              (mfSortByChange)="onChangeSort($event, 'custom')" (mfSortOrderChange)="onChangeSortOrder($event, 'custom')">
               <thead>
                 <tr>
                   <th colspan=6>
@@ -217,12 +217,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of additional.data">
+                <tr *ngFor="let item of custom.data">
                   <td>{{item.Name}}</td>
                   <td class="text-center">{{item.TotalNumber}}</td>
                   <td class="text-center">{{item.Duration}}</td>
                   <td class="text-center">{{item.DateTime | dateTime: 'date'}},&nbsp;{{item.DateTime | datex: 'HH:mm:ss'}}</td>
-                  <td><a *ngIf="item.Viewed!=null" (click)="item.Viewed=true" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
+                  <td><a *ngIf="item.Viewed!=null" (click)="setEventViewed(item, 'Custom')" class="visibility" [ngClass]="{'no-visible' : item.Viewed}"></a></td>
                   <td><a href="#ViewEventStatistic" class="icon-statistic" (click)="goToEventStatistic($event, item.Type, item.Pk )"></a></td>
                   <td class="text-center" *ngIf="stateConfigMode == 'active'"><a class="icon-config" (click)="ConfigState($event, item.Pk)"></a></td>
                 </tr>

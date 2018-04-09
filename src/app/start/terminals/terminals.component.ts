@@ -40,7 +40,7 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   ];
 
   private saleSubscritption: Subscription;
-  private eventSubscritption: Subscription;
+  private eventSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -81,7 +81,7 @@ export class TerminalsComponent implements OnInit, OnDestroy {
         }
       });
     });
-    this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
+    this.eventSubscription = this.signalRService.onEventSent$.subscribe(resp => {
       this.getTerminalsService.getTerminals().subscribe((data) => {
         if (data.IsSuccess) {
           this.data = data.Terminals;
@@ -136,8 +136,8 @@ export class TerminalsComponent implements OnInit, OnDestroy {
     if (this.saleSubscritption) {
       this.saleSubscritption.unsubscribe();
     }
-    if (this.eventSubscritption) {
-      this.eventSubscritption.unsubscribe();
+    if (this.eventSubscription) {
+      this.eventSubscription.unsubscribe();
     }
   }
 }

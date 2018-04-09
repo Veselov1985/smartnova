@@ -119,7 +119,7 @@ export class SidebarStartComponent implements OnInit {
 
 
   openCloseSidebar(ev: any) {
-    event.stopPropagation();
+    // event.stopPropagation();
     this.state = this.state === 'active' ? 'inactive' : 'active';
     this.StateUserpanel.setStateUserpanel(this.state);
     this.setTab(1, ev);

@@ -51,7 +51,7 @@ export class EventsMultifilterComponent implements OnInit, OnChanges {
     {eventType: 'Operational', eventDescr: 'Операционные', isChecked: false},
     {eventType: 'System', eventDescr: 'Системные/аварии', isChecked: false},
     {eventType: 'Uncertain', eventDescr: 'Неопределенные', isChecked: false},
-    {eventType: 'Additional', eventDescr: 'Дополнительные', isChecked: false},
+    {eventType: 'Custom', eventDescr: 'Дополнительные', isChecked: false},
   ];
   viewed = null;
 

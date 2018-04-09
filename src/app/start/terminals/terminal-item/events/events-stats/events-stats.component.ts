@@ -8,13 +8,13 @@ import {
   Input
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { } from './stats.service';
 import {
   GetEventsStatsService,
-  TItemEventsStats
+  TItemEventsStats,
 } from '../../../../../shared';
 
 import 'rxjs/add/operator/map';
@@ -25,8 +25,7 @@ const Highcharts = require('highcharts/highstock.src');
 
 import 'highcharts/adapters/standalone-framework.src';
 import { SettingsService } from './../../../../../shared/services/common/settings.service';
-
-
+import { SignalRService } from '../../../../../shared/services/auth/signalr.service';
 
 @Component({
   selector: 'app-eventsstats',
@@ -53,14 +52,16 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   chartData: any;
 
+  private eventSubscription: Subscription;
+
   private _chart: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private getEventsStatsService: GetEventsStatsService,
-    public http: Http,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private signalRService: SignalRService,
   ) {
     Highcharts.setOptions({
       lang: {
@@ -76,6 +77,40 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.data = this.route.snapshot.data['stats'];
+
+    this.page = this.settingsService.settings.eventStats.page;
+
+    this.renderCharts();
+
+    this.eventSubscription = this.signalRService.onEventSent$.subscribe(resp => {
+      this.getEventsStatsService.getTerminalEventsStats(this.route.snapshot.queryParams).subscribe(response => {
+          if (response.IsSuccess) {
+            this.data = response.AllTerminalEventsByType || response.TerminalEvents;
+            this.renderCharts();
+          }
+      });
+    });
+  }
+
+  public ngAfterViewInit() {
+
+  }
+
+  ngOnDestroy() {
+    if (this._chart) {
+      this._chart.destroy();
+    }
+    if (this.eventSubscription) {
+      this.eventSubscription.unsubscribe();
+    }
+  }
+
+  dateCreate(dateString) {
+    const date = new Date(dateString);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), -(date.getTimezoneOffset() / 60), 0).getTime();
+  }
+
+  renderCharts() {
     const tempData = {};
     this.data.forEach(item => {
       const date = this.dateCreate(item.DateTime);
@@ -94,11 +129,6 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.eventData = this.data[0];
     }
-
-    this.page = this.settingsService.settings.eventStats.page;
-  }
-
-  public ngAfterViewInit() {
 
     if (this.data) {
       const opts: any = {
@@ -185,17 +215,5 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
         this._chart = new Highcharts.stockChart(opts);
       }
     }
-
-  }
-
-  ngOnDestroy() {
-    if (this._chart) {
-      this._chart.destroy();
-    }
-  }
-
-  dateCreate(dateString) {
-    const date = new Date(dateString);
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), -(date.getTimezoneOffset() / 60), 0).getTime();
   }
 }

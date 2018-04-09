@@ -39,12 +39,13 @@ export class EventsComponent implements OnInit, OnDestroy {
   filtered: boolean;
   notViewed: number;
   events: any;
+  setViewedLoading = false;
 
   sort: {
     operational: SortSettings,
     system: SortSettings,
     uncertain: SortSettings,
-    additional: SortSettings
+    custom: SortSettings
   };
 
   private headers = new Headers({
@@ -123,9 +124,12 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   setEventViewed(item: TItemEvent, group: string) {
-    if (!item.Viewed) {
+    if (!item.Viewed && !this.setViewedLoading) {
+      this.setViewedLoading = true;
       if (!!sessionStorage.getItem('auth_token')) {
-        this.serviceProd.setEventAsViewed(item.Pk).subscribe(res => {
+        this.serviceProd.setEventAsViewed(item.Pk)
+          .finally(() => this.setViewedLoading = false)
+          .subscribe(res => {
             if (res.IsSuccess) {
               item.Viewed = true;
               item.TotalNumber = 0;
@@ -139,6 +143,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         item.Viewed = true;
         this.notViewed -= 1;
         this.signalRService.eventWasViewed();
+        this.setViewedLoading = false;
       }
     }
   }
@@ -194,11 +199,14 @@ export class EventsComponent implements OnInit, OnDestroy {
     if (this.events) {
       this.notViewed = 0;
       for (const key of Object.keys(this.events)) {
-        this.filterPipe.transform(this.events[key], this.multiFilter, key).forEach((item: any) => {
-          if (item.Viewed === false) {
-            this.notViewed += 1;
-          }
-        });
+        const sorted = this.filterPipe.transform(this.events[key], this.multiFilter, key);
+        if (sorted) {
+          sorted.forEach((item: any) => {
+            if (item.Viewed === false) {
+              this.notViewed += 1;
+            }
+          });
+        }
       }
     }
   }

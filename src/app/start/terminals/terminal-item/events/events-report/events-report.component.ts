@@ -11,7 +11,7 @@ export class EventsReportComponent implements OnInit, OnDestroy {
     Operational: null,
     System: null,
     Uncertain: null,
-    Additional: null
+    Custom: null
   };
   multiFilter: any;
   date = new Date();
