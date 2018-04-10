@@ -24,6 +24,7 @@ export class NewUserComponent implements OnInit , OnChanges {
   adminForm: FormGroup;
 
   options: Observable<any[]>;
+ 
 
 
 
@@ -32,7 +33,7 @@ export class NewUserComponent implements OnInit , OnChanges {
       this.adminForm = new FormGroup({
         Pk: new FormControl('', [Validators.required]),
         Name: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
-        Role: new FormControl('Выбрать из списка', [Validators.required]),
+        Role: new FormControl('', [Validators.required]),
         Email: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
         Password: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')])
       });
@@ -40,8 +41,7 @@ export class NewUserComponent implements OnInit , OnChanges {
 
     ngOnInit() {
       this.admServ.getListRole().subscribe( data => { this.options = data.Roles});
-     console.log( sessionStorage.getItem('TnPk'));
-      console.log(this.user)
+     this.adminForm.controls['Role'].setValue({Name:'Выбрать из списка',Pk:'1234567890'});
     }
 
 
@@ -76,7 +76,6 @@ export class NewUserComponent implements OnInit , OnChanges {
     ngOnChanges(changes: SimpleChanges) {
       if (changes['user']) {
        this.setValueForm(this.user);
-        console.log(this.user);
       }
   }
 

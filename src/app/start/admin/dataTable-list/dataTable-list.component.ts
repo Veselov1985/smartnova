@@ -18,10 +18,18 @@ export class DataTableListComponent implements OnInit {
 
   @Input() data;
   @Output() ChangeForm= new EventEmitter();
-  public rowsOnPage =5;
+  public rowsOnPage =10;
   public page:number;
-  public sortBy:string;
-  public sortOrder:string;
+  public sortBy: string;
+  public sortOrder: string;
+  public filterQuery: string = '';
+  searchFields=[
+    'Role.Name',
+    'Email',
+    'Password',
+    'SurName',
+    'Pk'
+  ];
 
 
   constructor(private  SettingsService: SettingsService) {

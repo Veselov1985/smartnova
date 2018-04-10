@@ -3,11 +3,33 @@
 
         <div class="col-sm-12 col-xs-12">
             <div class="panel panel-default">
-                <br>
-                <hr>
-                <table class="table table-striped table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage">
+                
+              
+                <table class="table table-striped table-hover" [mfData]="data |dataFilter : filterQuery:searchFields" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage">
                     <thead>
-                        <tr>
+                            <tr>
+                                <th colspan="6">
+                                    <div class="row">
+                                        <div class="show-county col-xs-4">
+                                                <h5>Показать</h5>
+                                                <select class="input-sm" [(ngModel)]="rowsOnPage">
+                                                    <option [ngValue]="10">10</option>
+                                                    <option [ngValue]="50">50</option>
+                                                    <option [ngValue]="100">100</option>
+                                                </select>
+                                        </div>
+                                        <div class="col-xs-4">
+                                             
+                                        
+                                        </div>
+                                         <div class="search-block col-xs-4">
+                                            <input class="form-control input-sm" [(ngModel)]="filterQuery" />
+                                            <h5> Поиск по контенту:</h5>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                         <tr>
                             <th class="text-center">
                                 <mfDefaultSorter by="Pk">Id</mfDefaultSorter>
                             </th>
@@ -53,7 +75,7 @@
                            
                            <ul class="pagination">
                             <li class="page-item"> <span class="no-border">Всего:</span> </li>
-                            <li class="page-item"> <span>{{data.length}}</span></li>
+                            <li class="page-item"> <span>{{(data|  dataFilter : filterQuery:searchFields)?.length}}</span></li>
                           </ul>
                             </td>
                         </tr>
