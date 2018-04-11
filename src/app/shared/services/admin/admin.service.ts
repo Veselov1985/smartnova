@@ -125,6 +125,6 @@ constructor( private http: Http, private auth: AuthService) {
             });
             list.unshift(user);
         
-            return list
+            return list;
         }
  }
