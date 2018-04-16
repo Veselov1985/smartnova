@@ -14,6 +14,7 @@ export class ProductsReportComponent implements OnInit {
   items: any[];
   multiFilter: any;
   date = new Date();
+  tid: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +35,8 @@ export class ProductsReportComponent implements OnInit {
       console.log(err);
     });
     this.multiFilter = this.route.snapshot.queryParams;
+
+    this.tid = sessionStorage.getItem('TnId');
   }
 
 }

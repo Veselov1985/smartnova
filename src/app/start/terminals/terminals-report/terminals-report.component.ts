@@ -12,6 +12,7 @@ export class TerminalsReportComponent implements OnInit {
   terminals: Terminal[];
   multiFilter: any;
   date = new Date();
+  tid: string;
   constructor(private route: ActivatedRoute, private getTerminalsService: GetTerminalsService) { }
 
   ngOnInit() {
@@ -28,6 +29,8 @@ export class TerminalsReportComponent implements OnInit {
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
     }
+
+    this.tid = sessionStorage.getItem('TnId');
   }
 
 }

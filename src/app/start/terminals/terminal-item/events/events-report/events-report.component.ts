@@ -15,6 +15,7 @@ export class EventsReportComponent implements OnInit, OnDestroy {
   };
   multiFilter: any;
   date = new Date();
+  tid: string;
   constructor(private serviceProd: GetTerminalEventsService) { }
 
   ngOnInit() {
@@ -26,6 +27,8 @@ export class EventsReportComponent implements OnInit, OnDestroy {
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
     }
+
+    this.tid = sessionStorage.getItem('TnId');
   }
 
   ngOnDestroy() {

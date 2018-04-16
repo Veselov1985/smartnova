@@ -11,6 +11,7 @@ export class IngridientsReportComponent implements OnInit {
   items: TItemIngridients[];
   multiFilter: any;
   date = new Date();
+  tid: string;
 
   constructor(private serviceProd: GetTerminalIngridientsService, private route: ActivatedRoute) { }
 
@@ -24,6 +25,8 @@ export class IngridientsReportComponent implements OnInit {
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
     }
+
+    this.tid = sessionStorage.getItem('TnId');
   }
 
 }

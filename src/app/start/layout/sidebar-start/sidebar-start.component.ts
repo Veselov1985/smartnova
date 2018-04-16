@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../app.component';
@@ -28,6 +28,7 @@ import {
 })
 
 export class SidebarStartComponent implements OnInit {
+  @ViewChild('cancelBtn') private cancelBtn: ElementRef;
   tab = 1;
   userData: User;
   loginForm: FormGroup;
@@ -45,7 +46,14 @@ export class SidebarStartComponent implements OnInit {
     private StateUserpanel: StateUserpanelService,
     private clientDataService: ClientDataService,
   ) {
-    StateUserpanel.stateChange$.subscribe(stateConfig => this.state = stateConfig);
+    StateUserpanel.stateChange$.subscribe(stateConfig => {
+      this.state = stateConfig;
+      if (stateConfig === 'active') {
+        setTimeout(() => {
+          this.cancelBtn.nativeElement.focus();
+        }, 100);
+      }
+    });
   }
 
   ngOnInit() {
@@ -86,6 +94,13 @@ export class SidebarStartComponent implements OnInit {
     });
   }
 
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === 27 && this.state === 'active') {
+      this.openCloseSidebar(null);
+    }
+  }
+
   onSubmitLogin({ value, valid }: { value: User, valid: boolean }) {
     this.clientDataService.editClientData(Object.assign(
       {}, value,
@@ -115,8 +130,6 @@ export class SidebarStartComponent implements OnInit {
     });
     // this.loginForm.reset();
   }
-
-
 
   openCloseSidebar(ev: any) {
     // event.stopPropagation();
