@@ -6,6 +6,8 @@ import { DataTableListComponent } from './dataTable-list/dataTable-list.componen
 import { NewUserComponent } from './new-user/new-user.component';
 import { Component, OnInit } from '@angular/core';
 
+import {PageScrollConfig} from 'ng2-page-scroll';
+
 
 
 
@@ -14,11 +16,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.less']
 })
+
 export class AdminComponent implements OnInit {
     users: UserTid[]= [];
     user: UserTid;
 
     constructor( private adminServ: AdminService ) {
+      PageScrollConfig.defaultScrollOffset=100;
+      PageScrollConfig.defaultDuration=1000;
+
       this.user=this.adminServ.getZeroUser();
       this.adminServ.getListUser(sessionStorage.getItem('TnPk')).subscribe(data => this.users = data.Users);
   
@@ -26,27 +32,22 @@ export class AdminComponent implements OnInit {
 
 
 
-    ngOnInit() {
-     
-    }
-
-   
-
+    ngOnInit() { 
+   }
 
     AddUserTab(user: any) {
 
         //this.users.push(user);
 
         this.adminServ.AddOrEditUser(user).subscribe(data =>{ 
-            let res=this.adminServ.compareDataUser(this.users,data.UserPk);
             this.users = this.adminServ.compareDataUser(this.users,data.UserPk)
         })
-        console.log(this.user);
+    
         this.user=this.adminServ.getZeroUser();
     }
 
     SetUser(user: any) {
-      console.log('User in app', user);
+   
       this.user = user;
     }
 

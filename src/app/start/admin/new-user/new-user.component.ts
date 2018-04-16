@@ -12,6 +12,7 @@ import {Observable} from 'rxjs/Observable';
 
 
 
+
 @Component({
   selector: 'app-new-user',
   templateUrl: './new-user.component.html',
@@ -25,30 +26,37 @@ export class NewUserComponent implements OnInit , OnChanges {
 
   options: Observable<any[]>;
  
-
+  
 
 
 
     constructor(private admServ: AdminService) {
+      const emailPattern = '^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$';
       this.adminForm = new FormGroup({
         Pk: new FormControl('', [Validators.required]),
         Name: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
         Role: new FormControl('', [Validators.required]),
-        Email: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')]),
-        Password: new FormControl('', [Validators.required, Validators.pattern('^.*?(?=[\^#%&$\*:<>\?/\{\|\}]).*$')])
+        Email: new FormControl('', [Validators.required, Validators.pattern(emailPattern)]),
+        Password: new FormControl('', [Validators.required, Validators.minLength(6)])
       });
+   
     }
 
     ngOnInit() {
-      this.admServ.getListRole().subscribe( data => { this.options = data.Roles});
-     this.adminForm.controls['Role'].setValue({Name:'Выбрать из списка',Pk:'1234567890'});
+      this.admServ.getListRole().subscribe( data => { 
+        this.options = data.Roles; 
+        this.adminForm.controls['Role'].setValue(this.options[0]);
+      
+        
+      });
+    
     }
 
 
     setValueForm(user: UserTid) {
       let role;
       switch (user.Role.Name) {
-        case 'Администраттор':
+        case 'Администратор':
           role = this.options[0];
           break;
         case 'Оператор':
@@ -74,8 +82,14 @@ export class NewUserComponent implements OnInit , OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-      if (changes['user']) {
-       this.setValueForm(this.user);
+      if (changes['user'] && changes['user'].previousValue) {
+        if(changes['user'].currentValue.Role.Name==""){
+          this.adminForm.controls['Role'].setValue(this.options[0]);
+        }else{
+          this.setValueForm(this.user);
+        }
+
+       
       }
   }
 
@@ -86,6 +100,7 @@ export class NewUserComponent implements OnInit , OnChanges {
       user= this.admServ.setSettingsUser(this.adminForm.value);
       this.AddUser.emit(user);
       this.adminForm.reset();
+      this.adminForm.controls['Role'].setValue(this.options[0]);
     }
 
 }

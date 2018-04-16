@@ -11,13 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { DataTableModule } from 'angular2-datatable';
 import {SettingsService} from './../../shared/services/common/settings.service'
-
-
-
-
-
-
-
+import {Ng2PageScrollModule} from 'ng2-page-scroll';
 
 
 
@@ -34,7 +28,9 @@ imports: [  CommonModule,
             FormsModule,
             ReactiveFormsModule,
             SharedModule,
-            DataTableModule
+            DataTableModule,
+            Ng2PageScrollModule
+    
         ],
 providers: [
             AdminService,
