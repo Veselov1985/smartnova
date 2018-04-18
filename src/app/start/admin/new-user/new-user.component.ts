@@ -2,9 +2,10 @@
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { AdminRole } from './../../../shared/models/admin-role';
 import { User, UserTid} from './../../../shared/models';
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges , SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges , SimpleChanges ,OnDestroy } from '@angular/core';
 import { AdminService } from '../../../shared';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 
 
@@ -18,13 +19,14 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: './new-user.component.html',
   styleUrls: ['./new-user.component.less']
 })
-export class NewUserComponent implements OnInit , OnChanges {
+export class NewUserComponent implements OnInit , OnChanges ,OnDestroy{
   @Input('user') user: UserTid;
   @Output() AddUser= new EventEmitter<FormGroup>();
 
   adminForm: FormGroup;
 
   options: Observable<any[]>;
+  private getRoleSubscribe:Subscription;
  
   
 
@@ -43,11 +45,10 @@ export class NewUserComponent implements OnInit , OnChanges {
     }
 
     ngOnInit() {
-      this.admServ.getListRole().subscribe( data => { 
+     this.getRoleSubscribe= this.admServ.getListRole().subscribe( data => { 
         this.options = data.Roles; 
         this.adminForm.controls['Role'].setValue(this.options[0]);
       
-        
       });
     
     }
@@ -89,7 +90,6 @@ export class NewUserComponent implements OnInit , OnChanges {
           this.setValueForm(this.user);
         }
 
-       
       }
   }
 
@@ -101,6 +101,12 @@ export class NewUserComponent implements OnInit , OnChanges {
       this.AddUser.emit(user);
       this.adminForm.reset();
       this.adminForm.controls['Role'].setValue(this.options[0]);
+    }
+
+
+    ngOnDestroy(){
+      this.getRoleSubscribe.unsubscribe();
+
     }
 
 }

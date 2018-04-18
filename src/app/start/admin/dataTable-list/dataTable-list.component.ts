@@ -34,13 +34,10 @@ export class DataTableListComponent implements OnInit {
 
   constructor(private  SettingsService: SettingsService) {
 
-  
-    
   }
 
 
   ngOnInit() {
-    console.log(this.SettingsService.settings);
     if (this.SettingsService.settings) {
       this.sortBy = this.SettingsService.settings.admin.sortBy || 'DateTime';
       this.sortOrder = this.SettingsService.settings.admin.sortOrder || 'desc';
@@ -50,25 +47,23 @@ export class DataTableListComponent implements OnInit {
   }
 
 
-  EditUser(user: UserTid) {
+  EditUser(user: UserTid):void {
 
     this.ChangeForm.emit(user);
 
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['data']) {
-    
+    if (changes['data']) {  
       console.log(this.data);
     }
-
     if(changes.rowsOnPage){
       console.log(this.rowsOnPage)
     }
 }
 
 
-  RemoveItem(item) {
+  RemoveItem(item):void {
    this.data = this.data.filter( x => x !== item );
   }
 
