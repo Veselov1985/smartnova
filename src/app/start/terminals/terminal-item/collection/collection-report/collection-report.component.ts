@@ -11,6 +11,7 @@ export class CollectionReportComponent implements OnInit {
   items: TItemCollections[];
   multiFilter: any;
   date = new Date();
+  tid: string;
   constructor(private serviceProd: GetTerminalCollectionService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,6 +23,8 @@ export class CollectionReportComponent implements OnInit {
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
     }
+
+    this.tid = sessionStorage.getItem('TnId');
   }
 
 }

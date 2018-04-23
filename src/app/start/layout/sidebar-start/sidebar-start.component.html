@@ -28,7 +28,7 @@
 
           <a href="" class="underline-link" (click)="setTab(2,$event)">Сменить пароль</a>
           <div class="btns-block">
-            <button class="btn white-btn" type="button" (click)="openCloseSidebar($event)">Отмена</button>
+            <button class="btn white-btn" type="button" (click)="openCloseSidebar($event)" #cancelBtn>Отмена</button>
             <button class="btn" type="submit" [disabled]="loginForm.invalid">Сохранить</button>
           </div>
         </form>

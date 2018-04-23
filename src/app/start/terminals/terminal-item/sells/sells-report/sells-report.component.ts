@@ -12,6 +12,7 @@ export class SellsReportComponent implements OnInit {
   items: TItemSells[];
   multiFilter: any;
   date = new Date();
+  tid: string;
   constructor(private serviceProd: GetTerminalSellsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,6 +23,8 @@ export class SellsReportComponent implements OnInit {
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
     }
+
+    this.tid = sessionStorage.getItem('TnId');
   }
 
 }

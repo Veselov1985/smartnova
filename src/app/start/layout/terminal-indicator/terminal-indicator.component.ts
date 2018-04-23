@@ -37,7 +37,6 @@ export class TerminalIndicatorComponent implements OnInit {
   }
 
   configModeToggle(event: any) {
-    // event.stopPropagation();
     // console.log('courent:' + this.stateConfigMode);
     this.stateConfigMode = this.stateConfigModeService.getStateConfigMode();
     // console.log('get:' +  this.stateConfigMode);

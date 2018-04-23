@@ -16,7 +16,7 @@ export interface Settings {
         operational: SortSettings,
         system: SortSettings,
         uncertain: SortSettings,
-        additional: SortSettings
+        custom: SortSettings
     };
     eventStats: SortSettings;
     admin: SortSettings
@@ -54,7 +54,7 @@ export class SettingsService {
                 operational: { sortBy: 'Name', sortOrder: 'asc' },
                 system: { sortBy: 'Name', sortOrder: 'asc' },
                 uncertain: { sortBy: 'Name', sortOrder: 'asc' },
-                additional: { sortBy: 'Name', sortOrder: 'asc' },
+                custom: { sortBy: 'Name', sortOrder: 'asc' },
             },
             eventStats: { sortBy: '', sortOrder: '', page: 1 },
             admin: {sortBy: '', sortOrder: '', page: 1}
