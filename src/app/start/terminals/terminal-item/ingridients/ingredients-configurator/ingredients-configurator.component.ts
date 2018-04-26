@@ -8,9 +8,10 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter
+  EventEmitter,
+ 
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 
 import {
   triggerConfigState,
@@ -40,6 +41,8 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   @ViewChild('form') private form: NgForm;
   @Input() currentIngredient: any;
   @Output() configSent = new EventEmitter();
+
+  public directive:any='';
 
   public stateConfig = 'inactive';
   public ingredientConfig: string;
@@ -86,10 +89,13 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
     this.form.resetForm();
     this.errorVol = '';
     this.errorThreshold = '';
+
     if (changes.currentIngredient && !changes.currentIngredient.isFirstChange()) {
       this.ingredientConfig = this.terminalIngredientsConfiguratorService.getCourentIngredientConfig(this.currentIngredient);
       this.terminalIngredientsConfiguratorService.getCurrentIngredientConfig(this.currentIngredient.Pk).subscribe(resp => {
         this.ingredientUpdate = resp.IngredientUpdat;
+        this.ingredientUpdate.NewThreshold='0';
+        this.ingredientUpdate.NewIssuanceVol='0';
         // if (this.ingredientUpdate.PreviousIssuanceVol) {
         //   this.ingredientUpdate.NewIssuanceVol = this.ingredientUpdate.PreviousIssuanceVol;
         // }
@@ -99,6 +105,20 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
       });
     }
   }
+
+  ChangeNewIssuanceVol(){
+
+  }
+
+  ChangeNewThreshold(val):void{
+   this.directive=val;
+   console.log(val);
+   console.log(this.directive)
+  
+ //this.ingredientUpdate.NewThreshold=this.SetcurentValue(val);
+ 
+  }
+
 
   ConfigState(event: any): void {
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
