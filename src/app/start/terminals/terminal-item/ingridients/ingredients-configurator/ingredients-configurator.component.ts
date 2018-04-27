@@ -94,8 +94,8 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
       this.ingredientConfig = this.terminalIngredientsConfiguratorService.getCourentIngredientConfig(this.currentIngredient);
       this.terminalIngredientsConfiguratorService.getCurrentIngredientConfig(this.currentIngredient.Pk).subscribe(resp => {
         this.ingredientUpdate = resp.IngredientUpdat;
-        this.ingredientUpdate.NewThreshold='0';
-        this.ingredientUpdate.NewIssuanceVol='0';
+      //  this.ingredientUpdate.NewThreshold='0';
+       // this.ingredientUpdate.NewIssuanceVol='0';
         // if (this.ingredientUpdate.PreviousIssuanceVol) {
         //   this.ingredientUpdate.NewIssuanceVol = this.ingredientUpdate.PreviousIssuanceVol;
         // }
@@ -106,19 +106,31 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
     }
   }
 
-  ChangeNewIssuanceVol(){
-
-  }
-
-  ChangeNewThreshold(val):void{
-   this.directive=val;
-   console.log(val);
-   console.log(this.directive)
-  
- //this.ingredientUpdate.NewThreshold=this.SetcurentValue(val);
+ /*
+  ChangeNewThreshold(ev:any):void{
+    console.log(this.form)
+    if(this.ingredientUpdate.NewThreshold==null || this.ingredientUpdate.NewThreshold=='' ||this.ingredientUpdate.NewThreshold=='0') {this.ingredientUpdate.NewThreshold='0'}
+    let str=this.ingredientUpdate.NewThreshold;
+    let result = '';
+    let separatorExist = false;
+    let arr = str.split('');
+    arr.forEach(function(val, i){
+      if(/\d/.test(val)){
+        result += val;
+      }
+      if(val == ',' && i!=0){
+        if(!separatorExist) {
+          result += val;
+          separatorExist = true;
+        }
+      }
+    });
+    console.log(result);
+    this.ingredientUpdate.NewThreshold=result;
  
-  }
 
+  }
+*/
 
   ConfigState(event: any): void {
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
@@ -148,7 +160,7 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
           action: 'setConfig',
           ingredient: this.currentIngredient
         });
-        this.snackBarShow('Конфигурация отправлена');
+        this.snackBarShow(`Конфигурация отправлена'`);
       }, error => {
         this.snackBarShow('Произошла ошибка');
       });
