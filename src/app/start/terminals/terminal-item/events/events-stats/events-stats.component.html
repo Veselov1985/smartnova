@@ -42,7 +42,7 @@
             </ul>
             <div class="show-county pagination pull-right">
               <h5>Показать</h5>
-              <select class="input-sm" [(ngModel)]="rowsOnPage">
+              <select class="input-sm" [(ngModel)]="rowsOnPage" (ngModelChange)="setRowsOnPage()">
                 <option [ngValue]="10">10</option>
                 <option [ngValue]="50">50</option>
                 <option [ngValue]="100">100</option>

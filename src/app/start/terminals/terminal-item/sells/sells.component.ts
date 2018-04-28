@@ -86,6 +86,7 @@ export class SellsComponent implements OnInit, OnDestroy {
     }
 
     this.page = this.settingsService.settings.sells.page;
+    this.rowsOnPage = this.settingsService.settings.sells.rowsOnPage;
 
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.serviceProd.getSell(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
@@ -110,9 +111,9 @@ export class SellsComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  // sortByWordLength = (a: any) => {
-  //    return a.city.length;
-  // }
+  setRowsOnPage() {
+    this.settingsService.settings.sells.rowsOnPage = this.rowsOnPage;
+  }
 
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;

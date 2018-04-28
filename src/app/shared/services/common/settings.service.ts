@@ -4,6 +4,7 @@ export interface SortSettings {
     sortBy: string;
     sortOrder: string;
     page?: number;
+    rowsOnPage?: number;
 }
 
 export interface Settings {
@@ -44,18 +45,18 @@ export class SettingsService {
 
     setDefaultSettings() {
         this._settings = {
-            products: { sortBy: '', sortOrder: '', page: 1 },
-            sells: { sortBy: '', sortOrder: '', page: 1 },
-            collection: { sortBy: '', sortOrder: '', page: 1 },
-            ingredients: { sortBy: '', sortOrder: '', page: 1 },
-            terminals: { sortBy: '', sortOrder: '', page: 1 },
+            products: { sortBy: '', sortOrder: '', page: 1, rowsOnPage: 10 },
+            sells: { sortBy: '', sortOrder: '', page: 1, rowsOnPage: 10 },
+            collection: { sortBy: '', sortOrder: '', page: 1, rowsOnPage: 10 },
+            ingredients: { sortBy: '', sortOrder: '', page: 1, rowsOnPage: 10 },
+            terminals: { sortBy: '', sortOrder: '', page: 1, rowsOnPage: 10 },
             events: {
                 operational: { sortBy: 'Name', sortOrder: 'asc' },
                 system: { sortBy: 'Name', sortOrder: 'asc' },
                 uncertain: { sortBy: 'Name', sortOrder: 'asc' },
                 custom: { sortBy: 'Name', sortOrder: 'asc' },
             },
-            eventStats: { sortBy: '', sortOrder: '', page: 1 }
+            eventStats: { sortBy: '', sortOrder: '', page: 1, rowsOnPage: 10 }
         };
     }
 

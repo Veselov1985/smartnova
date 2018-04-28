@@ -73,6 +73,7 @@ export class TerminalsComponent implements OnInit, OnDestroy {
     }
 
     this.page = this.settingsService.settings.terminals.page;
+    this.rowsOnPage = this.settingsService.settings.terminals.rowsOnPage;
 
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.getTerminalsService.getTerminals().subscribe((data) => {
@@ -88,6 +89,10 @@ export class TerminalsComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  setRowsOnPage() {
+    this.settingsService.settings.terminals.rowsOnPage = this.rowsOnPage;
   }
 
   MultifilterState(event: any) {

@@ -111,6 +111,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
 
     this.page = this.settingsService.settings.products.page;
+    this.rowsOnPage = this.settingsService.settings.products.rowsOnPage;
 
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.getProducts(resp);
@@ -118,6 +119,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.configSubscription = this.signalRService.onConfigSent$.subscribe(resp => {
       this.getProducts(resp);
     });
+  }
+
+  setRowsOnPage() {
+    this.settingsService.settings.products.rowsOnPage = this.rowsOnPage;
   }
 
   MultifilterState(event: any) {
