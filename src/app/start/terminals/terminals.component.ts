@@ -40,7 +40,7 @@ export class TerminalsComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    protected getTerminalsService: GetTerminalsService,
+    public getTerminalsService: GetTerminalsService,
     private StateMultifilter: StateMultifilterService,
     private settingsService: SettingsService,
     private signalRService: SignalRService
