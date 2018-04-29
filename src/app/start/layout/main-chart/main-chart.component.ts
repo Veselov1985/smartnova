@@ -55,9 +55,20 @@ export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   public ngOnInit() {
-    this.renderCharts();
+    if (!this.getChartMainService.charts.getValue()) {
+      this.getChartMainService.getChartMain().subscribe(data => {
+        if (data.IsSuccess) {
+          this.dataMain = data.LineChart;
+          this.renderCharts();
+        }
+      });
+    } else {
+      this.dataMain = this.getChartMainService.charts.getValue();
+      this.renderCharts();
+    }
 
-    this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
+    this.saleSubscritption = this.getChartMainService.charts$.subscribe(data => {
+      this.dataMain = data;
       this.renderCharts();
     });
   }
@@ -75,20 +86,17 @@ export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   renderCharts() {
-    this.getChartMainService.getChartMain().subscribe(data => {
-      if (data.IsSuccess) {
-        this.dataMain = data.LineChart;
-        if (this.dataMain) {
-          Object.keys(this.dataMain).forEach(key => {
-            const newItem = this.dataMain[key].map((item: any) => {
-              const newPoint = [];
-              newPoint.push(new Date(item.DateTime).getTime());
-              newPoint.push(item.Value);
-              return newPoint;
-            });
-            this.dataLine.push(newItem);
+
+      if (this.dataMain) {
+        Object.keys(this.dataMain).forEach(key => {
+          const newItem = this.dataMain[key].map((item: any) => {
+            const newPoint = [];
+            newPoint.push(new Date(item.DateTime).getTime());
+            newPoint.push(item.Value);
+            return newPoint;
           });
-        }
+          this.dataLine.push(newItem);
+        });
       }
 
       const opts: any = {
@@ -218,6 +226,6 @@ export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this._chart = new Highcharts.stockChart(opts);
       }
-    });
+
   }
 }

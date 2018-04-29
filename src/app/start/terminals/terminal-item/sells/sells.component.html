@@ -69,7 +69,7 @@
         <tr>
           <td colspan="6">
             <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
-            <app-data-table-paginator [page]="page" [section]="'sells'"></app-data-table-paginator>
+            <app-data-table-paginator [page]="page" [rowsOnPage]="rowsOnPage" [section]="'sells'"></app-data-table-paginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
               <li class="page-item"> <span>{{(data | multiFilterSells : multiFilter | dataFilter : filterQuery:searchFields)?.length}}</span></li>

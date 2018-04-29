@@ -3,15 +3,14 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/share';
-import 'rxjs/add/operator/publishLast';
 import { urlApi } from '../../url.api';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class ChartMainService {
 
-  productStore: Array<any>;
+  charts = new BehaviorSubject<any>(null);
+  charts$ = this.charts.asObservable();
   loggedIn: boolean;
   baseUrl: string;
   private headers = new Headers({
@@ -24,12 +23,29 @@ export class ChartMainService {
     });
   }
 
-  // rename GetTerminalIncaso to getTerminalCollection
   getChartMain(): Observable<any> {
     const Pk = sessionStorage.getItem('TnPk');
     const serviseUrl = this.baseUrl + 'GetChartLine';
     return this.http.post(serviseUrl, JSON.stringify({ Pk: Pk }), { headers: this.headers })
-      .map(response => response.json());
+      .map(response => {
+        const data = response.json();
+        if (data.IsSuccess) {
+          this.charts.next(data.LineChart);
+        }
+        return data;
+      });
+  }
+
+  getChartMain$(): void {
+    const Pk = sessionStorage.getItem('TnPk');
+    const serviseUrl = this.baseUrl + 'GetChartLine';
+    this.http.post(serviseUrl, JSON.stringify({ Pk: Pk }), { headers: this.headers })
+      .subscribe(response => {
+        const data = response.json();
+        if (data.IsSuccess) {
+          this.charts.next(data.LineChart);
+        }
+      });
   }
 
 }

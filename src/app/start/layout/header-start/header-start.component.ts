@@ -1,9 +1,10 @@
+import { GetTerminalsService } from './../../../shared/services/terminals/terminals.service';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../app.component';
 
-import { AuthService } from '../../../shared';
+import { AuthService, ChartMainService } from '../../../shared';
 
 import { GetBarDataService, StorageBarData, StateUserpanelService, } from '../../../shared';
 import { SettingsService } from '../../../shared/services/common/settings.service';
@@ -36,7 +37,9 @@ export class HeaderStartComponent implements OnInit, OnDestroy {
     private router: Router,
     private StateUserpanel: StateUserpanelService,
     private settingsService: SettingsService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private terminalService: GetTerminalsService,
+    private chartMainService: ChartMainService
   ) {}
 
   ngOnInit() {
@@ -111,12 +114,16 @@ export class HeaderStartComponent implements OnInit, OnDestroy {
   logOut(ev: Event) {
     ev.preventDefault();
     if (this.authService.isLoggedIn.getValue()) {
-      this.authService.logout().subscribe(() => console.log('logout'));
+      this.authService.logout().subscribe(() => {
+        console.log('logout');
+      });
     } else {
       this.router.navigate(['/']);
       this.authService.removeMultiflters();
       this.settingsService.setDefaultSettings();
     }
+    this.terminalService.terminals.next([]);
+    this.chartMainService.charts.next(null);
   }
 
   openLoggingPage() {

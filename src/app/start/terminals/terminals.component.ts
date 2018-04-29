@@ -9,7 +9,6 @@ import {
   StateMultifilterService,
 } from '../../shared';
 import { SettingsService } from '../../shared/services/common/settings.service';
-import { Subscription } from 'rxjs/Subscription';
 import { SignalRService } from '../../shared/services/auth/signalr.service';
 
 @Component({
@@ -39,12 +38,9 @@ export class TerminalsComponent implements OnInit, OnDestroy {
     'CollectSum'
   ];
 
-  private saleSubscritption: Subscription;
-  private eventSubscription: Subscription;
-
   constructor(
     private router: Router,
-    private getTerminalsService: GetTerminalsService,
+    protected getTerminalsService: GetTerminalsService,
     private StateMultifilter: StateMultifilterService,
     private settingsService: SettingsService,
     private signalRService: SignalRService
@@ -52,12 +48,15 @@ export class TerminalsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.getTerminalsService.getTerminals()
-      .subscribe((data) => {
-        if (data.IsSuccess) {
-          this.data = data.Terminals;
-        }
-      });
+    // this.getTerminalsService.getTerminals()
+    //   .subscribe((data) => {
+    //     if (data.IsSuccess) {
+    //       this.data = data.Terminals;
+    //     }
+    //   });
+    if (this.getTerminalsService.terminals.getValue().length === 0) {
+      this.getTerminalsService.getTerminals$();
+    }
     const mFilter = sessionStorage.getItem('terminalsMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
@@ -74,21 +73,6 @@ export class TerminalsComponent implements OnInit, OnDestroy {
 
     this.page = this.settingsService.settings.terminals.page;
     this.rowsOnPage = this.settingsService.settings.terminals.rowsOnPage;
-
-    this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
-      this.getTerminalsService.getTerminals().subscribe((data) => {
-        if (data.IsSuccess) {
-          this.data = data.Terminals;
-        }
-      });
-    });
-    this.eventSubscription = this.signalRService.onEventSent$.subscribe(resp => {
-      this.getTerminalsService.getTerminals().subscribe((data) => {
-        if (data.IsSuccess) {
-          this.data = data.Terminals;
-        }
-      });
-    });
   }
 
   setRowsOnPage() {
@@ -105,10 +89,6 @@ export class TerminalsComponent implements OnInit, OnDestroy {
 
   toInt(num: string) {
     return +num;
-  }
-
-  sortByWordLength = (a: any) => {
-    return a.city.length;
   }
 
   goToProduct(item: any) {
@@ -138,12 +118,7 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.saleSubscritption) {
-      this.saleSubscritption.unsubscribe();
-    }
-    if (this.eventSubscription) {
-      this.eventSubscription.unsubscribe();
-    }
+
   }
 }
 

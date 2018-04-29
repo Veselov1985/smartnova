@@ -1,3 +1,4 @@
+import { GetTerminalsService } from './../../shared/services/terminals/terminals.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,7 +13,7 @@ export class HeaderHomeComponent implements OnInit {
 
   public state = 'inactive';
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router, private terminalService: GetTerminalsService) { }
 
   ngOnInit() {
   }
@@ -24,7 +25,10 @@ export class HeaderHomeComponent implements OnInit {
 
   startDemo() {
     if (this.auth.isLoggedIn.getValue()) {
-      this.auth.logout().subscribe(resp => this.router.navigate(['/start']));
+      this.auth.logout().subscribe(resp => {
+        this.router.navigate(['/start']);
+        this.terminalService.terminals.next([]);
+      });
     } else {
       this.router.navigate(['/start']);
     }
