@@ -119,7 +119,7 @@ export class ProductsConfiguratorComponent implements OnInit, OnChanges {
           action: 'setConfig',
           product: this.currentProduct
         });
-        this.snackBarShow('Конфигурация отправлена');
+        this.snackBarShow(`Конфигурация отправлена. Продажа разрешена: ${setData.SaleEnable?'да':'нет'}, новая цена:${setData.Price}`);
       }, error => {
         this.snackBarShow('Произошла ошибка');
       });

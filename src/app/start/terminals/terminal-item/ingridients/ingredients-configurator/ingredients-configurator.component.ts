@@ -160,7 +160,7 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
           action: 'setConfig',
           ingredient: this.currentIngredient
         });
-        this.snackBarShow(`Конфигурация отправлена'`);
+        this.snackBarShow(`Конфигурация отправлена' Объем выдачи: ${setData.IssuanceVol},Порог: ${setData.Threshold}`);
       }, error => {
         this.snackBarShow('Произошла ошибка');
       });

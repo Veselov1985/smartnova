@@ -6,6 +6,7 @@ import { DataTableModule } from 'angular2-datatable';
 import { SHARED_PIPE } from './shared';
 import { DataTablePaginatorComponent } from './components/data-table-paginator';
 import { ForbidNegativeNumbersDirective } from './directives/forbid-negative-numbers.directive';
+import {ForbidNegativeNumberForConfDirective} from './directives/forbid-negative-number-for-conf.directive';
 
 
 @NgModule({
@@ -17,14 +18,16 @@ import { ForbidNegativeNumbersDirective } from './directives/forbid-negative-num
   declarations: [
     SHARED_PIPE,
     DataTablePaginatorComponent,
-    ForbidNegativeNumbersDirective
+    ForbidNegativeNumbersDirective,
+    ForbidNegativeNumberForConfDirective
   ],
   exports: [
     CommonModule,
     HttpModule,
     SHARED_PIPE,
     DataTablePaginatorComponent,
-    ForbidNegativeNumbersDirective
+    ForbidNegativeNumbersDirective,
+    ForbidNegativeNumberForConfDirective
   ]
 })
 export class SharedModule {}

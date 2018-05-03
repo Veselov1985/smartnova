@@ -14,7 +14,7 @@
                         <div class="row text-center">
                             <div class="col-sm-4 label-sm">
                                 <label>Ввести новое</label>
-                                <input id="NewIssuanceVol" name="NewIssuanceVol" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewIssuanceVol" appForbidNegativeNumbers placeholder="0" min="1" required >
+                                <input id="NewIssuanceVol" name="NewIssuanceVol" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewIssuanceVol"  appForbidNegativeNumberForConf placeholder="0" min="1" required >
                             </div>
                             <div class="col-sm-4 label-sm">
                                 <label>Текущий ввод</label>
@@ -36,7 +36,7 @@
                         <div class="row text-center">
                             <div class="col-sm-4 label-sm">
                                 <label>Ввести новое</label>
-                                <input id="NewThreshold" name="NewThreshold" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewThreshold"  appForbidNegativeNumbers placeholder="0" min="1" required>
+                                <input id="NewThreshold" name="NewThreshold" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewThreshold" appForbidNegativeNumberForConf placeholder="0" min="1" required>
                             </div>
                             <div class="col-sm-4 label-sm">
                                 <label>Текущий ввод</label>
