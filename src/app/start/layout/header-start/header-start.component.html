@@ -44,6 +44,7 @@
             <span>Всего событий </span> <span *ngIf="bardata?.BarData.LogMessageCounter"> {{bardata?.BarData.LogMessageCounter}}</span>
           </a>
         </li>
+        <li><a [routerLink]="['admin']" (click)="openLoggingPage()">Администрирование</a></li>
         <li><a (click)="logOut($event)">Выход</a></li>
       </ul>
     </div>

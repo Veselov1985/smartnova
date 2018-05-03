@@ -24,7 +24,7 @@
             <div class="row text-center">
               <div class="col-sm-4">
                 <label for="newPrice">Ввести новую</label>
-                <input id="newPrice" name="NewPrice" type="number" class="form-control input-sm" [(ngModel)]="goodsUpdate.NewPrice" min="0" required>
+                <input id="newPrice" name="NewPrice" type="text" class="form-control input-sm" [(ngModel)]="goodsUpdate.NewPrice"  appForbidNegativeNumberForConf  min="1" required placeholder="0">
               </div>
               <div class="col-sm-4">
                 <label for="currentPrice">Текущий ввод</label>
@@ -45,10 +45,10 @@
             <button type="button" class="btn btn-danger" (click)='ConfigState($event)' #cancelBtn>Отмена</button>
           </div>
           <div class="col-sm-6">
-            <button type="button" id="" name="" class="btn btn-default" (click)='applyConfig()'>Я согласен с настройками</button>
+            <button type="button" id="" name="" class="btn btn-default" (click)='applyConfig()' [disabled]="!form.valid">Я согласен с настройками</button>
           </div>
           <div class="col-sm-3">
-            <button type="submit" id="" name="" class="btn btn-success">Применить</button>
+            <button type="submit" id="" name="" class="btn btn-success" [disabled]="!form.valid">Применить</button>
           </div>
         </div>
       </fieldset>

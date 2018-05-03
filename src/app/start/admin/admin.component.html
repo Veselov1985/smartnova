@@ -1,0 +1,7 @@
+<div class="container"  id="pageAdminScroll">
+
+    <app-new-user [user]="user" (AddUser)="AddUserTab($event)"></app-new-user>
+    <br>
+    <app-datatable-list [data]="users" (ChangeForm)="SetUser($event)"></app-datatable-list>
+
+</div>

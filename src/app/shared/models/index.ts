@@ -1,5 +1,6 @@
 export * from './user';
-
+export * from './userTid';
+export * from './admin-role';
 
 export * from './data-store.model';
   export * from './bar-data.model';

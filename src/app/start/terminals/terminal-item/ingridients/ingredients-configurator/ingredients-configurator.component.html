@@ -1,69 +1,69 @@
 <div class="configurator-holder" [@panelState]="stateConfig">
-  <div class="configurator-bg" [@panelState]="stateConfig" (click)="ConfigState($event)"></div>
-  <div class="configurator" [@configState]="stateConfig">
-    <h2>Конфигурирование</h2>
-    <form  #form="ngForm" (ngSubmit)="submitConfig()" class="form-horizontal">
-      <fieldset>
-        <legend>Ингредиенты</legend>
-        <h3 class="text-center">{{currentIngredient?.Name}}</h3>
-        <p class="alert alert-danger" *ngIf="currentIngredient?.UpdateState === 'error'">Несовпадение данных конфигурирования</p>
-        <!-- Multiple Checkboxes (inline) -->
-        <div class="form-group">
-          <label class="col-sm-4 control-label price-label">Объём выдачи</label>
-          <div class="col-sm-8">
-            <div class="row text-center">
-              <div class="col-sm-4 label-sm">
-                <label>Ввести новое</label>
-                <input id="NewIssuanceVol" name="NewIssuanceVol" type="number" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewIssuanceVol" min="0" required>
-              </div>
-              <div class="col-sm-4 label-sm">
-                <label>Текущий ввод</label>
-                <input id="IssuanceVol" name="IssuanceVol" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.IssuanceVol" disabled>
-              </div>
-              <div class="col-sm-4 label-sm">
-                <label>Предыдущий ввод</label>
-                <input id="PreviousIssuanceVol" name="PreviousIssuanceVol" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.PreviousIssuanceVol" disabled>
-              </div>
-            </div>
-            <div *ngIf="errorVol" class="form-group text-danger">
-              {{ errorVol }}
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-4 control-label price-label">Порог</label>
-          <div class="col-sm-8">
-            <div class="row text-center">
-              <div class="col-sm-4 label-sm">
-                <label>Ввести новое</label>
-                <input id="NewThreshold" name="NewThreshold" type="number" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewThreshold" min="0" required>
-              </div>
-              <div class="col-sm-4 label-sm">
-                <label>Текущий ввод</label>
-                <input id="Threshold" name="Threshold" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.Threshold" disabled>
-              </div>
-              <div class="col-sm-4 label-sm">
-                <label>Предыдущий ввод</label>
-                <input id="PreviousThreshold" name="PreviousThreshold" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.PreviousThreshold" disabled>
-              </div>
-            </div>
-            <div *ngIf="errorThreshold" class="form-group text-danger">
-              {{ errorThreshold }}
-            </div>
-          </div>
-        </div>
-        <div class="form-group btns">
-          <div class="col-sm-3">
-            <button type="button" class="btn btn-danger" (click)='ConfigState($event)' #cancelBtn>Отмена</button>
-          </div>
-          <div class="col-sm-6">
-            <button type="button" id="" name="" class="btn btn-default" (click)='applyConfig()'>Я согласен с настройками</button>
-          </div>
-          <div class="col-sm-3">
-            <button type="submit" id="" name="" class="btn btn-success">Применить</button>
-          </div>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+    <div class="configurator-bg" [@panelState]="stateConfig" (click)="ConfigState($event)"></div>
+    <div class="configurator" [@configState]="stateConfig">
+        <h2>Конфигурирование</h2>
+        <form #form="ngForm" (ngSubmit)="submitConfig()" class="form-horizontal">
+            <fieldset>
+                <legend>Ингредиенты</legend>
+                <h3 class="text-center">{{currentIngredient?.Name}}</h3>
+                <p class="alert alert-danger" *ngIf="currentIngredient?.UpdateState === 'error'">Несовпадение данных конфигурирования</p>
+                <!-- Multiple Checkboxes (inline) -->
+                <div class="form-group">
+                    <label class="col-sm-4 control-label price-label">Объём выдачи</label>
+                    <div class="col-sm-8">
+                        <div class="row text-center">
+                            <div class="col-sm-4 label-sm">
+                                <label>Ввести новое</label>
+                                <input id="NewIssuanceVol" name="NewIssuanceVol" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewIssuanceVol"  appForbidNegativeNumberForConf placeholder="0" min="1" required >
+                            </div>
+                            <div class="col-sm-4 label-sm">
+                                <label>Текущий ввод</label>
+                                <input id="IssuanceVol" name="IssuanceVol" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.IssuanceVol" disabled>
+                            </div>
+                            <div class="col-sm-4 label-sm">
+                                <label>Предыдущий ввод</label>
+                                <input id="PreviousIssuanceVol" name="PreviousIssuanceVol" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.PreviousIssuanceVol" disabled>
+                            </div>
+                        </div>
+                        <div *ngIf="errorVol" class="form-group text-danger">
+                            {{ errorVol }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label price-label">Порог</label>
+                    <div class="col-sm-8">
+                        <div class="row text-center">
+                            <div class="col-sm-4 label-sm">
+                                <label>Ввести новое</label>
+                                <input id="NewThreshold" name="NewThreshold" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.NewThreshold" appForbidNegativeNumberForConf placeholder="0" min="1" required>
+                            </div>
+                            <div class="col-sm-4 label-sm">
+                                <label>Текущий ввод</label>
+                                <input id="Threshold" name="Threshold" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.Threshold" disabled>
+                            </div>
+                            <div class="col-sm-4 label-sm">
+                                <label>Предыдущий ввод</label>
+                                <input id="PreviousThreshold" name="PreviousThreshold" type="text" class="form-control input-sm" [(ngModel)]="ingredientUpdate.PreviousThreshold" disabled>
+                            </div>
+                        </div>
+                        <div *ngIf="errorThreshold" class="form-group text-danger">
+                            {{ errorThreshold }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group btns">
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-danger" (click)='ConfigState($event)' #cancelBtn>Отмена</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" id="" name="" class="btn btn-default" (click)='applyConfig()' [disabled]="!form.valid">Я согласен с настройками</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" id="" name="" class="btn btn-success" [disabled]="!form.valid">Применить</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>

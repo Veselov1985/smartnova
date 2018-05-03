@@ -1,14 +1,15 @@
 
 class RolePart {
-    Pk: string;
-    Name: string;
-  
-  }
+  Pk: string;
+  Name: string;
+
+}
 
 
-export class User {
+export class UserTid {
+
     Name?: string;
-    Email: string;
+    Email?: string;
     Password?: string;
     Phone?: string;
     Tid?: number;
@@ -22,5 +23,5 @@ export class User {
     SurName?: string;
     TaxNumber?: string;
     Tn?: any;
-    Role?:RolePart;
+    Role?: RolePart;
 }

@@ -1,4 +1,3 @@
-import { ActivatedRoute } from '@angular/router';
 import {
   Component,
   OnInit,
@@ -9,9 +8,10 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter
+  EventEmitter,
+ 
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 
 import {
   triggerConfigState,
@@ -42,6 +42,8 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   @Input() currentIngredient: any;
   @Output() configSent = new EventEmitter();
 
+  public directive:any='';
+
   public stateConfig = 'inactive';
   public ingredientConfig: string;
   ingredientUpdate = {
@@ -59,8 +61,7 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   constructor(
     private stateConfiguratorService: StateConfiguratorService,
     private terminalIngredientsConfiguratorService: TerminalIngredientsConfiguratorService,
-    public snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    public snackBar: MatSnackBar
   ) {
     stateConfiguratorService.stateChange$.subscribe(
       stateConfig => {
@@ -88,14 +89,48 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
     this.form.resetForm();
     this.errorVol = '';
     this.errorThreshold = '';
+
     if (changes.currentIngredient && !changes.currentIngredient.isFirstChange()) {
       this.ingredientConfig = this.terminalIngredientsConfiguratorService.getCourentIngredientConfig(this.currentIngredient);
-      const terminalPk = this.route.parent.snapshot.params['terminalPk'];
-      this.terminalIngredientsConfiguratorService.getCurrentIngredientConfig(this.currentIngredient.Pk, terminalPk).subscribe(resp => {
+      this.terminalIngredientsConfiguratorService.getCurrentIngredientConfig(this.currentIngredient.Pk).subscribe(resp => {
         this.ingredientUpdate = resp.IngredientUpdat;
+      //  this.ingredientUpdate.NewThreshold='0';
+       // this.ingredientUpdate.NewIssuanceVol='0';
+        // if (this.ingredientUpdate.PreviousIssuanceVol) {
+        //   this.ingredientUpdate.NewIssuanceVol = this.ingredientUpdate.PreviousIssuanceVol;
+        // }
+        // if (this.ingredientUpdate.PreviousThreshold) {
+        //   this.ingredientUpdate.NewThreshold = this.ingredientUpdate.PreviousThreshold;
+        // }
       });
     }
   }
+
+ /*
+  ChangeNewThreshold(ev:any):void{
+    console.log(this.form)
+    if(this.ingredientUpdate.NewThreshold==null || this.ingredientUpdate.NewThreshold=='' ||this.ingredientUpdate.NewThreshold=='0') {this.ingredientUpdate.NewThreshold='0'}
+    let str=this.ingredientUpdate.NewThreshold;
+    let result = '';
+    let separatorExist = false;
+    let arr = str.split('');
+    arr.forEach(function(val, i){
+      if(/\d/.test(val)){
+        result += val;
+      }
+      if(val == ',' && i!=0){
+        if(!separatorExist) {
+          result += val;
+          separatorExist = true;
+        }
+      }
+    });
+    console.log(result);
+    this.ingredientUpdate.NewThreshold=result;
+ 
+
+  }
+*/
 
   ConfigState(event: any): void {
     this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
@@ -109,14 +144,14 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   }
 
   submitConfig() {
-    const issuanceVol = this.form.value.NewIssuanceVol;
-    const threshold = this.form.value.NewThreshold;
+    const issuanceVol = this.form.value.NewIssuanceVol || this.ingredientUpdate.PreviousIssuanceVol;
+    const threshold = this.form.value.NewThreshold || this.ingredientUpdate.PreviousThreshold;
     if (issuanceVol && threshold) {
       const setData = {
         IssuanceVol: issuanceVol,
         Threshold: threshold,
         IngredientPk: this.currentIngredient.Pk,
-        TerminalPk: this.route.parent.snapshot.params['terminalPk']
+        TerminalPk: sessionStorage.getItem('productPk')
       };
       this.terminalIngredientsConfiguratorService.setCurrentIngredientConfig(setData).subscribe(resp => {
         this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
@@ -125,7 +160,7 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
           action: 'setConfig',
           ingredient: this.currentIngredient
         });
-        this.snackBarShow('Конфигурация отправлена');
+        this.snackBarShow(`Конфигурация отправлена' Объем выдачи: ${setData.IssuanceVol},Порог: ${setData.Threshold}`);
       }, error => {
         this.snackBarShow('Произошла ошибка');
       });
@@ -138,11 +173,9 @@ export class IngredientsConfiguratorComponent implements OnInit, OnChanges {
   applyConfig() {
     const setData = {
       IngredientPk: this.currentIngredient.Pk,
-      TerminalPk: this.route.parent.snapshot.params['terminalPk']
+      TerminalPk: sessionStorage.getItem('productPk')
     };
     this.terminalIngredientsConfiguratorService.applyIngredientConfig(setData).subscribe(resp => {
-      this.stateConfig = this.stateConfig === 'active' ? 'inactive' : 'active';
-      this.stateConfiguratorService.setStateConfigurator(this.stateConfig);
       this.snackBarShow('Конфигурация отправлена');
       this.configSent.emit({
         action: 'applyConfig',
