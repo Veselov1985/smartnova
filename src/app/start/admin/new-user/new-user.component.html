@@ -45,11 +45,11 @@
                                         
  
                                         <div class="col-sm-12" style="margin-top:15px">
-                                                <div class="alert alert-danger" *ngIf="adminForm.get('Pk').touched &&  adminForm.get('Pk').invalid">Поле ID обязательно для заполнения</div> 
-                                                <div class="alert alert-danger" *ngIf="adminForm.get('Name').touched &&  adminForm.get('Name').invalid">Поле ФИО обязательно для заполнения</div>
-                                                <div class="alert alert-danger" *ngIf="adminForm.get('Role').touched &&  adminForm.get('Role').invalid">Укажите Роль</div> 
-                                                <div class="alert alert-danger" *ngIf="adminForm.get('Email').touched &&  adminForm.get('Email').invalid">Неверный Логин формат"example@gmail.com"</div>
-                                                <div class="alert alert-danger" *ngIf="adminForm.get('Password').touched &&  adminForm.get('Password').invalid">Пароль не менее 6 символов</div> 
+                                                <div class="alert alert-dangers" *ngIf="adminForm.get('Pk').touched &&  adminForm.get('Pk').invalid">Поле ID обязательно для заполнения</div> 
+                                                <div class="alert alert-dangers" *ngIf="adminForm.get('Name').touched &&  adminForm.get('Name').invalid">Поле ФИО обязательно для заполнения</div>
+                                                <div class="alert alert-dangers" *ngIf="adminForm.get('Role').touched &&  adminForm.get('Role').invalid">Укажите Роль</div> 
+                                                <div class="alert alert-dangers" *ngIf="adminForm.get('Email').touched &&  adminForm.get('Email').invalid">Неверный Логин формат"example@gmail.com"</div>
+                                                <div class="alert alert-dangers" *ngIf="adminForm.get('Password').touched &&  adminForm.get('Password').invalid">Пароль не менее 6 символов</div> 
                                             </div>
 
                                     </div>
