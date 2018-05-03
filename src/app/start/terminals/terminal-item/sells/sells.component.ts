@@ -53,22 +53,13 @@ export class SellsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    let Item = {} as any;
-
-    if (!!this.route.snapshot.params['Item']) {
-      Item = JSON.parse(this.route.snapshot.params['Item']);
-      sessionStorage.setItem('ItemProduct', this.route.snapshot.params['Item']);
-    } else {
-      Item = JSON.parse(sessionStorage.getItem('ItemProduct'));
-    }
-
     const mFilter = sessionStorage.getItem('sellsMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
 
-    this.productPk = Item.Pk || this.serviceProd.Pk;
+    this.productPk = this.route.snapshot.parent.params.terminalPk;
     this.serviceProd.getSell(this.productPk).subscribe(product => {
         this.data = product.TerminalSales;
         this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {

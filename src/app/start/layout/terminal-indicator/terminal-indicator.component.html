@@ -1,17 +1,17 @@
 <div class="row">
   <div class="col-md-10 col-xs-9 ">
     <div class="top-panel">
-      <span class="indicator" [class.indicatorred]="!item.Connection">
-       {{item.Connection ? 'В сети' : 'Не в сети'}}
+      <span class="indicator" [class.indicatorred]="!item?.Connection">
+       {{item?.Connection ? 'В сети' : 'Не в сети'}}
       </span>
-      <span class="panel-header"> &laquo;{{item.Name}}&raquo;,  {{item.Address}}</span>
+      <span class="panel-header"> &laquo;{{item?.Name}}&raquo;,  {{item?.Address}}</span>
 
     </div>
   </div>
   <div class="col-md-2 col-xs-3">
     <div class="top-panel">
       <a class="user-info tooltip-wrap">
-         <span class="tooltiptext">ID  {{item.Id}}<br>Зарегистрирован с  {{item.Registered | date}}</span>
+         <span class="tooltiptext">ID  {{item?.Id}}<br>Зарегистрирован с  {{item?.Registered | date}}</span>
       </a>
       <a (click)="configModeToggle($event)" [ngSwitch]="stateConfigMode" [ngClass]="{'enable': stateConfigMode === 'active' }" class="user-set tooltip-wrap">
           <span *ngSwitchCase="'active'"> <span class="tooltiptext">Вы в режиме конфигурирования</span> </span>

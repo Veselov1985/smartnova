@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy, HostListener } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -126,4 +126,16 @@ export class StartComponent implements OnInit, OnDestroy {
       // this.connection.stop();
     }).catch(err => console.log(err));
   }
+
+  @HostListener('window:beforeunload', ['$event'])
+    handleClose($event) {
+      this.connection.invoke('disconnect', this.userId).then(data => {
+        if (this.signalRService.isDemoMode) {
+          this.signalRService.stopDemo(this.userId).subscribe(resp => {
+            console.log(resp);
+          });
+          this.signalRService.disableDemoMode();
+        }
+      }).catch(err => console.log(err));
+    }
 }

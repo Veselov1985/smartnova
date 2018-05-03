@@ -22,7 +22,6 @@ export class ProductsReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.terminal = JSON.parse(sessionStorage.getItem('ItemProduct'));
     this.serviceProd.getTerminalProducts(this.route.snapshot.params['Pk'])
     .subscribe(product => {
       if (product.IsSuccess) {

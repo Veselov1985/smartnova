@@ -79,20 +79,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    let Item = {} as any;
-    if (!!this.route.snapshot.params['Item']) {
-      Item = JSON.parse(this.route.snapshot.params['Item']);
-      sessionStorage.setItem('ItemProduct', this.route.snapshot.params['Item']);
-    } else {
-      Item = JSON.parse(sessionStorage.getItem('ItemProduct'));
-    }
     const mFilter = sessionStorage.getItem('productMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
 
-    this.productPk = Item.Pk || this.serviceProd.Pk;
+    this.productPk = this.route.snapshot.parent.params.terminalPk;
     this.serviceProd.getTerminalProducts(this.productPk).subscribe(product => {
         if (product.IsSuccess) {
           this.data = product.TerminalGoods;
