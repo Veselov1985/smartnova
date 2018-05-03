@@ -15,11 +15,11 @@
             <div class="row">
               <div class="show-county col-xs-4">
                 <h5>Показать</h5>
-                <select class="input-sm" [(ngModel)]="rowsOnPage">
-                      <option [ngValue]="10">10</option>
-                      <option [ngValue]="50">50</option>
-                      <option [ngValue]="100">100</option>
-                    </select>
+                <select class="input-sm" [(ngModel)]="rowsOnPage" (ngModelChange)="setRowsOnPage()">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select>
               </div>
               <div class="col-xs-4">
                 <ul class="icon-multifilter">
@@ -76,7 +76,7 @@
         <tr>
           <td colspan="7">
             <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
-            <app-data-table-paginator [page]="page" [section]="'products'"></app-data-table-paginator>
+            <app-data-table-paginator [page]="page" [rowsOnPage]="rowsOnPage" [section]="'products'"></app-data-table-paginator>
             <ul class="pagination">
               <li class="page-item"> <span class="no-border">Всего:</span> </li>
               <li class="page-item"> <span>{{(data | multiFilterProducts : multiFilter | dataFilter : filterQuery:searchFields).length}}</span></li>

@@ -53,22 +53,13 @@ export class SellsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    let Item = {} as any;
-
-    if (!!this.route.snapshot.params['Item']) {
-      Item = JSON.parse(this.route.snapshot.params['Item']);
-      sessionStorage.setItem('ItemProduct', this.route.snapshot.params['Item']);
-    } else {
-      Item = JSON.parse(sessionStorage.getItem('ItemProduct'));
-    }
-
     const mFilter = sessionStorage.getItem('sellsMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
 
-    this.productPk = Item.Pk || this.serviceProd.Pk;
+    this.productPk = this.route.snapshot.parent.params.terminalPk;
     this.serviceProd.getSell(this.productPk).subscribe(product => {
         this.data = product.TerminalSales;
         this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
@@ -86,6 +77,7 @@ export class SellsComponent implements OnInit, OnDestroy {
     }
 
     this.page = this.settingsService.settings.sells.page;
+    this.rowsOnPage = this.settingsService.settings.sells.rowsOnPage;
 
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.serviceProd.getSell(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
@@ -110,9 +102,9 @@ export class SellsComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  // sortByWordLength = (a: any) => {
-  //    return a.city.length;
-  // }
+  setRowsOnPage() {
+    this.settingsService.settings.sells.rowsOnPage = this.rowsOnPage;
+  }
 
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;

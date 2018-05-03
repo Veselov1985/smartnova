@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  AfterViewInit,
   OnDestroy,
   ViewChild,
   OnInit,
@@ -33,7 +32,7 @@ import { SignalRService } from '../../../../../shared/services/auth/signalr.serv
   styleUrls: ['./events-stats.component.less']
 })
 
-export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class EventsStatsComponent implements OnInit, OnDestroy {
 
   @ViewChild('chart') public chartEl: ElementRef;
 
@@ -79,6 +78,7 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.data = this.route.snapshot.data['stats'];
 
     this.page = this.settingsService.settings.eventStats.page;
+    this.rowsOnPage = this.settingsService.settings.eventStats.rowsOnPage;
 
     this.renderCharts();
 
@@ -92,8 +92,8 @@ export class EventsStatsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  public ngAfterViewInit() {
-
+  setRowsOnPage() {
+    this.settingsService.settings.eventStats.rowsOnPage = this.rowsOnPage;
   }
 
   ngOnDestroy() {

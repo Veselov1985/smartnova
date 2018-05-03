@@ -1,12 +1,8 @@
 import { Terminal } from './terminal.model';
 
-class Terminals {
-  Terminals?: Terminal;
-}
-
 export class StorageTerminalsData {
   IsSuccess?: boolean;
-  Terminals?: Terminals[];
+  Terminals?: Terminal[];
 }
 
 // export class TerminalsData {

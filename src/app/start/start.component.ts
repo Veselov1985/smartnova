@@ -1,8 +1,8 @@
-import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy, HostListener } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
-import { slideInDownAnimation, urlApi } from '../shared';
+import { slideInDownAnimation, urlApi, GetTerminalsService, ChartMainService } from '../shared';
 import { StartModule } from './start.module';
 import { ISignalRConnection, ConnectionStatus } from 'ng2-signalr';
 
@@ -30,7 +30,9 @@ export class StartComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private signalRService: SignalRService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private terminalService: GetTerminalsService,
+    private getChartMainService: ChartMainService
   ) { }
 
   ngOnInit() {
@@ -40,9 +42,12 @@ export class StartComponent implements OnInit, OnDestroy {
     this.signalRService.onConfigSent$ = this.connection.listenFor('configmessage');
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
+      this.terminalService.getTerminals$();
+      this.getChartMainService.getChartMain$();
     });
     this.eventSubscritption = this.signalRService.onEventSent$.subscribe(resp => {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
+      this.terminalService.getTerminals$();
     });
     this.configSubscritption = this.signalRService.onConfigSent$.subscribe(resp => {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
@@ -78,7 +83,7 @@ export class StartComponent implements OnInit, OnDestroy {
         }
       }).catch(err => console.log(err));
     } else {
-      this.connection.invoke('Disconnect', userId).then(data => {
+      this.connection.invoke('disconnect', userId).then(data => {
         if (this.signalRService.isDemoMode) {
           this.signalRService.stopDemo(userId).subscribe(resp => {
             console.log(resp);
@@ -111,7 +116,7 @@ export class StartComponent implements OnInit, OnDestroy {
       this.configSubscritption.unsubscribe();
     }
     // this.connect(this.userId, this.groupId, false);
-    this.connection.invoke('Disconnect', this.userId).then(data => {
+    this.connection.invoke('disconnect', this.userId).then(data => {
       if (this.signalRService.isDemoMode) {
         this.signalRService.stopDemo(this.userId).subscribe(resp => {
           console.log(resp);
@@ -121,4 +126,16 @@ export class StartComponent implements OnInit, OnDestroy {
       // this.connection.stop();
     }).catch(err => console.log(err));
   }
+
+  @HostListener('window:beforeunload', ['$event'])
+    handleClose($event) {
+      this.connection.invoke('disconnect', this.userId).then(data => {
+        if (this.signalRService.isDemoMode) {
+          this.signalRService.stopDemo(this.userId).subscribe(resp => {
+            console.log(resp);
+          });
+          this.signalRService.disableDemoMode();
+        }
+      }).catch(err => console.log(err));
+    }
 }

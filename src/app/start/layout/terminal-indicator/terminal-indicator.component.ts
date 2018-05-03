@@ -12,16 +12,7 @@ import {
   styleUrls: ['./terminal-indicator.component.less']
 })
 export class TerminalIndicatorComponent implements OnInit {
-
-
   public item: Terminal;
-
-  public Connection = false;
-  public Name = '';
-  public Address = '';
-  public Id = '';
-  public Registered: Date;
-
   public stateConfigMode: string;
 
   constructor(
@@ -33,15 +24,13 @@ export class TerminalIndicatorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.item = JSON.parse(sessionStorage.getItem('ItemProduct'));
+    const item = JSON.parse(sessionStorage.getItem('ItemProduct'));
+    item ? this.item = item : this.router.navigate(['/']);
   }
 
   configModeToggle(event: any) {
-    // console.log('courent:' + this.stateConfigMode);
     this.stateConfigMode = this.stateConfigModeService.getStateConfigMode();
-    // console.log('get:' +  this.stateConfigMode);
     this.stateConfigMode = this.stateConfigMode === 'active' ? 'inactive' : 'active';
-    // console.log('set:' +  this.stateConfigMode);
     this.stateConfigModeService.setStateConfigMode(this.stateConfigMode);
     return false;
   }

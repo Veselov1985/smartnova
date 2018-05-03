@@ -74,6 +74,11 @@ export class CollectionComponent implements OnInit {
     }
 
     this.page = this.settingsService.settings.collection.page;
+    this.rowsOnPage = this.settingsService.settings.collection.rowsOnPage;
+  }
+
+  setRowsOnPage() {
+    this.settingsService.settings.collection.rowsOnPage = this.rowsOnPage;
   }
 
   MultifilterState(event: any) {

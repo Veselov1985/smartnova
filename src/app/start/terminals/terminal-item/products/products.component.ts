@@ -77,20 +77,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    let Item = {} as any;
-    if (!!this.route.snapshot.params['Item']) {
-      Item = JSON.parse(this.route.snapshot.params['Item']);
-      sessionStorage.setItem('ItemProduct', this.route.snapshot.params['Item']);
-    } else {
-      Item = JSON.parse(sessionStorage.getItem('ItemProduct'));
-    }
     const mFilter = sessionStorage.getItem('productMultiFilter');
     if (mFilter) {
       this.multiFilter = JSON.parse(mFilter);
       this.filtered = true;
     }
 
-    this.productPk = Item.Pk || this.serviceProd.Pk;
+    this.productPk = this.route.snapshot.parent.params.terminalPk;
     this.serviceProd.getTerminalProducts(this.productPk).subscribe(product => {
         if (product.IsSuccess) {
           this.data = product.TerminalGoods;
@@ -109,6 +102,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
 
     this.page = this.settingsService.settings.products.page;
+    this.rowsOnPage = this.settingsService.settings.products.rowsOnPage;
 
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.getProducts(resp);
@@ -116,6 +110,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.configSubscription = this.signalRService.onConfigSent$.subscribe(resp => {
       this.getProducts(resp);
     });
+  }
+
+  setRowsOnPage() {
+    this.settingsService.settings.products.rowsOnPage = this.rowsOnPage;
   }
 
   MultifilterState(event: any) {

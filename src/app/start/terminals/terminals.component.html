@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-12">
           <div class="panel panel-default">
-            <table class="table table-striped table-hover table-active-tr" [mfData]="data | multiFilterTerminals : multiFilter | dataFilter : filterQuery:searchFields" #mf="mfDataTable"
+            <table class="table table-striped table-hover table-active-tr" [mfData]="getTerminalsService.terminals | async | multiFilterTerminals : multiFilter | dataFilter : filterQuery:searchFields" #mf="mfDataTable"
               [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" (mfSortByChange)="onChangeSort($event)" (mfSortOrderChange)="onChangeSortOrder($event)">
               <thead>
                 <tr>
@@ -16,7 +16,7 @@
                     <div class="row">
                       <div class="show-county col-xs-4">
                         <h5>Показать</h5>
-                        <select class="input-sm" [(ngModel)]="rowsOnPage">
+                        <select class="input-sm" [(ngModel)]="rowsOnPage" (ngModelChange)="setRowsOnPage()">
                           <option [ngValue]="10">10</option>
                           <option [ngValue]="50">50</option>
                           <option [ngValue]="100">100</option>
@@ -81,10 +81,10 @@
                 <tr>
                   <td colspan="8">
                     <!-- <mfBootstrapPaginator></mfBootstrapPaginator> -->
-                    <app-data-table-paginator [page]="page" [section]="'terminals'"></app-data-table-paginator>
+                    <app-data-table-paginator [page]="page" [rowsOnPage]="rowsOnPage" [section]="'terminals'"></app-data-table-paginator>
                     <ul class="pagination">
                       <li class="page-item"> <span class="no-border">Всего:</span> </li>
-                      <li class="page-item"> <span>{{ (data | multiFilterTerminals : multiFilter | dataFilter : filterQuery:searchFields)?.length }}</span></li>
+                      <li class="page-item"> <span>{{ (getTerminalsService.terminals | async | multiFilterTerminals : multiFilter | dataFilter : filterQuery:searchFields)?.length }}</span></li>
                     </ul>
                   </td>
                 </tr>

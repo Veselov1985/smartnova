@@ -89,12 +89,17 @@ export class IngridientsComponent implements OnInit, OnDestroy {
     }
 
     this.page = this.settingsService.settings.ingredients.page;
+    this.rowsOnPage = this.settingsService.settings.ingredients.rowsOnPage;
 
     this.configSubscription = this.signalRService.onConfigSent$.subscribe(resp => {
       this.serviceProd.getIngredients(JSON.parse(<string>resp).TerminalPk).subscribe(response => {
         this.data = response.IsSuccess ? response.TerminalIngredients : null;
       });
     });
+  }
+
+  setRowsOnPage() {
+    this.settingsService.settings.ingredients.rowsOnPage = this.rowsOnPage;
   }
 
   MultifilterState(event: any) {
