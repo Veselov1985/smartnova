@@ -58,6 +58,7 @@ export class DataTablePaginatorComponent implements AfterViewInit, OnChanges {
     @Input('mfTable') mfTable: DataTable;
     @Input('page') page: number;
     @Input('section') section: string;
+    @Input() rowsOnPage: number;
 
     minRowsOnPage = 0;
 
@@ -75,8 +76,11 @@ export class DataTablePaginatorComponent implements AfterViewInit, OnChanges {
         if (changes.rowsOnPageSet) {
             this.minRowsOnPage = _.min(this.rowsOnPageSet);
         }
-
-       
+        if (changes.rowsOnPage && this.paginator) {
+            setTimeout(() => {
+                this.setPage(this.paginator.activePage);
+            }, 0);
+        }
     }
 
     setPage(page: number) {
