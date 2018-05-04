@@ -12,30 +12,30 @@
                                 <div class="col-sm-12 label-sm">
                                     <div class="row text-center">
                                         <div class="col-sm-1">
-                                            <label for="id"> ID</label>
+                                            <div class='labels' for="id"> ID</div>
                                             <input name="id" class="form-control input-sm" formControlName="Pk">
                                           
                                         </div>
                                         <div class="col-sm-2">
-                                            <label for="name">Ф.И.О</label>
+                                            <div class='labels' for="name">Ф.И.О</div>
                                             <input name="name" type="text" class="form-control input-sm" formControlName="Name">
                                            
                                         </div>
                                         <div class="col-sm-2">
-                                            <label for="role"> Роль</label>
+                                            <div class='labels' for="role"> Роль</div>
                                             <select name="role" class="form-control input-sm"    placeholder="No city selected" formControlName="Role">                                    
                                                 <option *ngFor="let op of options" [ngValue]="op">{{op.Name}}</option>
                                             </select>
                                             
                                         </div>
                                         <div class="col-sm-2">
-                                            <label for="login"> Логин</label>
+                                            <div class='labels' for="login"> Логин</div>
                                             
                                                 <input name="login" type="text" class="form-control input-sm" formControlName="Email">
                                        
                                             </div>
                                         <div class="col-sm-2">
-                                            <label for="password">Пароль</label>
+                                            <div class='labels' for="password">Пароль</div>
                                             <input name="password" type="text" class="form-control input-sm" formControlName="Password">
                                             
                                         </div>
