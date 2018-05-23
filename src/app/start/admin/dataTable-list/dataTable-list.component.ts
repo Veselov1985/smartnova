@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter,OnChanges ,SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges , SimpleChanges } from '@angular/core';
 import { DataTableModule  } from 'angular2-datatable';
 import { SharedModule } from '../../../shared/shared.module';
 import { UserTid } from '../../../shared';
-import { SettingsService } from'../../../shared//services/common/settings.service'
+import { SettingsService } from '../../../shared//services/common/settings.service';
 
 
 
@@ -14,7 +14,7 @@ import { SettingsService } from'../../../shared//services/common/settings.servic
   templateUrl: './dataTable-list.component.html',
   styleUrls: ['./dataTable-list.component.less']
 })
-export class DataTableListComponent implements OnInit {
+export class DataTableListComponent implements OnInit , OnChanges {
 
   @Input() data;
   @Output() ChangeForm= new EventEmitter();
@@ -43,27 +43,27 @@ export class DataTableListComponent implements OnInit {
       this.sortOrder = this.SettingsService.settings.admin.sortOrder || 'desc';
     }
     console.log(this.SettingsService.settings.admin.page);
-    this.page=this.SettingsService.settings.admin.page; 
+    this.page = this.SettingsService.settings.admin.page;
   }
 
 
-  EditUser(user: UserTid):void {
+  EditUser(user: UserTid): void {
 
     this.ChangeForm.emit(user);
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['data']) {  
+    ngOnChanges(changes: SimpleChanges) {
+    if (changes['data']) {
       console.log(this.data);
     }
-    if(changes.rowsOnPage){
-      console.log(this.rowsOnPage)
+    if (changes.rowsOnPage) {
+      console.log(this.rowsOnPage);
     }
 }
 
 
-  RemoveItem(item):void {
+  RemoveItem(item): void {
    this.data = this.data.filter( x => x !== item );
   }
 
