@@ -1,7 +1,7 @@
 <div class="configurator-holder" [@panelState]="stateConfig">
   <div class="configurator-bg" [@panelState]="stateConfig" (click)="ConfigState($event)"></div>
   <div class="configurator" [@configState]="stateConfig">
-    <h2> Конфигурирование </h2>
+    <h2> Настройки </h2>
     <form #form="ngForm" (ngSubmit)="submitConfig()" class="form-horizontal">
       <fieldset>
         <legend>Товары</legend>
@@ -10,7 +10,7 @@
         <p class="alert alert-danger" *ngIf="currentProduct?.UpdateState === 'Conflict'">Несовпадение данных конфигурирования</p>
         <!-- Multiple Checkboxes (inline) -->
         <div class="form-group">
-          <label class="col-xs-4 control-label" for="checkboxes">Продажа разрешена</label>
+          <label class="col-xs-4 control-label" for="checkboxes-0">Продажа разрешена</label>
           <div class="col-xs-8">
               <div class="checkbox">
                   <input type="checkbox" name="SaleEnable" id="checkboxes-0" value="1" [(ngModel)]="goodsUpdate.SaleEnable">
@@ -45,10 +45,10 @@
             <button type="button" class="btn btn-danger" (click)='ConfigState($event)' #cancelBtn>Отмена</button>
           </div>
           <div class="col-sm-6">
-            <button type="button" id="" name="" class="btn btn-default" (click)='applyConfig()' [disabled]="!form.valid">Я согласен с настройками</button>
+            <button type="button"  name="" class="btn btn-default" (click)='applyConfig()' [disabled]="!form.valid">Я согласен с настройками</button>
           </div>
           <div class="col-sm-3">
-            <button type="submit" id="" name="" class="btn btn-success" [disabled]="!form.valid">Применить</button>
+            <button type="submit"  name="" class="btn btn-success" [disabled]="!form.valid">Применить</button>
           </div>
         </div>
       </fieldset>

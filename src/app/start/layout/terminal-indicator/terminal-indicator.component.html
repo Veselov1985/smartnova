@@ -14,8 +14,8 @@
          <span class="tooltiptext">ID  {{item?.Id}}<br>Зарегистрирован с  {{item?.Registered | date}}</span>
       </a>
       <a (click)="configModeToggle($event)" [ngSwitch]="stateConfigMode" [ngClass]="{'enable': stateConfigMode === 'active' }" class="user-set tooltip-wrap">
-          <span *ngSwitchCase="'active'"> <span class="tooltiptext">Вы в режиме конфигурирования</span> </span>
-          <span *ngSwitchCase="'inactive'"> <span class="tooltiptext">Конфигурирование выключено</span> </span>
+          <span *ngSwitchCase="'active'"> <span class="tooltiptext">Вы в режиме настройка</span> </span>
+          <span *ngSwitchCase="'inactive'"> <span class="tooltiptext">Настройки выключены</span> </span>
       </a>
     </div>
   </div>

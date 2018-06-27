@@ -23,14 +23,13 @@ export class StartComponent implements OnInit, OnDestroy {
   private saleSubscritption: Subscription;
   private eventSubscritption: Subscription;
   private configSubscritption: Subscription;
-  private incasoSubscription:Subscription;
-  
+  private incasoSubscription: Subscription;
   userId: string;
   groupId: string;
   @HostBinding('@routeAnimation') routeAnimation = true;
 
   constructor(
-    private Route:Router,
+    private Route: Router,
     private route: ActivatedRoute,
     private signalRService: SignalRService,
     public snackBar: MatSnackBar,
@@ -43,7 +42,7 @@ export class StartComponent implements OnInit, OnDestroy {
     this.signalRService.onSaleSent$ = this.connection.listenFor('salemessage');
     this.signalRService.onEventSent$ = this.connection.listenFor('eventmessage');
     this.signalRService.onConfigSent$ = this.connection.listenFor('configmessage');
-    this.signalRService.incasoSent$ =this.connection.listenFor('incasomessage');
+    this.signalRService.incasoSent$ = this.connection.listenFor('incasomessage');
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
       this.terminalService.getTerminals$();
@@ -59,21 +58,21 @@ export class StartComponent implements OnInit, OnDestroy {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
       this.terminalService.change(JSON.parse(<string>resp).TerminalPk);
     });
-    this.incasoSubscription=this.signalRService.incasoSent$.subscribe(resp =>{
+    this.incasoSubscription = this.signalRService.incasoSent$.subscribe(resp => {
       this.snackBarShow(JSON.parse(<string>resp).Notification);
       this.terminalService.getTerminals$();
-      this.getChartMainService.getChartMain$()
-    })
+      this.getChartMainService.getChartMain$();
+    });
 
     this.userId = sessionStorage.getItem('UserPk');
     this.groupId = sessionStorage.getItem('TnId');
-    
-     if(sessionStorage.getItem('Demo') != 'true'){
+
+     if (sessionStorage.getItem('Demo') !== 'true') {
       this.Route.navigate(['/']);
      }
 
     if (!this.userId) {
-  
+
         this.userId = this.signalRService.getUserDemoId();
         this.groupId = this.signalRService.getGroupDemoId();
     }
@@ -133,7 +132,7 @@ export class StartComponent implements OnInit, OnDestroy {
     if (this.configSubscritption) {
       this.configSubscritption.unsubscribe();
     }
-    if( this.incasoSubscription){
+    if ( this.incasoSubscription) {
       this.incasoSubscription.unsubscribe();
     }
     // this.connect(this.userId, this.groupId, false);

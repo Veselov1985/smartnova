@@ -57,8 +57,8 @@ const startRoutes: Routes = [
           component: TerminalsComponent,
         },
         {
-          path:'admin',
-          component:AdminComponent,
+          path: 'admin',
+          component: AdminComponent,
         },
         {
           path: 'terminal-item/:terminalPk',
