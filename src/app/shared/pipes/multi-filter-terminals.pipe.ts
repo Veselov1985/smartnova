@@ -6,6 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MultiFilterTerminalsPipe implements PipeTransform {
 
   transform(items: any[], multifilter: any): any {
+    console.log(items);
+    console.log(multifilter);
     if (!items || !multifilter) {
       return items;
     }

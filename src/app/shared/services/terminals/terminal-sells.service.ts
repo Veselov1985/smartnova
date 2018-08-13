@@ -28,6 +28,8 @@ export class GetTerminalSellsService {
   getSell(pk: string): Observable<any> {
     const serviseUrl = this.baseUrl + 'GetTerminalSales';
     return this.http.post(serviseUrl, JSON.stringify({ Pk: pk }), { headers: this.headers })
-    .map(response => response.json());
+    .map(response => {
+      console.log(response.json());
+    return   response.json(); });
   }
 }

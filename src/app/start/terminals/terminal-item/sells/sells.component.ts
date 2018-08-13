@@ -62,6 +62,7 @@ export class SellsComponent implements OnInit, OnDestroy {
     this.productPk = this.route.snapshot.parent.params.terminalPk;
     this.serviceProd.getSell(this.productPk).subscribe(product => {
         this.data = product.TerminalSales;
+        console.log(product);
         this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
           return sum + current.SoldSum;
         }, 0);

@@ -28,7 +28,7 @@ export class TerminalsComponent implements OnInit, OnDestroy {
 
   public data: StorageTerminalsData;
   public state: string;
-  private changeTerminalSubscription:Subscription;
+  private changeTerminalSubscription: Subscription;
   multiFilter: any;
   filtered: boolean;
   page: number;
@@ -77,11 +77,11 @@ export class TerminalsComponent implements OnInit, OnDestroy {
     this.page = this.settingsService.settings.terminals.page;
     this.rowsOnPage = this.settingsService.settings.terminals.rowsOnPage;
 
-    this.changeTerminalSubscription = this.getTerminalsService.changeTerminal$.subscribe(res=>{
-      if(res){
+    this.changeTerminalSubscription = this.getTerminalsService.changeTerminal$.subscribe(res => {
+      if (res) {
        this.changeItem(res);
       }
-    })
+    });
   }
 
   setRowsOnPage() {
@@ -125,21 +125,19 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   onChangeSortOrder(sortOrder: string) {
     this.settingsService.settings.terminals.sortOrder = sortOrder;
   }
-  changeItem(value:string){
-    let oldTerm=this.getTerminalsService.terminals.getValue();
-      if (oldTerm.length != 0) {
-        let newTerm=oldTerm.map(function(val,i){
-        if(val.Pk===value){
-          val.Connection=true;
+  changeItem(value: string) {
+    const oldTerm = this.getTerminalsService.terminals.getValue();
+      if (oldTerm.length !== 0) {
+        const newTerm = oldTerm.map(function(val, i){
+        if (val.Pk === value) {
+          val.Connection = true;
           return val;
-        }else{
+        }else {
           return val;
         }
-      })
+      });
       this.getTerminalsService.terminals.next(newTerm);
-    
     }
-   
   }
 
   ngOnDestroy(): void {
