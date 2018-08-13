@@ -125,6 +125,10 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   onChangeSortOrder(sortOrder: string) {
     this.settingsService.settings.terminals.sortOrder = sortOrder;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 096049246e4beb93f8bf30de084ab7d8c471cb69
   changeItem(value: string) {
     const oldTerm = this.getTerminalsService.terminals.getValue();
       if (oldTerm.length !== 0) {
@@ -137,7 +141,13 @@ export class TerminalsComponent implements OnInit, OnDestroy {
         }
       });
       this.getTerminalsService.terminals.next(newTerm);
+<<<<<<< HEAD
     }
+=======
+
+    }
+
+>>>>>>> 096049246e4beb93f8bf30de084ab7d8c471cb69
   }
 
   ngOnDestroy(): void {
