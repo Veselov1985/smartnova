@@ -1,13 +1,17 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
+import {GetTerminalsService} from '../services/terminals';
 
 @Pipe({
   name: 'multiFilterTerminals'
 })
 export class MultiFilterTerminalsPipe implements PipeTransform {
-
+  constructor(
+    private _terminalService: GetTerminalsService
+  ) {
+  }
   transform(items: any[], multifilter: any): any {
-    console.log(items);
-    console.log(multifilter);
+    // Fixed to two digits after the whole part
+    items = this._terminalService.__toFixedTerminalSaleSum(items);
     if (!items || !multifilter) {
       return items;
     }
@@ -48,5 +52,4 @@ export class MultiFilterTerminalsPipe implements PipeTransform {
       return true;
     });
   }
-
 }

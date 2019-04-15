@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {Injectable} from '@angular/core';
+import {Headers, Http} from '@angular/http';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/publishLast';
-
-import { StorageTerminalsData, Terminal } from '../../models';
-import { urlApi } from '../../url.api';
-import { AuthService } from '../../services/auth/auth.service';
+import {StorageTerminalsData, Terminal} from '../../models';
+import {urlApi} from '../../url.api';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Injectable()
 export class GetTerminalsService {
@@ -23,7 +21,10 @@ export class GetTerminalsService {
   });
   loggedIn: boolean;
 
-  constructor(public http: Http, private auth: AuthService) {
+  constructor(
+    public http: Http,
+    private auth: AuthService
+  ) {
     this.auth.isLoggedIn.subscribe(isLoggedIn => {
       this.baseUrl = isLoggedIn ? urlApi.server : urlApi.serverdemo;
     });
@@ -39,14 +40,14 @@ export class GetTerminalsService {
   getTerminals() {
     const Pk = sessionStorage.getItem('TnPk');
     const serviseUrl = this.baseUrl + 'GetTerminals';
-    return this.http.post(serviseUrl, JSON.stringify({ Pk }), { headers: this.headers })
+    return this.http.post(serviseUrl, JSON.stringify({Pk}), {headers: this.headers})
       .map(response => response.json());
   }
 
   getTerminals$() {
     const Pk = sessionStorage.getItem('TnPk');
     const serviseUrl = this.baseUrl + 'GetTerminals';
-    return this.http.post(serviseUrl, JSON.stringify({ Pk }), { headers: this.headers })
+    return this.http.post(serviseUrl, JSON.stringify({Pk}), {headers: this.headers})
       .subscribe(response => {
         const data = response.json();
         if (data.IsSuccess) {
@@ -55,7 +56,21 @@ export class GetTerminalsService {
         }
       });
   }
+
   change(val) {
     this.changeTerminal.next(val);
+  }
+
+
+  public __toFixedTerminalSaleSum(items): Array<Terminal> {
+    return items.map((terminal: Terminal) => {
+      terminal.SalesSum = this.__fixedNumber(terminal.SalesSum);
+      return terminal;
+    });
+  }
+
+  private __fixedNumber(num: number): number {
+    const n = parseFloat(num.toFixed(2));
+    return Math.round((n * 100) / 100);
   }
 }
