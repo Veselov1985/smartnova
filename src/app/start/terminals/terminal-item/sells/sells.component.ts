@@ -49,7 +49,7 @@ export class SellsComponent implements OnInit, OnDestroy {
     private StateMultifilter: StateMultifilterService,
     private filterPipe: MultiFilterSellsPipe,
     private settingsService: SettingsService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
   ) { }
 
   ngOnInit() {
@@ -63,9 +63,7 @@ export class SellsComponent implements OnInit, OnDestroy {
     this.serviceProd.getSell(this.productPk).subscribe(product => {
         this.data = product.TerminalSales;
         console.log(product);
-        this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
-          return sum + current.SoldSum;
-        }, 0);
+        this.totalSum = this.__getTotalSum();
         return product;
       }, err => console.log(err));
 
@@ -83,16 +81,20 @@ export class SellsComponent implements OnInit, OnDestroy {
     this.saleSubscritption = this.signalRService.onSaleSent$.subscribe(resp => {
       this.serviceProd.getSell(JSON.parse(<string>resp).TerminalPk).subscribe(product => {
         this.data = product.TerminalSales;
-        this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
-          return sum + current.SoldSum;
-        }, 0);
+        this.totalSum = this.__getTotalSum();
         return product;
       }, err => console.log(err));
     });
   }
 
-  toInt(num: string) {
+  private __toInt(num: string) {
     return +num;
+  }
+  private __getTotalSum(): number {
+    const total = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
+      return sum + current.SoldSum;
+    }, 0);
+    return  this.__toInt(total.toFixed(2));
   }
 
   MultifilterState(event: any) {
@@ -110,9 +112,7 @@ export class SellsComponent implements OnInit, OnDestroy {
   applyMultiFilter(multifilter) {
     this.multiFilter = multifilter;
     this.filtered = multifilter ? true : false;
-    this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
-      return sum + current.SoldSum;
-    }, 0);
+    this.totalSum = this.__getTotalSum();
     this.sortBy = JSON.parse(sessionStorage.getItem('sellsSortOrder'));
     this.sortOrder = 'asc';
   }
@@ -121,9 +121,7 @@ export class SellsComponent implements OnInit, OnDestroy {
     this.multiFilter = null;
     sessionStorage.removeItem('sellsMultiFilter');
     this.filtered = false;
-    this.totalSum = this.filterPipe.transform(this.data, this.multiFilter).reduce((sum, current) => {
-      return sum + current.SoldSum;
-    }, 0);
+    this.totalSum = this.__getTotalSum();
   }
 
   onChangeSort(sortBy: string) {

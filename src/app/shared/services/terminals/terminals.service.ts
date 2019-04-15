@@ -68,7 +68,6 @@ export class GetTerminalsService {
       return terminal;
     });
   }
-
   private __fixedNumber(num: number): number {
     const n = parseFloat(num.toFixed(2));
     return Math.round((n * 100) / 100);
