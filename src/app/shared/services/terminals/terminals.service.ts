@@ -41,7 +41,7 @@ export class GetTerminalsService {
     const Pk = sessionStorage.getItem('TnPk');
     const serviseUrl = this.baseUrl + 'GetTerminals';
     return this.http.post(serviseUrl, JSON.stringify({Pk}), {headers: this.headers})
-      .map(response => response.json());
+      .map(response =>  response.json());
   }
 
   getTerminals$() {
@@ -52,7 +52,6 @@ export class GetTerminalsService {
         const data = response.json();
         if (data.IsSuccess) {
           this.terminals.next(data.Terminals);
-          console.log(data);
         }
       });
   }
@@ -69,7 +68,6 @@ export class GetTerminalsService {
     });
   }
   private __fixedNumber(num: number): number {
-    const n = parseFloat(num.toFixed(2));
-    return Math.round((n * 100) / 100);
+    return +num.toFixed(2);
   }
 }
