@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SHARED_PIPE } from '../../shared/shared';
-
 import {
   GetTerminalsService,
   StorageTerminalsData,
@@ -12,6 +11,8 @@ import { SettingsService } from '../../shared/services/common/settings.service';
 import { SignalRService } from '../../shared/services/auth/signalr.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Terminal } from './../../shared/models/terminal.model';
+import {DialogTerminalsComponent} from './dialog-terminals/dialog-terminals.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-terminals',
@@ -41,6 +42,7 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
+    public dialog: MatDialog,
     private router: Router,
     public getTerminalsService: GetTerminalsService,
     private StateMultifilter: StateMultifilterService,
@@ -87,6 +89,37 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   setRowsOnPage() {
     this.settingsService.settings.terminals.rowsOnPage = this.rowsOnPage;
   }
+
+  /**
+   * Method remove instans Terminal
+   * @param Pk {string}
+   */
+  public __removeTerminal(Pk: string): void {
+      console.log(Pk);
+      this.getTerminalsService.removeTerminal(Pk);
+  }
+  /**
+   * Method open dialog window
+   * @param e {Event}
+   * @param Pk {string}
+   * @param item {Terminal}
+   */
+  public  openDialog(e: Event, Pk: string, item: Terminal): void {
+    console.log(item);
+    e.stopPropagation();
+    const dialogRef = this.dialog.open(DialogTerminalsComponent, {
+      width: '550px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {this.__removeTerminal(Pk); }
+    });
+  }
+
+  public trackByFn(index, item: Terminal) {
+    return item.Pk;
+  }
+
+
 
   MultifilterState(event: any) {
     event.stopPropagation();

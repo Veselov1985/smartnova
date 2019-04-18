@@ -7,6 +7,8 @@ import 'rxjs/add/operator/publishLast';
 import {StorageTerminalsData, Terminal} from '../../models';
 import {urlApi} from '../../url.api';
 import {AuthService} from '../../services/auth/auth.service';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../../../../environments/environment';
 
 @Injectable()
 export class GetTerminalsService {
@@ -58,6 +60,26 @@ export class GetTerminalsService {
 
   change(val) {
     this.changeTerminal.next(val);
+  }
+
+  /**
+   * Method  call Api and remove inst terminal
+   * @param id {string} == Pk(guid terminal)
+   */
+  public removeTerminal(id: string) {
+  if ( !environment.production) {
+    const terminals = this.terminals.getValue().filter(term => term.Pk !== id);
+    this.terminals.next(terminals);
+  } else {
+    const Pk = sessionStorage.getItem('TnPk');
+    const serviseUrl = this.baseUrl + 'removeTerminal';
+    return this.http.post(serviseUrl, JSON.stringify({Pk, id}), {headers: this.headers})
+      .subscribe(response => {
+        if (response) {
+          this.getTerminals$();
+        }
+      });
+  }
   }
 
 
