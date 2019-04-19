@@ -11,9 +11,6 @@ import {Subscription} from 'rxjs/Subscription';
 
 
 
-
-
-
 @Component({
   selector: 'app-new-user',
   templateUrl: './new-user.component.html',
