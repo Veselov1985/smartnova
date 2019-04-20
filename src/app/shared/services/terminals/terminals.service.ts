@@ -7,7 +7,6 @@ import 'rxjs/add/operator/publishLast';
 import {StorageTerminalsData, Terminal} from '../../models';
 import {urlApi} from '../../url.api';
 import {AuthService} from '../../services/auth/auth.service';
-import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../../environments/environment';
 
 @Injectable()
@@ -75,8 +74,11 @@ export class GetTerminalsService {
     const serviseUrl = this.baseUrl + 'removeTerminal';
     return this.http.post(serviseUrl, JSON.stringify({Pk, id}), {headers: this.headers})
       .subscribe(response => {
-        if (response) {
-          this.getTerminals$();
+        const data$ = response.json();
+        if (data$.IsSuccess) {
+          const terminals = this.terminals.getValue().filter(term => term.Pk !== id);
+          this.terminals.next(terminals);
+         // this.getTerminals$();
         }
       });
   }

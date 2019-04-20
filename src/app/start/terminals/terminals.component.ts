@@ -1,18 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { SHARED_PIPE } from '../../shared/shared';
 import {
   GetTerminalsService,
   StorageTerminalsData,
   StateMultifilterService,
 } from '../../shared';
 import { SettingsService } from '../../shared/services/common/settings.service';
-import { SignalRService } from '../../shared/services/auth/signalr.service';
+
 import { Subscription } from 'rxjs/Subscription';
-import { Terminal } from './../../shared/models/terminal.model';
+import { Terminal } from './../../shared';
 import {DialogTerminalsComponent} from './dialog-terminals/dialog-terminals.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-terminals',
@@ -47,8 +45,6 @@ export class TerminalsComponent implements OnInit, OnDestroy {
     public getTerminalsService: GetTerminalsService,
     private StateMultifilter: StateMultifilterService,
     private settingsService: SettingsService,
-    private signalRService: SignalRService
-
   ) { }
 
 
@@ -95,7 +91,6 @@ export class TerminalsComponent implements OnInit, OnDestroy {
    * @param Pk {string}
    */
   public __removeTerminal(Pk: string): void {
-      console.log(Pk);
       this.getTerminalsService.removeTerminal(Pk);
   }
   /**
@@ -105,7 +100,6 @@ export class TerminalsComponent implements OnInit, OnDestroy {
    * @param item {Terminal}
    */
   public  openDialog(e: Event, Pk: string, item: Terminal): void {
-    console.log(item);
     e.stopPropagation();
     const dialogRef = this.dialog.open(DialogTerminalsComponent, {
       width: '550px'
@@ -116,10 +110,8 @@ export class TerminalsComponent implements OnInit, OnDestroy {
   }
 
   public trackByFn(index, item: Terminal) {
-    return item.Pk;
+    return item.Pk && item.SalesSum && item.CollectSum && item.Failure && item.Service && item.Connection;
   }
-
-
 
   MultifilterState(event: any) {
     event.stopPropagation();
