@@ -22,8 +22,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     PageScrollConfig.defaultScrollOffset = 120;
     PageScrollConfig.defaultDuration = 500;
     this.user = this.adminServ.getZeroUser();
-    this.getListUserSub = this.adminServ.getListUser(sessionStorage.getItem('TnPk')).subscribe(data => this.users = data.Users);
-
+    this.getListUserSub = this.adminServ.getListUser(sessionStorage.getItem('TnPk'))
+      .subscribe(data => this.users = data.Users);
   }
 
   ngOnInit() {
@@ -31,6 +31,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   AddUserTab(user: any) {
     this.AddOrEditUserSub = this.adminServ.AddOrEditUser(user).subscribe(data => {
+      if (data === null) {console.log('This feature don\'t work'); return; };
       this.users = this.adminServ.compareDataUser(this.users, data.UserPk);
     });
     this.user = this.adminServ.getZeroUser();
@@ -41,8 +42,12 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.AddOrEditUserSub.unsubscribe();
-    this.getListUserSub.unsubscribe();
+    if (this.AddOrEditUserSub) {
+      this.AddOrEditUserSub.unsubscribe();
+    }
+    if (this.getListUserSub) {
+      this.getListUserSub.unsubscribe();
+    }
   }
 
 }

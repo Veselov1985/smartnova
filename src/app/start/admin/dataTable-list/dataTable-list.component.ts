@@ -42,15 +42,12 @@ export class DataTableListComponent implements OnInit , OnChanges {
       this.sortBy = this.SettingsService.settings.admin.sortBy || 'DateTime';
       this.sortOrder = this.SettingsService.settings.admin.sortOrder || 'desc';
     }
-    console.log(this.SettingsService.settings.admin.page);
     this.page = this.SettingsService.settings.admin.page;
   }
 
 
   EditUser(user: UserTid): void {
-
     this.ChangeForm.emit(user);
-
   }
 
     ngOnChanges(changes: SimpleChanges) {
