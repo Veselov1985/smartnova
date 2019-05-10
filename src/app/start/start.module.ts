@@ -103,7 +103,8 @@ import {MatDialogModule} from '@angular/material';
   ],
   entryComponents: [
     ProdictIngredientsComponent,
-    DialogTerminalsComponent],
+    DialogTerminalsComponent
+  ],
 })
 
 export class StartModule {
